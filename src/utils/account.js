@@ -26,7 +26,7 @@ function deserializeAccount(accountRaw) {
     vote.voteAddress = getBase58CheckAddress(vote.voteAddress);
     return vote;
   });
-  account.balance = accountRaw.getBalance() / 1000000;
+  account.balance = accountRaw.getBalance();
   account.assetMap = account.assetMap.map(asset => ({
     name: asset[0],
     balance: asset[1],

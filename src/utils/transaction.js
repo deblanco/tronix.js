@@ -53,11 +53,7 @@ const TransactionFields = {
   toAddress(address) { return this.decodeAddress(address); },
   voteAddress(address) { return this.decodeAddress(address); },
   address(address) { return this.decodeAddress(address); },
-  assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
-  amount(amount, type) {
-    if (type === ContractType.TRANSFERCONTRACT) return amount / 1000000;
-    return amount;
-  },
+  assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); }
 };
 
 function decodeTransactionFields(transaction) {
@@ -139,14 +135,14 @@ function buildTransferContract(message, contractType, typeName) {
  * Build trx transfer transaction
  * @param {string} from address in base 58
  * @param {string} to address in base 58
- * @param {number} amount amount in TRX?
+ * @param {number} amount amount in SUNs
  *
  */
 function buildTransferTransaction(from, to, amount) {
   const transferContract = new TransferContract();
   transferContract.setToAddress(Uint8Array.from(decode58Check(to)));
   transferContract.setOwnerAddress(Uint8Array.from(decode58Check(from)));
-  transferContract.setAmount(amount * 1000000);
+  transferContract.setAmount(amount);
 
   const transaction = buildTransferContract(
     transferContract,
