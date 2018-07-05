@@ -1,5 +1,6 @@
 const { byteArray2hexStr, bytesToString } = require('./bytes');
 const { getBase58CheckAddress, genPriKey, getAddressFromPriKey } = require('./crypto');
+const { base64DecodeFromString } = require('../lib/code');
 
 /**
  * Generate a new account
@@ -23,9 +24,12 @@ function deserializeAccount(accountRaw) {
   }
   account.address = getBase58CheckAddress(Array.from(accountRaw.getAddress()));
   account.votesList.map((vote) => {
-    vote.voteAddress = getBase58CheckAddress(vote.voteAddress);
+    vote.voteAddress = getBase58CheckAddress(base64DecodeFromString(vote.voteAddress));
     return vote;
   });
+  if (account.assetIssuedName) {
+    account.assetIssuedName = bytesToString(Array.from(accountRaw.getAssetIssuedName()));
+  }
   account.balance = accountRaw.getBalance();
   account.assetMap = account.assetMap.map(asset => ({
     name: asset[0],
