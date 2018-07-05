@@ -1,7 +1,7 @@
 {
   "name": "tronix.js",
-  "version": "0.0.1",
-  "author": "deblanco",
+  "version": "0.0.2",
+  "author": "Tron",
   "description": "TRONIX Javascript API interface",
   "main": "src/index.js",
   "homepage": "https://github.com/deblanco/tronix.js",
@@ -18,7 +18,6 @@
   "keywords": [
     "tron"
   ],
-  "author": "Tron",
   "license": "GPL-3.0",
   "dependencies": {
     "crypto-js": "^3.1.9-1",

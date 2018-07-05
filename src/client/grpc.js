@@ -1,4 +1,5 @@
 const caller = require('grpc-caller');
+const { applyClassDecorator, requireAllParams } = require('../utils/decorators');
 const {
   EmptyMessage, NumberMessage, BytesMessage, BlockLimit, EasyTransferMessage,
 } = require('../protocol/api/api_pb');
@@ -12,9 +13,9 @@ const { deserializeAsset, deserializeAssets } = require('../utils/asset');
 const { deserializeAccount } = require('../utils/account');
 const { deserializeWitnesses } = require('../utils/witness');
 const {
-  deserializeTransaction, deserializeEasyTransfer,
+  deserializeTransaction, deserializeEasyTransfer, buildTransferTransaction,
   decodeTransactionFields, buildFreezeBalanceTransaction,
-  buildVoteTransaction,
+  buildVoteTransaction, addBlockReferenceToTransaction, signTransaction,
 } = require('../utils/transaction');
 
 class GrpcClient {
@@ -159,17 +160,32 @@ class GrpcClient {
     });
   }
 
-  async freezeBalance(address, amount, duration) {
+  async freezeBalance(priKey, address, amount, duration) {
     const freezeTransaction = buildFreezeBalanceTransaction(address, amount, duration);
-    const execTransaction = await this.api.freezeBalance(freezeTransaction);
-    return deserializeTransaction(execTransaction);
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(freezeTransaction, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return sendTransaction.toObject();
   }
 
-  async voteWitnessAccount(fromAddress, votes) {
-    const voteObj = buildVoteTransaction(fromAddress, votes);
-    const voteCall = await this.api.voteWitnessAccount(voteObj);
-    return deserializeTransaction(voteCall);
+  async voteWitnessAccount(priKey, fromAddress, votes) {
+    const voteTransaction = buildVoteTransaction(fromAddress, votes);
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(voteTransaction, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return sendTransaction.toObject();
+  }
+
+  async createTransaction(priKey, from, to, amount) {
+    const transferContract = buildTransferTransaction(from, to, amount);
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return sendTransaction.toObject();
   }
 }
 
-module.exports = GrpcClient;
+module.exports = applyClassDecorator(GrpcClient, requireAllParams);

@@ -437,6 +437,7 @@ function addBlockReferenceToTransaction(transaction, block) {
   rawData.setRefBlockBytes(Uint8Array.from(numBytes.slice(6, 8)));
   rawData.setExpiration(block.time + (60 * 5 * 1000));
 
+  transaction.setRawData(rawData);
   return transaction;
 }
 

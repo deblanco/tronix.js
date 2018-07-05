@@ -1,4 +1,5 @@
 const caller = require('grpc-caller');
+const { applyClassDecorator, requireAllParams } = require('../utils/decorators');
 const {
   EmptyMessage, BytesMessage, NumberMessage, AccountPaginated,
 } = require('../protocol/api/api_pb');
@@ -107,4 +108,4 @@ class SolidityGrpcClient {
   }
 }
 
-module.exports = SolidityGrpcClient;
+module.exports = applyClassDecorator(SolidityGrpcClient, requireAllParams);
