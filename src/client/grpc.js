@@ -186,6 +186,15 @@ class GrpcClient {
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
     return sendTransaction.toObject();
   }
+  
+    async createAssetTransaction(priKey, token, from, to, amount) {
+    const transferContract = buildTransferAssetTransaction(token, from, to, amount);
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return sendTransaction.toObject();
+  }
 }
 
 module.exports = applyClassDecorator(GrpcClient, requireAllParams);
