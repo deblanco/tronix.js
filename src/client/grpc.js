@@ -187,8 +187,8 @@ class GrpcClient {
     return sendTransaction.toObject();
   }
   
-    async createAssetTransaction(priKey, token, from, to, amount) {
-    const transferContract = buildTransferAssetTransaction(token, from, to, amount);
+  async createAssetTransaction(priKey, from, to, amount) {
+    const transferContract = buildTransferTransaction(from, to, amount);
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
