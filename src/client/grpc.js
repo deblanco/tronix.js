@@ -16,6 +16,7 @@ const {
   deserializeTransaction, deserializeEasyTransfer, buildTransferTransaction,
   decodeTransactionFields, buildFreezeBalanceTransaction,
   buildVoteTransaction, addBlockReferenceToTransaction, signTransaction,
+  buildTransferAssetTransaction,
 } = require('../utils/transaction');
 
 class GrpcClient {
@@ -180,6 +181,15 @@ class GrpcClient {
 
   async createTransaction(priKey, from, to, amount) {
     const transferContract = buildTransferTransaction(from, to, amount);
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return sendTransaction.toObject();
+  }
+
+  async transferAsset(priKey, token, from, to, amount) {
+    const transferContract = buildTransferAssetTransaction(token, from, to, amount);
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
