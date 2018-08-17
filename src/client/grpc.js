@@ -167,7 +167,10 @@ class GrpcClient {
     const referredTransaction = addBlockReferenceToTransaction(freezeTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
-    return sendTransaction.toObject();
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
   }
 
   async voteWitnessAccount(priKey, fromAddress, votes) {
@@ -176,7 +179,10 @@ class GrpcClient {
     const referredTransaction = addBlockReferenceToTransaction(voteTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
-    return sendTransaction.toObject();
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
   }
 
   async createTransaction(priKey, from, to, amount) {
@@ -185,7 +191,10 @@ class GrpcClient {
     const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
-    return sendTransaction.toObject();
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
   }
 
   async transferAsset(priKey, token, from, to, amount) {
@@ -194,7 +203,10 @@ class GrpcClient {
     const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
-    return sendTransaction.toObject();
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
   }
 }
 
