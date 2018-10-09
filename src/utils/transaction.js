@@ -7,44 +7,69 @@ const { Transaction } = require('../protocol/core/Tron_pb');
 const google_protobuf_any_pb = require('google-protobuf/google/protobuf/any_pb.js');
 const { base64DecodeFromString } = require('../lib/code');
 const {
+  AccountCreateContract,
   TransferContract,
   TransferAssetContract,
-  AccountUpdateContract,
+  VoteAssetContract,
   VoteWitnessContract,
-  ParticipateAssetIssueContract,
+  WitnessCreateContract,
   AssetIssueContract,
+  WitnessUpdateContract,
+  ParticipateAssetIssueContract,
+  AccountUpdateContract,
   FreezeBalanceContract,
   UnfreezeBalanceContract,
-  WitnessUpdateContract,
   WithdrawBalanceContract,
-  WitnessCreateContract,
   UnfreezeAssetContract,
-  AccountCreateContract,
-  VoteAssetContract,
-  DeployContract,
   UpdateAssetContract,
+  ProposalCreateContract,
+  ProposalApproveContract,
+  ProposalDeleteContract,
+  SetAccountIdContract,
+  CustomContract,
+  CreateSmartContract,
+  TriggerSmartContract,
+  GetContract,
+  UpdateSettingContract,
+  ExchangeCreateContract,
+  ExchangeInjectContract,
+  ExchangeWithdrawContract,
+  ExchangeTransactionContract,
 } = require('../protocol/core/Contract_pb');
 
 const ContractType = Transaction.Contract.ContractType;
 const ContractTable = {};
 ContractTable[ContractType.ACCOUNTCREATECONTRACT] = [AccountCreateContract.deserializeBinary, 'protocol.AccountCreateContract'];
-ContractTable[ContractType.ACCOUNTUPDATECONTRACT] = [AccountUpdateContract.deserializeBinary, 'protocol.AccountUpdateContract'];
 ContractTable[ContractType.TRANSFERCONTRACT] = [TransferContract.deserializeBinary, 'protocol.TransferContract'];
 ContractTable[ContractType.TRANSFERASSETCONTRACT] = [TransferAssetContract.deserializeBinary, 'protocol.TransferAssetContract'];
 ContractTable[ContractType.VOTEASSETCONTRACT] = [VoteAssetContract.deserializeBinary, 'protocol.VoteAssetContract'];
 ContractTable[ContractType.VOTEWITNESSCONTRACT] = [VoteWitnessContract.deserializeBinary, 'protocol.VoteWitnessContract'];
-ContractTable[ContractType.ASSETISSUECONTRACT] = [AssetIssueContract.deserializeBinary, 'protocol.AssetIssueContract'];
-ContractTable[ContractType.DEPLOYCONTRACT] = [DeployContract.deserializeBinary, 'protocol.DeployContract'];
 ContractTable[ContractType.WITNESSCREATECONTRACT] = [WitnessCreateContract.deserializeBinary, 'protocol.WitnessCreateContract'];
+ContractTable[ContractType.ASSETISSUECONTRACT] = [AssetIssueContract.deserializeBinary, 'protocol.AssetIssueContract'];
 ContractTable[ContractType.WITNESSUPDATECONTRACT] = [WitnessUpdateContract.deserializeBinary, 'protocol.WitnessUpdateContract'];
 ContractTable[ContractType.PARTICIPATEASSETISSUECONTRACT] = [ParticipateAssetIssueContract.deserializeBinary, 'protocol.ParticipateAssetIssueContract'];
+ContractTable[ContractType.ACCOUNTUPDATECONTRACT] = [AccountUpdateContract.deserializeBinary, 'protocol.AccountUpdateContract'];
 ContractTable[ContractType.FREEZEBALANCECONTRACT] = [FreezeBalanceContract.deserializeBinary, 'protocol.FreezeBalanceContract'];
 ContractTable[ContractType.UNFREEZEBALANCECONTRACT] = [UnfreezeBalanceContract.deserializeBinary, 'protocol.UnfreezeBalanceContract'];
 ContractTable[ContractType.WITHDRAWBALANCECONTRACT] = [WithdrawBalanceContract.deserializeBinary, 'protocol.WithdrawBalanceContract'];
 ContractTable[ContractType.UNFREEZEASSETCONTRACT] = [UnfreezeAssetContract.deserializeBinary, 'protocol.UnfreezeAssetContract'];
 ContractTable[ContractType.UPDATEASSETCONTRACT] = [UpdateAssetContract.deserializeBinary, 'protocol.UpdateAssetContract'];
+ContractTable[ContractType.PROPOSALCREATECONTRACT] = [ProposalCreateContract.deserializeBinary, 'protocol.ProposalCreateContract'];
+ContractTable[ContractType.PROPOSALAPPROVECONTRACT] = [ProposalApproveContract.deserializeBinary, 'protocol.ProposalApproveContract'];
+ContractTable[ContractType.PROPOSALDELETECONTRACT] = [ProposalDeleteContract.deserializeBinary, 'protocol.ProposalDeleteContract'];
+ContractTable[ContractType.SETACCOUNTIDCONTRACT] = [SetAccountIdContract.deserializeBinary, 'protocol.SetAccountIdContract'];
+ContractTable[ContractType.CREATESMARTCONTRACT] = [CreateSmartContract.deserializeBinary, 'protocol.CreateSmartContract'];
+ContractTable[ContractType.TRIGGERSMARTCONTRACT] = [TriggerSmartContract.deserializeBinary, 'protocol.TriggerSmartContract'];
+ContractTable[ContractType.UPDATESETTINGCONTRACT] = [UpdateSettingContract.deserializeBinary, 'protocol.UpdateSettingsContract'];
+ContractTable[ContractType.EXCHANGECREATECONTRACT] = [ExchangeCreateContract.deserializeBinary, 'protocol.ExchangeCreateContract'];
+
+ContractTable[ContractType.EXCHANGEINJECTCONTRACT] = [ExchangeInjectContract.deserializeBinary, 'protocol.ExchangeInjectContract'];
+ContractTable[ContractType.EXCHANGEWIDTHDRAWCONTRACT] = [ExchangeWithdrawContract.deserializeBinary, 'protocol.ExchangeWithdrawContract'];
+ContractTable[ContractType.EXCHANGETRANSACTIONCONTRACT] = [ExchangeTransactionContract.deserializeBinary, 'protocol.ExchangeTransactionContract'];
+
 /* not defined right now
-  ContractTable[ContractType.CUSTOMCONTRACT] =                  [CustomContract.deserializeBinary,'protocol.CustomContract']
+  ContractTable[ContractType.GETCONTRACT] = [GetContract.deserializeBinary, 'protocol.GetContract'];
+  ContractTable[ContractType.CUSTOMCONTRACT] = [CustomContract.deserializeBinary,'protocol.CustomContract']
 */
 
 const TransactionFields = {
@@ -58,6 +83,7 @@ const TransactionFields = {
 
 function decodeTransactionFields(transaction) {
   const transactionResult = transaction;
+  console.log(JSON.stringify(transactionResult));
   Object.keys(transactionResult).forEach((key) => {
     if (Array.isArray(transactionResult[key])) {
       transactionResult[key].forEach(decodeTransactionFields);
