@@ -60,7 +60,7 @@ ContractTable[ContractType.PROPOSALDELETECONTRACT] = [ProposalDeleteContract.des
 ContractTable[ContractType.SETACCOUNTIDCONTRACT] = [SetAccountIdContract.deserializeBinary, 'protocol.SetAccountIdContract'];
 ContractTable[ContractType.CREATESMARTCONTRACT] = [CreateSmartContract.deserializeBinary, 'protocol.CreateSmartContract'];
 ContractTable[ContractType.TRIGGERSMARTCONTRACT] = [TriggerSmartContract.deserializeBinary, 'protocol.TriggerSmartContract'];
-ContractTable[ContractType.UPDATESETTINGCONTRACT] = [UpdateSettingContract.deserializeBinary, 'protocol.UpdateSettingsContract'];
+ContractTable[ContractType.UPDATESETTINGCONTRACT] = [UpdateSettingContract.deserializeBinary, 'protocol.UpdateSettingContract'];
 ContractTable[ContractType.EXCHANGECREATECONTRACT] = [ExchangeCreateContract.deserializeBinary, 'protocol.ExchangeCreateContract'];
 
 ContractTable[ContractType.EXCHANGEINJECTCONTRACT] = [ExchangeInjectContract.deserializeBinary, 'protocol.ExchangeInjectContract'];
