@@ -423,6 +423,26 @@ function buildUnfreezeBalanceTransaction(address) {
 }
 
 /**
+ * Unfreeze balance
+ *
+ * @param address From which address to freeze
+ *
+ */
+function buildWithdrawBalanceTransaction(address) {
+  const contract = new WithdrawBalanceContract();
+
+  contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
+
+  const transaction = buildTransferContract(
+    contract,
+    Transaction.Contract.ContractType.WITHDRAWBALANCECONTRACT,
+    'WithdrawBalanceContract',
+  );
+
+  return transaction;
+}
+
+/**
  * Unfreeze Assets
  *
  * @param address From which address to unfreeze
