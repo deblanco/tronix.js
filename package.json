@@ -1,6 +1,6 @@
 {
   "name": "tronixangel.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Tron",
   "description": "TRONIX Javascript API interface",
   "main": "src/index.js",

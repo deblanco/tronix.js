@@ -83,7 +83,7 @@ const TransactionFields = {
 
 function decodeTransactionFields(transaction) {
   const transactionResult = transaction;
-  console.log(JSON.stringify(transactionResult));
+
   Object.keys(transactionResult).forEach((key) => {
     if (Array.isArray(transactionResult[key])) {
       transactionResult[key].forEach(decodeTransactionFields);
