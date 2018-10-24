@@ -1,4 +1,4 @@
-## Deprecated. Please use: [tron-web](https://github.com/tronprotocol/tron-web)
+
 
 <div style="text-align: center;">
 <img src="tronix.png" width="250px" />

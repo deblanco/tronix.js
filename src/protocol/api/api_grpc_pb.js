@@ -51,6 +51,17 @@ function deserialize_protocol_AccountPaginated(buffer_arg) {
   return api_api_pb.AccountPaginated.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_AccountResourceMessage(arg) {
+  if (!(arg instanceof api_api_pb.AccountResourceMessage)) {
+    throw new Error('Expected argument of type protocol.AccountResourceMessage');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_AccountResourceMessage(buffer_arg) {
+  return api_api_pb.AccountResourceMessage.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_AccountUpdateContract(arg) {
   if (!(arg instanceof core_Contract_pb.AccountUpdateContract)) {
     throw new Error('Expected argument of type protocol.AccountUpdateContract');
@@ -106,6 +117,17 @@ function deserialize_protocol_Block(buffer_arg) {
   return core_Tron_pb.Block.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_BlockExtention(arg) {
+  if (!(arg instanceof api_api_pb.BlockExtention)) {
+    throw new Error('Expected argument of type protocol.BlockExtention');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_BlockExtention(buffer_arg) {
+  return api_api_pb.BlockExtention.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_BlockLimit(arg) {
   if (!(arg instanceof api_api_pb.BlockLimit)) {
     throw new Error('Expected argument of type protocol.BlockLimit');
@@ -128,6 +150,17 @@ function deserialize_protocol_BlockList(buffer_arg) {
   return api_api_pb.BlockList.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_BlockListExtention(arg) {
+  if (!(arg instanceof api_api_pb.BlockListExtention)) {
+    throw new Error('Expected argument of type protocol.BlockListExtention');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_BlockListExtention(buffer_arg) {
+  return api_api_pb.BlockListExtention.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_BlockReference(arg) {
   if (!(arg instanceof api_api_pb.BlockReference)) {
     throw new Error('Expected argument of type protocol.BlockReference');
@@ -137,6 +170,28 @@ function serialize_protocol_BlockReference(arg) {
 
 function deserialize_protocol_BlockReference(buffer_arg) {
   return api_api_pb.BlockReference.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_BuyStorageBytesContract(arg) {
+  if (!(arg instanceof core_Contract_pb.BuyStorageBytesContract)) {
+    throw new Error('Expected argument of type protocol.BuyStorageBytesContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_BuyStorageBytesContract(buffer_arg) {
+  return core_Contract_pb.BuyStorageBytesContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_BuyStorageContract(arg) {
+  if (!(arg instanceof core_Contract_pb.BuyStorageContract)) {
+    throw new Error('Expected argument of type protocol.BuyStorageContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_BuyStorageContract(buffer_arg) {
+  return core_Contract_pb.BuyStorageContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_protocol_BytesMessage(arg) {
@@ -150,6 +205,28 @@ function deserialize_protocol_BytesMessage(buffer_arg) {
   return api_api_pb.BytesMessage.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_ChainParameters(arg) {
+  if (!(arg instanceof core_Tron_pb.ChainParameters)) {
+    throw new Error('Expected argument of type protocol.ChainParameters');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ChainParameters(buffer_arg) {
+  return core_Tron_pb.ChainParameters.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_CreateSmartContract(arg) {
+  if (!(arg instanceof core_Contract_pb.CreateSmartContract)) {
+    throw new Error('Expected argument of type protocol.CreateSmartContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_CreateSmartContract(buffer_arg) {
+  return core_Contract_pb.CreateSmartContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_DynamicProperties(arg) {
   if (!(arg instanceof core_Tron_pb.DynamicProperties)) {
     throw new Error('Expected argument of type protocol.DynamicProperties');
@@ -159,6 +236,17 @@ function serialize_protocol_DynamicProperties(arg) {
 
 function deserialize_protocol_DynamicProperties(buffer_arg) {
   return core_Tron_pb.DynamicProperties.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_EasyTransferByPrivateMessage(arg) {
+  if (!(arg instanceof api_api_pb.EasyTransferByPrivateMessage)) {
+    throw new Error('Expected argument of type protocol.EasyTransferByPrivateMessage');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_EasyTransferByPrivateMessage(buffer_arg) {
+  return api_api_pb.EasyTransferByPrivateMessage.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_protocol_EasyTransferMessage(arg) {
@@ -194,10 +282,76 @@ function deserialize_protocol_EmptyMessage(buffer_arg) {
   return api_api_pb.EmptyMessage.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_Exchange(arg) {
+  if (!(arg instanceof core_Tron_pb.Exchange)) {
+    throw new Error('Expected argument of type protocol.Exchange');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_Exchange(buffer_arg) {
+  return core_Tron_pb.Exchange.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ExchangeCreateContract(arg) {
+  if (!(arg instanceof core_Contract_pb.ExchangeCreateContract)) {
+    throw new Error('Expected argument of type protocol.ExchangeCreateContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ExchangeCreateContract(buffer_arg) {
+  return core_Contract_pb.ExchangeCreateContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ExchangeInjectContract(arg) {
+  if (!(arg instanceof core_Contract_pb.ExchangeInjectContract)) {
+    throw new Error('Expected argument of type protocol.ExchangeInjectContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ExchangeInjectContract(buffer_arg) {
+  return core_Contract_pb.ExchangeInjectContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ExchangeList(arg) {
+  if (!(arg instanceof api_api_pb.ExchangeList)) {
+    throw new Error('Expected argument of type protocol.ExchangeList');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ExchangeList(buffer_arg) {
+  return api_api_pb.ExchangeList.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ExchangeTransactionContract(arg) {
+  if (!(arg instanceof core_Contract_pb.ExchangeTransactionContract)) {
+    throw new Error('Expected argument of type protocol.ExchangeTransactionContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ExchangeTransactionContract(buffer_arg) {
+  return core_Contract_pb.ExchangeTransactionContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ExchangeWithdrawContract(arg) {
+  if (!(arg instanceof core_Contract_pb.ExchangeWithdrawContract)) {
+    throw new Error('Expected argument of type protocol.ExchangeWithdrawContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ExchangeWithdrawContract(buffer_arg) {
+  return core_Contract_pb.ExchangeWithdrawContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_FreezeBalanceContract(arg) {
-  // if (!(arg instanceof core_Contract_pb.FreezeBalanceContract)) {
-  //   throw new Error('Expected argument of type protocol.FreezeBalanceContract');
-  // }
+  if (!(arg instanceof core_Contract_pb.FreezeBalanceContract)) {
+    throw new Error('Expected argument of type protocol.FreezeBalanceContract');
+  }
   return new Buffer(arg.serializeBinary());
 }
 
@@ -249,6 +403,61 @@ function deserialize_protocol_ParticipateAssetIssueContract(buffer_arg) {
   return core_Contract_pb.ParticipateAssetIssueContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_Proposal(arg) {
+  if (!(arg instanceof core_Tron_pb.Proposal)) {
+    throw new Error('Expected argument of type protocol.Proposal');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_Proposal(buffer_arg) {
+  return core_Tron_pb.Proposal.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ProposalApproveContract(arg) {
+  if (!(arg instanceof core_Contract_pb.ProposalApproveContract)) {
+    throw new Error('Expected argument of type protocol.ProposalApproveContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ProposalApproveContract(buffer_arg) {
+  return core_Contract_pb.ProposalApproveContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ProposalCreateContract(arg) {
+  if (!(arg instanceof core_Contract_pb.ProposalCreateContract)) {
+    throw new Error('Expected argument of type protocol.ProposalCreateContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ProposalCreateContract(buffer_arg) {
+  return core_Contract_pb.ProposalCreateContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ProposalDeleteContract(arg) {
+  if (!(arg instanceof core_Contract_pb.ProposalDeleteContract)) {
+    throw new Error('Expected argument of type protocol.ProposalDeleteContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ProposalDeleteContract(buffer_arg) {
+  return core_Contract_pb.ProposalDeleteContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_ProposalList(arg) {
+  if (!(arg instanceof api_api_pb.ProposalList)) {
+    throw new Error('Expected argument of type protocol.ProposalList');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_ProposalList(buffer_arg) {
+  return api_api_pb.ProposalList.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_Return(arg) {
   if (!(arg instanceof api_api_pb.Return)) {
     throw new Error('Expected argument of type protocol.Return');
@@ -260,6 +469,39 @@ function deserialize_protocol_Return(buffer_arg) {
   return api_api_pb.Return.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_SellStorageContract(arg) {
+  if (!(arg instanceof core_Contract_pb.SellStorageContract)) {
+    throw new Error('Expected argument of type protocol.SellStorageContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_SellStorageContract(buffer_arg) {
+  return core_Contract_pb.SellStorageContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_SetAccountIdContract(arg) {
+  if (!(arg instanceof core_Contract_pb.SetAccountIdContract)) {
+    throw new Error('Expected argument of type protocol.SetAccountIdContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_SetAccountIdContract(buffer_arg) {
+  return core_Contract_pb.SetAccountIdContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_SmartContract(arg) {
+  if (!(arg instanceof core_Tron_pb.SmartContract)) {
+    throw new Error('Expected argument of type protocol.SmartContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_SmartContract(buffer_arg) {
+  return core_Tron_pb.SmartContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_Transaction(arg) {
   if (!(arg instanceof core_Tron_pb.Transaction)) {
     throw new Error('Expected argument of type protocol.Transaction');
@@ -269,6 +511,17 @@ function serialize_protocol_Transaction(arg) {
 
 function deserialize_protocol_Transaction(buffer_arg) {
   return core_Tron_pb.Transaction.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_TransactionExtention(arg) {
+  if (!(arg instanceof api_api_pb.TransactionExtention)) {
+    throw new Error('Expected argument of type protocol.TransactionExtention');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_TransactionExtention(buffer_arg) {
+  return api_api_pb.TransactionExtention.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_protocol_TransactionInfo(arg) {
@@ -291,6 +544,17 @@ function serialize_protocol_TransactionList(arg) {
 
 function deserialize_protocol_TransactionList(buffer_arg) {
   return api_api_pb.TransactionList.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_TransactionListExtention(arg) {
+  if (!(arg instanceof api_api_pb.TransactionListExtention)) {
+    throw new Error('Expected argument of type protocol.TransactionListExtention');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_TransactionListExtention(buffer_arg) {
+  return api_api_pb.TransactionListExtention.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_protocol_TransactionSign(arg) {
@@ -326,6 +590,17 @@ function deserialize_protocol_TransferContract(buffer_arg) {
   return core_Contract_pb.TransferContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_TriggerSmartContract(arg) {
+  if (!(arg instanceof core_Contract_pb.TriggerSmartContract)) {
+    throw new Error('Expected argument of type protocol.TriggerSmartContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_TriggerSmartContract(buffer_arg) {
+  return core_Contract_pb.TriggerSmartContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_UnfreezeAssetContract(arg) {
   if (!(arg instanceof core_Contract_pb.UnfreezeAssetContract)) {
     throw new Error('Expected argument of type protocol.UnfreezeAssetContract');
@@ -357,6 +632,17 @@ function serialize_protocol_UpdateAssetContract(arg) {
 
 function deserialize_protocol_UpdateAssetContract(buffer_arg) {
   return core_Contract_pb.UpdateAssetContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_UpdateSettingContract(arg) {
+  if (!(arg instanceof core_Contract_pb.UpdateSettingContract)) {
+    throw new Error('Expected argument of type protocol.UpdateSettingContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_UpdateSettingContract(buffer_arg) {
+  return core_Contract_pb.UpdateSettingContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_protocol_VoteWitnessContract(arg) {
@@ -427,6 +713,18 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Account,
     responseDeserialize: deserialize_protocol_Account,
   },
+  getAccountById: {
+    path: '/protocol.Wallet/GetAccountById',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Tron_pb.Account,
+    responseType: core_Tron_pb.Account,
+    requestSerialize: serialize_protocol_Account,
+    requestDeserialize: deserialize_protocol_Account,
+    responseSerialize: serialize_protocol_Account,
+    responseDeserialize: deserialize_protocol_Account,
+  },
+  // Please use CreateTransaction2 instead of this function.
   createTransaction: {
     path: '/protocol.Wallet/CreateTransaction',
     requestStream: false,
@@ -437,6 +735,18 @@ var WalletService = exports.WalletService = {
     requestDeserialize: deserialize_protocol_TransferContract,
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
+  },
+  // Use this function instead of CreateTransaction.
+  createTransaction2: {
+    path: '/protocol.Wallet/CreateTransaction2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.TransferContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_TransferContract,
+    requestDeserialize: deserialize_protocol_TransferContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
   },
   broadcastTransaction: {
     path: '/protocol.Wallet/BroadcastTransaction',
@@ -449,6 +759,7 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Return,
     responseDeserialize: deserialize_protocol_Return,
   },
+  // Please use UpdateAccount2 instead of this function.
   updateAccount: {
     path: '/protocol.Wallet/UpdateAccount',
     requestStream: false,
@@ -460,6 +771,30 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  setAccountId: {
+    path: '/protocol.Wallet/SetAccountId',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.SetAccountIdContract,
+    responseType: core_Tron_pb.Transaction,
+    requestSerialize: serialize_protocol_SetAccountIdContract,
+    requestDeserialize: deserialize_protocol_SetAccountIdContract,
+    responseSerialize: serialize_protocol_Transaction,
+    responseDeserialize: deserialize_protocol_Transaction,
+  },
+  // Use this function instead of UpdateAccount.
+  updateAccount2: {
+    path: '/protocol.Wallet/UpdateAccount2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.AccountUpdateContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_AccountUpdateContract,
+    requestDeserialize: deserialize_protocol_AccountUpdateContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use VoteWitnessAccount2 instead of this function.
   voteWitnessAccount: {
     path: '/protocol.Wallet/VoteWitnessAccount',
     requestStream: false,
@@ -471,6 +806,31 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // modify the consume_user_resource_percent
+  updateSetting: {
+    path: '/protocol.Wallet/UpdateSetting',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.UpdateSettingContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_UpdateSettingContract,
+    requestDeserialize: deserialize_protocol_UpdateSettingContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Use this function instead of VoteWitnessAccount.
+  voteWitnessAccount2: {
+    path: '/protocol.Wallet/VoteWitnessAccount2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.VoteWitnessContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_VoteWitnessContract,
+    requestDeserialize: deserialize_protocol_VoteWitnessContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use CreateAssetIssue2 instead of this function.
   createAssetIssue: {
     path: '/protocol.Wallet/CreateAssetIssue',
     requestStream: false,
@@ -482,6 +842,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of CreateAssetIssue.
+  createAssetIssue2: {
+    path: '/protocol.Wallet/CreateAssetIssue2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.AssetIssueContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_AssetIssueContract,
+    requestDeserialize: deserialize_protocol_AssetIssueContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use UpdateWitness2 instead of this function.
   updateWitness: {
     path: '/protocol.Wallet/UpdateWitness',
     requestStream: false,
@@ -493,6 +866,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of UpdateWitness.
+  updateWitness2: {
+    path: '/protocol.Wallet/UpdateWitness2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.WitnessUpdateContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_WitnessUpdateContract,
+    requestDeserialize: deserialize_protocol_WitnessUpdateContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use CreateAccount2 instead of this function.
   createAccount: {
     path: '/protocol.Wallet/CreateAccount',
     requestStream: false,
@@ -504,6 +890,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of CreateAccount.
+  createAccount2: {
+    path: '/protocol.Wallet/CreateAccount2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.AccountCreateContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_AccountCreateContract,
+    requestDeserialize: deserialize_protocol_AccountCreateContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use CreateWitness2 instead of this function.
   createWitness: {
     path: '/protocol.Wallet/CreateWitness',
     requestStream: false,
@@ -515,6 +914,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of CreateWitness.
+  createWitness2: {
+    path: '/protocol.Wallet/CreateWitness2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.WitnessCreateContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_WitnessCreateContract,
+    requestDeserialize: deserialize_protocol_WitnessCreateContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use TransferAsset2 instead of this function.
   transferAsset: {
     path: '/protocol.Wallet/TransferAsset',
     requestStream: false,
@@ -526,6 +938,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of TransferAsset.
+  transferAsset2: {
+    path: '/protocol.Wallet/TransferAsset2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.TransferAssetContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_TransferAssetContract,
+    requestDeserialize: deserialize_protocol_TransferAssetContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use ParticipateAssetIssue2 instead of this function.
   participateAssetIssue: {
     path: '/protocol.Wallet/ParticipateAssetIssue',
     requestStream: false,
@@ -537,6 +962,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of ParticipateAssetIssue.
+  participateAssetIssue2: {
+    path: '/protocol.Wallet/ParticipateAssetIssue2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ParticipateAssetIssueContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ParticipateAssetIssueContract,
+    requestDeserialize: deserialize_protocol_ParticipateAssetIssueContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use FreezeBalance2 instead of this function.
   freezeBalance: {
     path: '/protocol.Wallet/FreezeBalance',
     requestStream: false,
@@ -548,6 +986,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of FreezeBalance.
+  freezeBalance2: {
+    path: '/protocol.Wallet/FreezeBalance2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.FreezeBalanceContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_FreezeBalanceContract,
+    requestDeserialize: deserialize_protocol_FreezeBalanceContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use UnfreezeBalance2 instead of this function.
   unfreezeBalance: {
     path: '/protocol.Wallet/UnfreezeBalance',
     requestStream: false,
@@ -559,6 +1010,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of UnfreezeBalance.
+  unfreezeBalance2: {
+    path: '/protocol.Wallet/UnfreezeBalance2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.UnfreezeBalanceContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_UnfreezeBalanceContract,
+    requestDeserialize: deserialize_protocol_UnfreezeBalanceContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use UnfreezeAsset2 instead of this function.
   unfreezeAsset: {
     path: '/protocol.Wallet/UnfreezeAsset',
     requestStream: false,
@@ -570,6 +1034,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of UnfreezeAsset.
+  unfreezeAsset2: {
+    path: '/protocol.Wallet/UnfreezeAsset2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.UnfreezeAssetContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_UnfreezeAssetContract,
+    requestDeserialize: deserialize_protocol_UnfreezeAssetContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use WithdrawBalance2 instead of this function.
   withdrawBalance: {
     path: '/protocol.Wallet/WithdrawBalance',
     requestStream: false,
@@ -581,6 +1058,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  // Use this function instead of WithdrawBalance.
+  withdrawBalance2: {
+    path: '/protocol.Wallet/WithdrawBalance2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.WithdrawBalanceContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_WithdrawBalanceContract,
+    requestDeserialize: deserialize_protocol_WithdrawBalanceContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Please use UpdateAsset2 instead of this function.
   updateAsset: {
     path: '/protocol.Wallet/UpdateAsset',
     requestStream: false,
@@ -591,6 +1081,128 @@ var WalletService = exports.WalletService = {
     requestDeserialize: deserialize_protocol_UpdateAssetContract,
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
+  },
+  // Use this function instead of UpdateAsset.
+  updateAsset2: {
+    path: '/protocol.Wallet/UpdateAsset2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.UpdateAssetContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_UpdateAssetContract,
+    requestDeserialize: deserialize_protocol_UpdateAssetContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  proposalCreate: {
+    path: '/protocol.Wallet/ProposalCreate',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ProposalCreateContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ProposalCreateContract,
+    requestDeserialize: deserialize_protocol_ProposalCreateContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  proposalApprove: {
+    path: '/protocol.Wallet/ProposalApprove',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ProposalApproveContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ProposalApproveContract,
+    requestDeserialize: deserialize_protocol_ProposalApproveContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  proposalDelete: {
+    path: '/protocol.Wallet/ProposalDelete',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ProposalDeleteContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ProposalDeleteContract,
+    requestDeserialize: deserialize_protocol_ProposalDeleteContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  buyStorage: {
+    path: '/protocol.Wallet/BuyStorage',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.BuyStorageContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_BuyStorageContract,
+    requestDeserialize: deserialize_protocol_BuyStorageContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  buyStorageBytes: {
+    path: '/protocol.Wallet/BuyStorageBytes',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.BuyStorageBytesContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_BuyStorageBytesContract,
+    requestDeserialize: deserialize_protocol_BuyStorageBytesContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  sellStorage: {
+    path: '/protocol.Wallet/SellStorage',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.SellStorageContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_SellStorageContract,
+    requestDeserialize: deserialize_protocol_SellStorageContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  exchangeCreate: {
+    path: '/protocol.Wallet/ExchangeCreate',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ExchangeCreateContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ExchangeCreateContract,
+    requestDeserialize: deserialize_protocol_ExchangeCreateContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  exchangeInject: {
+    path: '/protocol.Wallet/ExchangeInject',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ExchangeInjectContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ExchangeInjectContract,
+    requestDeserialize: deserialize_protocol_ExchangeInjectContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  exchangeWithdraw: {
+    path: '/protocol.Wallet/ExchangeWithdraw',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ExchangeWithdrawContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ExchangeWithdrawContract,
+    requestDeserialize: deserialize_protocol_ExchangeWithdrawContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  exchangeTransaction: {
+    path: '/protocol.Wallet/ExchangeTransaction',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.ExchangeTransactionContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_ExchangeTransactionContract,
+    requestDeserialize: deserialize_protocol_ExchangeTransactionContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
   },
   listNodes: {
     path: '/protocol.Wallet/ListNodes',
@@ -625,6 +1237,17 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_AccountNetMessage,
     responseDeserialize: deserialize_protocol_AccountNetMessage,
   },
+  getAccountResource: {
+    path: '/protocol.Wallet/GetAccountResource',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Tron_pb.Account,
+    responseType: api_api_pb.AccountResourceMessage,
+    requestSerialize: serialize_protocol_Account,
+    requestDeserialize: deserialize_protocol_Account,
+    responseSerialize: serialize_protocol_AccountResourceMessage,
+    responseDeserialize: deserialize_protocol_AccountResourceMessage,
+  },
   getAssetIssueByName: {
     path: '/protocol.Wallet/GetAssetIssueByName',
     requestStream: false,
@@ -636,6 +1259,7 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_AssetIssueContract,
     responseDeserialize: deserialize_protocol_AssetIssueContract,
   },
+  // Please use GetNowBlock2 instead of this function.
   getNowBlock: {
     path: '/protocol.Wallet/GetNowBlock',
     requestStream: false,
@@ -647,6 +1271,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Block,
     responseDeserialize: deserialize_protocol_Block,
   },
+  // Use this function instead of GetNowBlock.
+  getNowBlock2: {
+    path: '/protocol.Wallet/GetNowBlock2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.EmptyMessage,
+    responseType: api_api_pb.BlockExtention,
+    requestSerialize: serialize_protocol_EmptyMessage,
+    requestDeserialize: deserialize_protocol_EmptyMessage,
+    responseSerialize: serialize_protocol_BlockExtention,
+    responseDeserialize: deserialize_protocol_BlockExtention,
+  },
+  // Please use GetBlockByNum2 instead of this function.
   getBlockByNum: {
     path: '/protocol.Wallet/GetBlockByNum',
     requestStream: false,
@@ -657,6 +1294,29 @@ var WalletService = exports.WalletService = {
     requestDeserialize: deserialize_protocol_NumberMessage,
     responseSerialize: serialize_protocol_Block,
     responseDeserialize: deserialize_protocol_Block,
+  },
+  // Use this function instead of GetBlockByNum.
+  getBlockByNum2: {
+    path: '/protocol.Wallet/GetBlockByNum2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.NumberMessage,
+    responseType: api_api_pb.BlockExtention,
+    requestSerialize: serialize_protocol_NumberMessage,
+    requestDeserialize: deserialize_protocol_NumberMessage,
+    responseSerialize: serialize_protocol_BlockExtention,
+    responseDeserialize: deserialize_protocol_BlockExtention,
+  },
+  getTransactionCountByBlockNum: {
+    path: '/protocol.Wallet/GetTransactionCountByBlockNum',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.NumberMessage,
+    responseType: api_api_pb.NumberMessage,
+    requestSerialize: serialize_protocol_NumberMessage,
+    requestDeserialize: deserialize_protocol_NumberMessage,
+    responseSerialize: serialize_protocol_NumberMessage,
+    responseDeserialize: deserialize_protocol_NumberMessage,
   },
   getBlockById: {
     path: '/protocol.Wallet/GetBlockById',
@@ -669,6 +1329,7 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Block,
     responseDeserialize: deserialize_protocol_Block,
   },
+  // Please use GetBlockByLimitNext2 instead of this function.
   getBlockByLimitNext: {
     path: '/protocol.Wallet/GetBlockByLimitNext',
     requestStream: false,
@@ -680,6 +1341,19 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_BlockList,
     responseDeserialize: deserialize_protocol_BlockList,
   },
+  // Use this function instead of GetBlockByLimitNext.
+  getBlockByLimitNext2: {
+    path: '/protocol.Wallet/GetBlockByLimitNext2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.BlockLimit,
+    responseType: api_api_pb.BlockListExtention,
+    requestSerialize: serialize_protocol_BlockLimit,
+    requestDeserialize: deserialize_protocol_BlockLimit,
+    responseSerialize: serialize_protocol_BlockListExtention,
+    responseDeserialize: deserialize_protocol_BlockListExtention,
+  },
+  // Please use GetBlockByLatestNum2 instead of this function.
   getBlockByLatestNum: {
     path: '/protocol.Wallet/GetBlockByLatestNum',
     requestStream: false,
@@ -690,6 +1364,18 @@ var WalletService = exports.WalletService = {
     requestDeserialize: deserialize_protocol_NumberMessage,
     responseSerialize: serialize_protocol_BlockList,
     responseDeserialize: deserialize_protocol_BlockList,
+  },
+  // Use this function instead of GetBlockByLatestNum.
+  getBlockByLatestNum2: {
+    path: '/protocol.Wallet/GetBlockByLatestNum2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.NumberMessage,
+    responseType: api_api_pb.BlockListExtention,
+    requestSerialize: serialize_protocol_NumberMessage,
+    requestDeserialize: deserialize_protocol_NumberMessage,
+    responseSerialize: serialize_protocol_BlockListExtention,
+    responseDeserialize: deserialize_protocol_BlockListExtention,
   },
   getTransactionById: {
     path: '/protocol.Wallet/GetTransactionById',
@@ -702,6 +1388,39 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_Transaction,
     responseDeserialize: deserialize_protocol_Transaction,
   },
+  deployContract: {
+    path: '/protocol.Wallet/DeployContract',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.CreateSmartContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_CreateSmartContract,
+    requestDeserialize: deserialize_protocol_CreateSmartContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  getContract: {
+    path: '/protocol.Wallet/GetContract',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.BytesMessage,
+    responseType: core_Tron_pb.SmartContract,
+    requestSerialize: serialize_protocol_BytesMessage,
+    requestDeserialize: deserialize_protocol_BytesMessage,
+    responseSerialize: serialize_protocol_SmartContract,
+    responseDeserialize: deserialize_protocol_SmartContract,
+  },
+  triggerContract: {
+    path: '/protocol.Wallet/TriggerContract',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.TriggerSmartContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_TriggerSmartContract,
+    requestDeserialize: deserialize_protocol_TriggerSmartContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
   listWitnesses: {
     path: '/protocol.Wallet/ListWitnesses',
     requestStream: false,
@@ -712,6 +1431,83 @@ var WalletService = exports.WalletService = {
     requestDeserialize: deserialize_protocol_EmptyMessage,
     responseSerialize: serialize_protocol_WitnessList,
     responseDeserialize: deserialize_protocol_WitnessList,
+  },
+  listProposals: {
+    path: '/protocol.Wallet/ListProposals',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.EmptyMessage,
+    responseType: api_api_pb.ProposalList,
+    requestSerialize: serialize_protocol_EmptyMessage,
+    requestDeserialize: deserialize_protocol_EmptyMessage,
+    responseSerialize: serialize_protocol_ProposalList,
+    responseDeserialize: deserialize_protocol_ProposalList,
+  },
+  getPaginatedProposalList: {
+    path: '/protocol.Wallet/GetPaginatedProposalList',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.PaginatedMessage,
+    responseType: api_api_pb.ProposalList,
+    requestSerialize: serialize_protocol_PaginatedMessage,
+    requestDeserialize: deserialize_protocol_PaginatedMessage,
+    responseSerialize: serialize_protocol_ProposalList,
+    responseDeserialize: deserialize_protocol_ProposalList,
+  },
+  getProposalById: {
+    path: '/protocol.Wallet/GetProposalById',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.BytesMessage,
+    responseType: core_Tron_pb.Proposal,
+    requestSerialize: serialize_protocol_BytesMessage,
+    requestDeserialize: deserialize_protocol_BytesMessage,
+    responseSerialize: serialize_protocol_Proposal,
+    responseDeserialize: deserialize_protocol_Proposal,
+  },
+  listExchanges: {
+    path: '/protocol.Wallet/ListExchanges',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.EmptyMessage,
+    responseType: api_api_pb.ExchangeList,
+    requestSerialize: serialize_protocol_EmptyMessage,
+    requestDeserialize: deserialize_protocol_EmptyMessage,
+    responseSerialize: serialize_protocol_ExchangeList,
+    responseDeserialize: deserialize_protocol_ExchangeList,
+  },
+  getPaginatedExchangeList: {
+    path: '/protocol.Wallet/GetPaginatedExchangeList',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.PaginatedMessage,
+    responseType: api_api_pb.ExchangeList,
+    requestSerialize: serialize_protocol_PaginatedMessage,
+    requestDeserialize: deserialize_protocol_PaginatedMessage,
+    responseSerialize: serialize_protocol_ExchangeList,
+    responseDeserialize: deserialize_protocol_ExchangeList,
+  },
+  getExchangeById: {
+    path: '/protocol.Wallet/GetExchangeById',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.BytesMessage,
+    responseType: core_Tron_pb.Exchange,
+    requestSerialize: serialize_protocol_BytesMessage,
+    requestDeserialize: deserialize_protocol_BytesMessage,
+    responseSerialize: serialize_protocol_Exchange,
+    responseDeserialize: deserialize_protocol_Exchange,
+  },
+  getChainParameters: {
+    path: '/protocol.Wallet/GetChainParameters',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.EmptyMessage,
+    responseType: core_Tron_pb.ChainParameters,
+    requestSerialize: serialize_protocol_EmptyMessage,
+    requestDeserialize: deserialize_protocol_EmptyMessage,
+    responseSerialize: serialize_protocol_ChainParameters,
+    responseDeserialize: deserialize_protocol_ChainParameters,
   },
   getAssetIssueList: {
     path: '/protocol.Wallet/GetAssetIssueList',
@@ -758,6 +1554,7 @@ var WalletService = exports.WalletService = {
     responseDeserialize: deserialize_protocol_NumberMessage,
   },
   // Warning: do not invoke this interface provided by others.
+  // Please use GetTransactionSign2 instead of this function.
   getTransactionSign: {
     path: '/protocol.Wallet/GetTransactionSign',
     requestStream: false,
@@ -770,8 +1567,21 @@ var WalletService = exports.WalletService = {
     responseDeserialize: deserialize_protocol_Transaction,
   },
   // Warning: do not invoke this interface provided by others.
-  createAdresss: {
-    path: '/protocol.Wallet/CreateAdresss',
+  // Use this function instead of GetTransactionSign.
+  getTransactionSign2: {
+    path: '/protocol.Wallet/GetTransactionSign2',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Tron_pb.TransactionSign,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_TransactionSign,
+    requestDeserialize: deserialize_protocol_TransactionSign,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // Warning: do not invoke this interface provided by others.
+  createAddress: {
+    path: '/protocol.Wallet/CreateAddress',
     requestStream: false,
     responseStream: false,
     requestType: api_api_pb.BytesMessage,
@@ -794,6 +1604,18 @@ var WalletService = exports.WalletService = {
     responseDeserialize: deserialize_protocol_EasyTransferResponse,
   },
   // Warning: do not invoke this interface provided by others.
+  easyTransferByPrivate: {
+    path: '/protocol.Wallet/EasyTransferByPrivate',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.EasyTransferByPrivateMessage,
+    responseType: api_api_pb.EasyTransferResponse,
+    requestSerialize: serialize_protocol_EasyTransferByPrivateMessage,
+    requestDeserialize: deserialize_protocol_EasyTransferByPrivateMessage,
+    responseSerialize: serialize_protocol_EasyTransferResponse,
+    responseDeserialize: deserialize_protocol_EasyTransferResponse,
+  },
+  // Warning: do not invoke this interface provided by others.
   generateAddress: {
     path: '/protocol.Wallet/GenerateAddress',
     requestStream: false,
@@ -805,12 +1627,34 @@ var WalletService = exports.WalletService = {
     responseSerialize: serialize_protocol_AddressPrKeyPairMessage,
     responseDeserialize: deserialize_protocol_AddressPrKeyPairMessage,
   },
+  getTransactionInfoById: {
+    path: '/protocol.Wallet/GetTransactionInfoById',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.BytesMessage,
+    responseType: core_Tron_pb.TransactionInfo,
+    requestSerialize: serialize_protocol_BytesMessage,
+    requestDeserialize: deserialize_protocol_BytesMessage,
+    responseSerialize: serialize_protocol_TransactionInfo,
+    responseDeserialize: deserialize_protocol_TransactionInfo,
+  },
 };
 
 exports.WalletClient = grpc.makeGenericClientConstructor(WalletService);
 var WalletSolidityService = exports.WalletSolidityService = {
   getAccount: {
     path: '/protocol.WalletSolidity/GetAccount',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Tron_pb.Account,
+    responseType: core_Tron_pb.Account,
+    requestSerialize: serialize_protocol_Account,
+    requestDeserialize: deserialize_protocol_Account,
+    responseSerialize: serialize_protocol_Account,
+    responseDeserialize: deserialize_protocol_Account,
+  },
+  getAccountById: {
+    path: '/protocol.WalletSolidity/GetAccountById',
     requestStream: false,
     responseStream: false,
     requestType: core_Tron_pb.Account,
@@ -853,6 +1697,7 @@ var WalletSolidityService = exports.WalletSolidityService = {
     responseSerialize: serialize_protocol_AssetIssueList,
     responseDeserialize: deserialize_protocol_AssetIssueList,
   },
+  // Please use GetNowBlock2 instead of this function.
   getNowBlock: {
     path: '/protocol.WalletSolidity/GetNowBlock',
     requestStream: false,
@@ -864,6 +1709,19 @@ var WalletSolidityService = exports.WalletSolidityService = {
     responseSerialize: serialize_protocol_Block,
     responseDeserialize: deserialize_protocol_Block,
   },
+  // Use this function instead of GetNowBlock.
+  getNowBlock2: {
+    path: '/protocol.WalletSolidity/GetNowBlock2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.EmptyMessage,
+    responseType: api_api_pb.BlockExtention,
+    requestSerialize: serialize_protocol_EmptyMessage,
+    requestDeserialize: deserialize_protocol_EmptyMessage,
+    responseSerialize: serialize_protocol_BlockExtention,
+    responseDeserialize: deserialize_protocol_BlockExtention,
+  },
+  // Please use GetBlockByNum2 instead of this function.
   getBlockByNum: {
     path: '/protocol.WalletSolidity/GetBlockByNum',
     requestStream: false,
@@ -874,6 +1732,29 @@ var WalletSolidityService = exports.WalletSolidityService = {
     requestDeserialize: deserialize_protocol_NumberMessage,
     responseSerialize: serialize_protocol_Block,
     responseDeserialize: deserialize_protocol_Block,
+  },
+  // Use this function instead of GetBlockByNum.
+  getBlockByNum2: {
+    path: '/protocol.WalletSolidity/GetBlockByNum2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.NumberMessage,
+    responseType: api_api_pb.BlockExtention,
+    requestSerialize: serialize_protocol_NumberMessage,
+    requestDeserialize: deserialize_protocol_NumberMessage,
+    responseSerialize: serialize_protocol_BlockExtention,
+    responseDeserialize: deserialize_protocol_BlockExtention,
+  },
+  getTransactionCountByBlockNum: {
+    path: '/protocol.WalletSolidity/GetTransactionCountByBlockNum',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.NumberMessage,
+    responseType: api_api_pb.NumberMessage,
+    requestSerialize: serialize_protocol_NumberMessage,
+    requestDeserialize: deserialize_protocol_NumberMessage,
+    responseSerialize: serialize_protocol_NumberMessage,
+    responseDeserialize: deserialize_protocol_NumberMessage,
   },
   getTransactionById: {
     path: '/protocol.WalletSolidity/GetTransactionById',
@@ -913,6 +1794,7 @@ var WalletSolidityService = exports.WalletSolidityService = {
 
 exports.WalletSolidityClient = grpc.makeGenericClientConstructor(WalletSolidityService);
 var WalletExtensionService = exports.WalletExtensionService = {
+  // Please use GetTransactionsFromThis2 instead of this function.
   getTransactionsFromThis: {
     path: '/protocol.WalletExtension/GetTransactionsFromThis',
     requestStream: false,
@@ -924,6 +1806,19 @@ var WalletExtensionService = exports.WalletExtensionService = {
     responseSerialize: serialize_protocol_TransactionList,
     responseDeserialize: deserialize_protocol_TransactionList,
   },
+  // Use this function instead of GetTransactionsFromThis.
+  getTransactionsFromThis2: {
+    path: '/protocol.WalletExtension/GetTransactionsFromThis2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.AccountPaginated,
+    responseType: api_api_pb.TransactionListExtention,
+    requestSerialize: serialize_protocol_AccountPaginated,
+    requestDeserialize: deserialize_protocol_AccountPaginated,
+    responseSerialize: serialize_protocol_TransactionListExtention,
+    responseDeserialize: deserialize_protocol_TransactionListExtention,
+  },
+  // Please use GetTransactionsToThis2 instead of this function.
   getTransactionsToThis: {
     path: '/protocol.WalletExtension/GetTransactionsToThis',
     requestStream: false,
@@ -934,6 +1829,18 @@ var WalletExtensionService = exports.WalletExtensionService = {
     requestDeserialize: deserialize_protocol_AccountPaginated,
     responseSerialize: serialize_protocol_TransactionList,
     responseDeserialize: deserialize_protocol_TransactionList,
+  },
+  // Use this function instead of GetTransactionsToThis.
+  getTransactionsToThis2: {
+    path: '/protocol.WalletExtension/GetTransactionsToThis2',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.AccountPaginated,
+    responseType: api_api_pb.TransactionListExtention,
+    requestSerialize: serialize_protocol_AccountPaginated,
+    requestDeserialize: deserialize_protocol_AccountPaginated,
+    responseSerialize: serialize_protocol_TransactionListExtention,
+    responseDeserialize: deserialize_protocol_TransactionListExtention,
   },
 };
 
