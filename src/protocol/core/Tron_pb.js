@@ -33,6 +33,8 @@ goog.exportSymbol('proto.protocol.DynamicProperties', null, global);
 goog.exportSymbol('proto.protocol.Exchange', null, global);
 goog.exportSymbol('proto.protocol.HelloMessage', null, global);
 goog.exportSymbol('proto.protocol.HelloMessage.BlockId', null, global);
+goog.exportSymbol('proto.protocol.InternalTransaction', null, global);
+goog.exportSymbol('proto.protocol.InternalTransaction.CallValueInfo', null, global);
 goog.exportSymbol('proto.protocol.Inventory', null, global);
 goog.exportSymbol('proto.protocol.Inventory.InventoryType', null, global);
 goog.exportSymbol('proto.protocol.Items', null, global);
@@ -6651,7 +6653,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.protocol.TransactionInfo.repeatedFields_ = [5,8];
+proto.protocol.TransactionInfo.repeatedFields_ = [5,8,17];
 
 
 
@@ -6694,7 +6696,9 @@ proto.protocol.TransactionInfo.toObject = function(includeInstance, msg) {
     result: jspb.Message.getFieldWithDefault(msg, 9, 0),
     resmessage: msg.getResmessage_asB64(),
     withdrawAmount: jspb.Message.getFieldWithDefault(msg, 15, 0),
-    unfreezeAmount: jspb.Message.getFieldWithDefault(msg, 16, 0)
+    unfreezeAmount: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    internalTransactionsList: jspb.Message.toObjectList(msg.getInternalTransactionsList(),
+    proto.protocol.InternalTransaction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -6780,6 +6784,11 @@ proto.protocol.TransactionInfo.deserializeBinaryFromReader = function(msg, reade
     case 16:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setUnfreezeAmount(value);
+      break;
+    case 17:
+      var value = new proto.protocol.InternalTransaction;
+      reader.readMessage(value,proto.protocol.InternalTransaction.deserializeBinaryFromReader);
+      msg.addInternalTransactions(value);
       break;
     default:
       reader.skipField();
@@ -6894,6 +6903,14 @@ proto.protocol.TransactionInfo.serializeBinaryToWriter = function(message, write
     writer.writeInt64(
       16,
       f
+    );
+  }
+  f = message.getInternalTransactionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      17,
+      f,
+      proto.protocol.InternalTransaction.serializeBinaryToWriter
     );
   }
 };
@@ -7514,6 +7531,37 @@ proto.protocol.TransactionInfo.prototype.getUnfreezeAmount = function() {
 /** @param {number} value */
 proto.protocol.TransactionInfo.prototype.setUnfreezeAmount = function(value) {
   jspb.Message.setProto3IntField(this, 16, value);
+};
+
+
+/**
+ * repeated InternalTransaction internal_transactions = 17;
+ * @return {!Array.<!proto.protocol.InternalTransaction>}
+ */
+proto.protocol.TransactionInfo.prototype.getInternalTransactionsList = function() {
+  return /** @type{!Array.<!proto.protocol.InternalTransaction>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.protocol.InternalTransaction, 17));
+};
+
+
+/** @param {!Array.<!proto.protocol.InternalTransaction>} value */
+proto.protocol.TransactionInfo.prototype.setInternalTransactionsList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 17, value);
+};
+
+
+/**
+ * @param {!proto.protocol.InternalTransaction=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.protocol.InternalTransaction}
+ */
+proto.protocol.TransactionInfo.prototype.addInternalTransactions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 17, opt_value, proto.protocol.InternalTransaction, opt_index);
+};
+
+
+proto.protocol.TransactionInfo.prototype.clearInternalTransactionsList = function() {
+  this.setInternalTransactionsList([]);
 };
 
 
@@ -10872,7 +10920,8 @@ proto.protocol.SmartContract.toObject = function(includeInstance, msg) {
     bytecode: msg.getBytecode_asB64(),
     callValue: jspb.Message.getFieldWithDefault(msg, 5, 0),
     consumeUserResourcePercent: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    name: jspb.Message.getFieldWithDefault(msg, 7, "")
+    name: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    energyLimit: jspb.Message.getFieldWithDefault(msg, 8, 0)
   };
 
   if (includeInstance) {
@@ -10937,6 +10986,10 @@ proto.protocol.SmartContract.deserializeBinaryFromReader = function(msg, reader)
     case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setEnergyLimit(value);
       break;
     default:
       reader.skipField();
@@ -11014,6 +11067,13 @@ proto.protocol.SmartContract.serializeBinaryToWriter = function(message, writer)
   if (f.length > 0) {
     writer.writeString(
       7,
+      f
+    );
+  }
+  f = message.getEnergyLimit();
+  if (f !== 0) {
+    writer.writeInt64(
+      8,
       f
     );
   }
@@ -11979,6 +12039,615 @@ proto.protocol.SmartContract.prototype.getName = function() {
 /** @param {string} value */
 proto.protocol.SmartContract.prototype.setName = function(value) {
   jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional int64 energy_limit = 8;
+ * @return {number}
+ */
+proto.protocol.SmartContract.prototype.getEnergyLimit = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.SmartContract.prototype.setEnergyLimit = function(value) {
+  jspb.Message.setProto3IntField(this, 8, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protocol.InternalTransaction = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.protocol.InternalTransaction.repeatedFields_, null);
+};
+goog.inherits(proto.protocol.InternalTransaction, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.protocol.InternalTransaction.displayName = 'proto.protocol.InternalTransaction';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.protocol.InternalTransaction.repeatedFields_ = [4];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protocol.InternalTransaction.prototype.toObject = function(opt_includeInstance) {
+  return proto.protocol.InternalTransaction.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protocol.InternalTransaction} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.InternalTransaction.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    hash: msg.getHash_asB64(),
+    callerAddress: msg.getCallerAddress_asB64(),
+    transfertoAddress: msg.getTransfertoAddress_asB64(),
+    callvalueinfoList: jspb.Message.toObjectList(msg.getCallvalueinfoList(),
+    proto.protocol.InternalTransaction.CallValueInfo.toObject, includeInstance),
+    note: msg.getNote_asB64(),
+    rejected: jspb.Message.getFieldWithDefault(msg, 6, false)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protocol.InternalTransaction}
+ */
+proto.protocol.InternalTransaction.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protocol.InternalTransaction;
+  return proto.protocol.InternalTransaction.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protocol.InternalTransaction} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protocol.InternalTransaction}
+ */
+proto.protocol.InternalTransaction.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setHash(value);
+      break;
+    case 2:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setCallerAddress(value);
+      break;
+    case 3:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setTransfertoAddress(value);
+      break;
+    case 4:
+      var value = new proto.protocol.InternalTransaction.CallValueInfo;
+      reader.readMessage(value,proto.protocol.InternalTransaction.CallValueInfo.deserializeBinaryFromReader);
+      msg.addCallvalueinfo(value);
+      break;
+    case 5:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setNote(value);
+      break;
+    case 6:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setRejected(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protocol.InternalTransaction.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protocol.InternalTransaction} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.InternalTransaction.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getHash_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      1,
+      f
+    );
+  }
+  f = message.getCallerAddress_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      2,
+      f
+    );
+  }
+  f = message.getTransfertoAddress_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      3,
+      f
+    );
+  }
+  f = message.getCallvalueinfoList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.protocol.InternalTransaction.CallValueInfo.serializeBinaryToWriter
+    );
+  }
+  f = message.getNote_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      5,
+      f
+    );
+  }
+  f = message.getRejected();
+  if (f) {
+    writer.writeBool(
+      6,
+      f
+    );
+  }
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protocol.InternalTransaction.CallValueInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.protocol.InternalTransaction.CallValueInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.protocol.InternalTransaction.CallValueInfo.displayName = 'proto.protocol.InternalTransaction.CallValueInfo';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.protocol.InternalTransaction.CallValueInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protocol.InternalTransaction.CallValueInfo} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.InternalTransaction.CallValueInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    callvalue: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    tokenname: msg.getTokenname_asB64()
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protocol.InternalTransaction.CallValueInfo}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protocol.InternalTransaction.CallValueInfo;
+  return proto.protocol.InternalTransaction.CallValueInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protocol.InternalTransaction.CallValueInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protocol.InternalTransaction.CallValueInfo}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setCallvalue(value);
+      break;
+    case 2:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setTokenname(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protocol.InternalTransaction.CallValueInfo.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protocol.InternalTransaction.CallValueInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.InternalTransaction.CallValueInfo.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getCallvalue();
+  if (f !== 0) {
+    writer.writeInt64(
+      1,
+      f
+    );
+  }
+  f = message.getTokenname_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int64 callValue = 1;
+ * @return {number}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getCallvalue = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.setCallvalue = function(value) {
+  jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional bytes tokenName = 2;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * optional bytes tokenName = 2;
+ * This is a type-conversion wrapper around `getTokenname()`
+ * @return {string}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getTokenname()));
+};
+
+
+/**
+ * optional bytes tokenName = 2;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getTokenname()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getTokenname()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.setTokenname = function(value) {
+  jspb.Message.setProto3BytesField(this, 2, value);
+};
+
+
+/**
+ * optional bytes hash = 1;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.InternalTransaction.prototype.getHash = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * optional bytes hash = 1;
+ * This is a type-conversion wrapper around `getHash()`
+ * @return {string}
+ */
+proto.protocol.InternalTransaction.prototype.getHash_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getHash()));
+};
+
+
+/**
+ * optional bytes hash = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getHash()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.prototype.getHash_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getHash()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.InternalTransaction.prototype.setHash = function(value) {
+  jspb.Message.setProto3BytesField(this, 1, value);
+};
+
+
+/**
+ * optional bytes caller_address = 2;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.InternalTransaction.prototype.getCallerAddress = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * optional bytes caller_address = 2;
+ * This is a type-conversion wrapper around `getCallerAddress()`
+ * @return {string}
+ */
+proto.protocol.InternalTransaction.prototype.getCallerAddress_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getCallerAddress()));
+};
+
+
+/**
+ * optional bytes caller_address = 2;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getCallerAddress()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.prototype.getCallerAddress_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getCallerAddress()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.InternalTransaction.prototype.setCallerAddress = function(value) {
+  jspb.Message.setProto3BytesField(this, 2, value);
+};
+
+
+/**
+ * optional bytes transferTo_address = 3;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.InternalTransaction.prototype.getTransfertoAddress = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * optional bytes transferTo_address = 3;
+ * This is a type-conversion wrapper around `getTransfertoAddress()`
+ * @return {string}
+ */
+proto.protocol.InternalTransaction.prototype.getTransfertoAddress_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getTransfertoAddress()));
+};
+
+
+/**
+ * optional bytes transferTo_address = 3;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getTransfertoAddress()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.prototype.getTransfertoAddress_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getTransfertoAddress()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.InternalTransaction.prototype.setTransfertoAddress = function(value) {
+  jspb.Message.setProto3BytesField(this, 3, value);
+};
+
+
+/**
+ * repeated CallValueInfo callValueInfo = 4;
+ * @return {!Array.<!proto.protocol.InternalTransaction.CallValueInfo>}
+ */
+proto.protocol.InternalTransaction.prototype.getCallvalueinfoList = function() {
+  return /** @type{!Array.<!proto.protocol.InternalTransaction.CallValueInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.protocol.InternalTransaction.CallValueInfo, 4));
+};
+
+
+/** @param {!Array.<!proto.protocol.InternalTransaction.CallValueInfo>} value */
+proto.protocol.InternalTransaction.prototype.setCallvalueinfoList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.protocol.InternalTransaction.CallValueInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.protocol.InternalTransaction.CallValueInfo}
+ */
+proto.protocol.InternalTransaction.prototype.addCallvalueinfo = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.protocol.InternalTransaction.CallValueInfo, opt_index);
+};
+
+
+proto.protocol.InternalTransaction.prototype.clearCallvalueinfoList = function() {
+  this.setCallvalueinfoList([]);
+};
+
+
+/**
+ * optional bytes note = 5;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.InternalTransaction.prototype.getNote = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * optional bytes note = 5;
+ * This is a type-conversion wrapper around `getNote()`
+ * @return {string}
+ */
+proto.protocol.InternalTransaction.prototype.getNote_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getNote()));
+};
+
+
+/**
+ * optional bytes note = 5;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getNote()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.prototype.getNote_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getNote()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.InternalTransaction.prototype.setNote = function(value) {
+  jspb.Message.setProto3BytesField(this, 5, value);
+};
+
+
+/**
+ * optional bool rejected = 6;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.protocol.InternalTransaction.prototype.getRejected = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 6, false));
+};
+
+
+/** @param {boolean} value */
+proto.protocol.InternalTransaction.prototype.setRejected = function(value) {
+  jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 

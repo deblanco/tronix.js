@@ -5,7 +5,6 @@ var grpc = require('grpc');
 var api_api_pb = require('../api/api_pb.js');
 var core_Tron_pb = require('../core/Tron_pb.js');
 var core_Contract_pb = require('../core/Contract_pb.js');
-//var google_api_annotations_pb = require('../google/api/annotations_pb.js');
 
 function serialize_protocol_Account(arg) {
   if (!(arg instanceof core_Tron_pb.Account)) {
@@ -645,6 +644,17 @@ function deserialize_protocol_UpdateSettingContract(buffer_arg) {
   return core_Contract_pb.UpdateSettingContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_UpdateSettingForEnergyLimitContract(arg) {
+  if (!(arg instanceof core_Contract_pb.UpdateSettingForEnergyLimitContract)) {
+    throw new Error('Expected argument of type protocol.UpdateSettingForEnergyLimitContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_UpdateSettingForEnergyLimitContract(buffer_arg) {
+  return core_Contract_pb.UpdateSettingForEnergyLimitContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_VoteWitnessContract(arg) {
   if (!(arg instanceof core_Contract_pb.VoteWitnessContract)) {
     throw new Error('Expected argument of type protocol.VoteWitnessContract');
@@ -815,6 +825,18 @@ var WalletService = exports.WalletService = {
     responseType: api_api_pb.TransactionExtention,
     requestSerialize: serialize_protocol_UpdateSettingContract,
     requestDeserialize: deserialize_protocol_UpdateSettingContract,
+    responseSerialize: serialize_protocol_TransactionExtention,
+    responseDeserialize: deserialize_protocol_TransactionExtention,
+  },
+  // modify the energy_limit
+  updateSettingForEnergyLimit: {
+    path: '/protocol.Wallet/UpdateSettingForEnergyLimit',
+    requestStream: false,
+    responseStream: false,
+    requestType: core_Contract_pb.UpdateSettingForEnergyLimitContract,
+    responseType: api_api_pb.TransactionExtention,
+    requestSerialize: serialize_protocol_UpdateSettingForEnergyLimitContract,
+    requestDeserialize: deserialize_protocol_UpdateSettingForEnergyLimitContract,
     responseSerialize: serialize_protocol_TransactionExtention,
     responseDeserialize: deserialize_protocol_TransactionExtention,
   },

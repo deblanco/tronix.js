@@ -1,3 +1,6 @@
+exports.atob = (data) => Buffer.from(data, 'base64').toString('ascii');
+
+exports.btoa = (data) => Buffer.from(data).toString('base64');
 
 exports.Base64 = function() {
 
