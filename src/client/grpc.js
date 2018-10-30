@@ -12,6 +12,7 @@ const { deserializeBlock, deserializeBlocks } = require('../utils/block');
 const { deserializeAsset, deserializeAssets } = require('../utils/asset');
 const { deserializeAccount } = require('../utils/account');
 const { deserializeWitnesses } = require('../utils/witness');
+const { atob } = require('../utils/base64');
 const {
   deserializeTransaction, deserializeEasyTransfer, buildTransferTransaction,
   decodeTransactionFields, buildFreezeBalanceTransaction,
@@ -47,7 +48,10 @@ class GrpcClient {
    */
   getNodes() {
     return this.api.listNodes(new EmptyMessage())
-      .then(x => x.getNodesList());
+      .then(x => x.getNodesList().map(node => ({
+        port: node.getAddress().getPort(),
+        host: atob(node.getAddress().getHost_asB64()),
+      })));
   }
 
   async getAssetIssueList() {
