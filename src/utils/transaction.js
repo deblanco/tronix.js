@@ -65,7 +65,7 @@ ContractTable[ContractType.UPDATESETTINGCONTRACT] = [UpdateSettingContract.deser
 ContractTable[ContractType.EXCHANGECREATECONTRACT] = [ExchangeCreateContract.deserializeBinary, 'protocol.ExchangeCreateContract'];
 
 ContractTable[ContractType.EXCHANGEINJECTCONTRACT] = [ExchangeInjectContract.deserializeBinary, 'protocol.ExchangeInjectContract'];
-ContractTable[ContractType.EXCHANGEWIDTHDRAWCONTRACT] = [ExchangeWithdrawContract.deserializeBinary, 'protocol.ExchangeWithdrawContract'];
+ContractTable[ContractType.EXCHANGEWITHDRAWCONTRACT] = [ExchangeWithdrawContract.deserializeBinary, 'protocol.ExchangeWithdrawContract'];
 ContractTable[ContractType.EXCHANGETRANSACTIONCONTRACT] = [ExchangeTransactionContract.deserializeBinary, 'protocol.ExchangeTransactionContract'];
 ContractTable[ContractType.UPDATEENERGYLIMITCONTRACT] = [UpdateEnergyLimitContract.deserializeBinary, 'protocol.UpdateEnergyLimitContract'];
 
