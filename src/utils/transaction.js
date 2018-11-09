@@ -35,6 +35,7 @@ const {
   ExchangeInjectContract,
   ExchangeWithdrawContract,
   ExchangeTransactionContract,
+  UpdateEnergyLimitContract
 } = require('../protocol/core/Contract_pb');
 
 const ContractType = Transaction.Contract.ContractType;
@@ -66,6 +67,7 @@ ContractTable[ContractType.EXCHANGECREATECONTRACT] = [ExchangeCreateContract.des
 ContractTable[ContractType.EXCHANGEINJECTCONTRACT] = [ExchangeInjectContract.deserializeBinary, 'protocol.ExchangeInjectContract'];
 ContractTable[ContractType.EXCHANGEWIDTHDRAWCONTRACT] = [ExchangeWithdrawContract.deserializeBinary, 'protocol.ExchangeWithdrawContract'];
 ContractTable[ContractType.EXCHANGETRANSACTIONCONTRACT] = [ExchangeTransactionContract.deserializeBinary, 'protocol.ExchangeTransactionContract'];
+ContractTable[ContractType.UPDATEENERGYLIMITCONTRACT] = [UpdateEnergyLimitContract.deserializeBinary, 'protocol.UpdateEnergyLimitContract'];
 
 /* not defined right now
   ContractTable[ContractType.GETCONTRACT] = [GetContract.deserializeBinary, 'protocol.GetContract'];
