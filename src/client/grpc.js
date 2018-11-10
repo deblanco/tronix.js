@@ -189,6 +189,12 @@ class GrpcClient {
     };
   }
 
+  async listExchanges() {
+    const message = new EmptyMessage();
+    const exchangeList = await this.api.listExchanges(message);
+    return decodeTransactionFields(exchangeList.toObject());
+  }
+
   async getPaginatedExchangeList(limit = 1000, offset = 0) {
     const exchangeListParams = new PaginatedMessage();
     exchangeListParams.setOffset(offset);
