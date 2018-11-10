@@ -83,6 +83,9 @@ const TransactionFields = {
   address(address) { return this.decodeAddress(address); },
   data(data) { return Buffer.from(data, 'base64').toString('ascii'); },
   assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
+  tokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
+  firstTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
+  secondTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
 };
 
 function decodeTransactionFields(transaction) {
