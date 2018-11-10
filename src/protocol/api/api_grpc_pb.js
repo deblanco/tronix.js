@@ -226,6 +226,39 @@ function deserialize_protocol_CreateSmartContract(buffer_arg) {
   return core_Contract_pb.CreateSmartContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_DelegatedResourceAccountIndex(arg) {
+  if (!(arg instanceof core_Tron_pb.DelegatedResourceAccountIndex)) {
+    throw new Error('Expected argument of type protocol.DelegatedResourceAccountIndex');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_DelegatedResourceAccountIndex(buffer_arg) {
+  return core_Tron_pb.DelegatedResourceAccountIndex.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_DelegatedResourceList(arg) {
+  if (!(arg instanceof api_api_pb.DelegatedResourceList)) {
+    throw new Error('Expected argument of type protocol.DelegatedResourceList');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_DelegatedResourceList(buffer_arg) {
+  return api_api_pb.DelegatedResourceList.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_protocol_DelegatedResourceMessage(arg) {
+  if (!(arg instanceof api_api_pb.DelegatedResourceMessage)) {
+    throw new Error('Expected argument of type protocol.DelegatedResourceMessage');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_DelegatedResourceMessage(buffer_arg) {
+  return api_api_pb.DelegatedResourceMessage.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_DynamicProperties(arg) {
   if (!(arg instanceof core_Tron_pb.DynamicProperties)) {
     throw new Error('Expected argument of type protocol.DynamicProperties');
@@ -633,6 +666,17 @@ function deserialize_protocol_UpdateAssetContract(buffer_arg) {
   return core_Contract_pb.UpdateAssetContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_protocol_UpdateEnergyLimitContract(arg) {
+  if (!(arg instanceof core_Contract_pb.UpdateEnergyLimitContract)) {
+    throw new Error('Expected argument of type protocol.UpdateEnergyLimitContract');
+  }
+  return new Buffer(arg.serializeBinary());
+}
+
+function deserialize_protocol_UpdateEnergyLimitContract(buffer_arg) {
+  return core_Contract_pb.UpdateEnergyLimitContract.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_protocol_UpdateSettingContract(arg) {
   if (!(arg instanceof core_Contract_pb.UpdateSettingContract)) {
     throw new Error('Expected argument of type protocol.UpdateSettingContract');
@@ -829,14 +873,14 @@ var WalletService = exports.WalletService = {
     responseDeserialize: deserialize_protocol_TransactionExtention,
   },
   // modify the energy_limit
-  updateSettingForEnergyLimit: {
-    path: '/protocol.Wallet/UpdateSettingForEnergyLimit',
+  updateEnergyLimit: {
+    path: '/protocol.Wallet/UpdateEnergyLimit',
     requestStream: false,
     responseStream: false,
-    requestType: core_Contract_pb.UpdateSettingForEnergyLimitContract,
+    requestType: core_Contract_pb.UpdateEnergyLimitContract,
     responseType: api_api_pb.TransactionExtention,
-    requestSerialize: serialize_protocol_UpdateSettingForEnergyLimitContract,
-    requestDeserialize: deserialize_protocol_UpdateSettingForEnergyLimitContract,
+    requestSerialize: serialize_protocol_UpdateEnergyLimitContract,
+    requestDeserialize: deserialize_protocol_UpdateEnergyLimitContract,
     responseSerialize: serialize_protocol_TransactionExtention,
     responseDeserialize: deserialize_protocol_TransactionExtention,
   },
@@ -1453,6 +1497,28 @@ var WalletService = exports.WalletService = {
     requestDeserialize: deserialize_protocol_EmptyMessage,
     responseSerialize: serialize_protocol_WitnessList,
     responseDeserialize: deserialize_protocol_WitnessList,
+  },
+  getDelegatedResource: {
+    path: '/protocol.Wallet/GetDelegatedResource',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.DelegatedResourceMessage,
+    responseType: api_api_pb.DelegatedResourceList,
+    requestSerialize: serialize_protocol_DelegatedResourceMessage,
+    requestDeserialize: deserialize_protocol_DelegatedResourceMessage,
+    responseSerialize: serialize_protocol_DelegatedResourceList,
+    responseDeserialize: deserialize_protocol_DelegatedResourceList,
+  },
+  getDelegatedResourceAccountIndex: {
+    path: '/protocol.Wallet/GetDelegatedResourceAccountIndex',
+    requestStream: false,
+    responseStream: false,
+    requestType: api_api_pb.BytesMessage,
+    responseType: core_Tron_pb.DelegatedResourceAccountIndex,
+    requestSerialize: serialize_protocol_BytesMessage,
+    requestDeserialize: deserialize_protocol_BytesMessage,
+    responseSerialize: serialize_protocol_DelegatedResourceAccountIndex,
+    responseDeserialize: deserialize_protocol_DelegatedResourceAccountIndex,
   },
   listProposals: {
     path: '/protocol.Wallet/ListProposals',
