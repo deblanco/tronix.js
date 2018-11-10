@@ -1,7 +1,7 @@
 const caller = require('grpc-caller');
 const { applyClassDecorator, requireAllParams } = require('../utils/decorators');
 const {
-  EmptyMessage, NumberMessage, BytesMessage, BlockLimit, EasyTransferMessage,
+  EmptyMessage, NumberMessage, BytesMessage, BlockLimit, EasyTransferMessage, PaginatedMessage
 } = require('../protocol/api/api_pb');
 const { WalletClient } = require('../protocol/api/api_grpc_pb');
 const { decode58Check } = require('../utils/crypto');
@@ -176,6 +176,22 @@ class GrpcClient {
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
     return sendTransaction.toObject();
+  }
+
+  async getPaginatedExchangeList(limit = 1000, offset = 0) {
+    const exchangeListParams = new PaginatedMessage();
+    exchangeListParams.setOffset(offset);
+    exchangeListParams.setLimit(limit);
+    const exchangeList = await this.api.getPaginatedExchangeList(exchangeListParams);
+    return exchangeList.toObject();
+  }
+
+  async getExchangeById(id) {
+
+    const idBytes = new BytesMessage();
+    idBytes.setValue(new Uint8Array(stringToBytes(id)));
+    const exchangeResult = await this.api.getExchangeById(idBytes);
+    return exchangeResult.toObject();
   }
 
   async createTransaction(priKey, from, to, amount) {
