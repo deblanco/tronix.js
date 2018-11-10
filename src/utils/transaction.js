@@ -1,6 +1,7 @@
 const {
   getBase58CheckAddress, decode58Check, SHA256, ECKeySign,
 } = require('./crypto');
+const { btoa } = require('./base64');
 const { longToByteArray, byteArray2hexStr, bytesToString } = require('./bytes');
 const { hexStr2byteArray } = require('../lib/code');
 const { Transaction } = require('../protocol/core/Tron_pb');
@@ -80,6 +81,7 @@ const TransactionFields = {
   toAddress(address) { return this.decodeAddress(address); },
   voteAddress(address) { return this.decodeAddress(address); },
   address(address) { return this.decodeAddress(address); },
+  data(data) { return Buffer.from(data, 'base64').toString('ascii'); },
   assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
   tokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
   firstTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
@@ -102,16 +104,18 @@ function decodeTransactionFields(transaction) {
 function deserializeTransaction(tx) {
   if (!tx) return null;
   try {
+    const transaction = tx.getRawData().toObject()
     const contract = tx.getRawData().getContractList()[0];
     const any = contract.getParameter();
     const contractType = contract.getType();
-    let transaction = any.unpack(ContractTable[contractType][0], ContractTable[contractType][1]);
-    transaction = transaction.toObject();
-    transaction.contractType = contractType;
-    transaction.hash = byteArray2hexStr(SHA256(tx.getRawData().serializeBinary())).toLowerCase();
-    transaction.time = tx.getRawData().getTimestamp();
-    transaction = decodeTransactionFields(transaction);
-    return transaction;
+    let transference = any.unpack(ContractTable[contractType][0], ContractTable[contractType][1]);
+    transference = transference.toObject();
+    transference.contractType = contractType;
+    transference.hash = byteArray2hexStr(SHA256(tx.getRawData().serializeBinary())).toLowerCase();
+    transference.time = tx.getRawData().getTimestamp();
+    transference.data = transaction.data;
+    transference = decodeTransactionFields(transference);
+    return transference;
   } catch (err) {
     throw err;
   }
@@ -130,19 +134,6 @@ function deserializeEasyTransfer(transferResult) {
 
 function encodeString(str) {
   return Uint8Array.from(base64DecodeFromString(btoa(str)));
-}
-
-// TODO find a better place.
-function btoa(str) {
-  let buffer;
-
-  if (str instanceof Buffer) {
-    buffer = str;
-  } else {
-    buffer = new Buffer(str.toString(), 'binary');
-  }
-
-  return buffer.toString('base64');
 }
 
 function buildTransferContract(message, contractType, typeName) {
@@ -493,6 +484,16 @@ function addBlockReferenceToTransaction(transaction, block) {
 }
 
 /**
+ * Add data message to a Transaction
+ * This is a needed step after building the transaction before signing the transaction it to the network.
+ * @param {Transaction} transaction a builded non-signed transaction
+ * @param {String} data the message that you want to stream with the transaction
+ */
+function addDataToTransaction(transaction, data) {
+  transaction.getRawData().setData(btoa(data));
+}
+
+/**
  * Sign A Transaction by priKey.
  * signature is 65 bytes, r[32] || s[32] || id[1](<27)
  * @returns  a Transaction object signed
@@ -531,6 +532,7 @@ module.exports = {
   buildWitnessCreateTransaction,
   buildUnfreezeAssetTransaction,
   addBlockReferenceToTransaction,
+  addDataToTransaction,
   signTransaction,
   decodeTransactionFields,
   deserializeTransaction,

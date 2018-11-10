@@ -1,3 +1,9 @@
+
+
+<div style="text-align: center;">
+<img src="tronix.png" width="250px" />
+</div>
+
 # tronix.js
 
 Javascript API for the Tron Protocol via GRPC
@@ -47,11 +53,8 @@ Find a full example of use below, It will build a full REST API of your node aut
 ## Credits
 
 * [Daniel Blanco](https://github.com/deblanco)
-* [Santiago de los Santos](http://github.com/santiagodls)
-* Special contributors
-  * [AngelMQ](https://github.com/AngelQuirogaM) 
-  * [Rovak](https://github.com/rovak) (Original project)
-
+* [AngelMQ](https://github.com/AngelQuirogaM) 
+* [Rovak](https://github.com/rovak) (Original project)
 
 ## License
 

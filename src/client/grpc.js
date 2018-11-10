@@ -12,10 +12,12 @@ const { deserializeBlock, deserializeBlocks } = require('../utils/block');
 const { deserializeAsset, deserializeAssets } = require('../utils/asset');
 const { deserializeAccount } = require('../utils/account');
 const { deserializeWitnesses } = require('../utils/witness');
+const { atob } = require('../utils/base64');
 const {
   deserializeTransaction, deserializeEasyTransfer, buildTransferTransaction,
   decodeTransactionFields, buildFreezeBalanceTransaction,
   buildVoteTransaction, addBlockReferenceToTransaction, signTransaction,
+  buildTransferAssetTransaction, addDataToTransaction,
 } = require('../utils/transaction');
 
 class GrpcClient {
@@ -46,7 +48,10 @@ class GrpcClient {
    */
   getNodes() {
     return this.api.listNodes(new EmptyMessage())
-      .then(x => x.getNodesList());
+      .then(x => x.getNodesList().map(node => ({
+        port: node.getAddress().getPort(),
+        host: atob(node.getAddress().getHost_asB64()),
+      })));
   }
 
   async getAssetIssueList() {
@@ -166,7 +171,10 @@ class GrpcClient {
     const referredTransaction = addBlockReferenceToTransaction(freezeTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
-    return sendTransaction.toObject();
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
   }
 
   async voteWitnessAccount(priKey, fromAddress, votes) {
@@ -175,7 +183,10 @@ class GrpcClient {
     const referredTransaction = addBlockReferenceToTransaction(voteTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
-    return sendTransaction.toObject();
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
   }
 
   async getPaginatedExchangeList(limit = 1000, offset = 0) {
@@ -194,13 +205,31 @@ class GrpcClient {
     return exchangeResult.toObject();
   }
 
-  async createTransaction(priKey, from, to, amount) {
+  async createTransaction(priKey, from, to, amount, data) {
+
     const transferContract = buildTransferTransaction(from, to, amount);
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
+    if (data) addDataToTransaction(transferContract, data);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
-    return sendTransaction.toObject();
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
+  }
+
+  async transferAsset(priKey, token, from, to, amount, data) {
+    const transferContract = buildTransferAssetTransaction(token, from, to, amount);
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
+    if (data) addDataToTransaction(transferContract, data);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
   }
 }
 
