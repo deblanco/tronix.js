@@ -80,7 +80,10 @@ const TransactionFields = {
   toAddress(address) { return this.decodeAddress(address); },
   voteAddress(address) { return this.decodeAddress(address); },
   address(address) { return this.decodeAddress(address); },
-  assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); }
+  assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
+  tokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
+  firstTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
+  secondTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
 };
 
 function decodeTransactionFields(transaction) {
