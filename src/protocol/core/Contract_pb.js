@@ -39,7 +39,6 @@ goog.exportSymbol('proto.protocol.UnfreezeBalanceContract', null, global);
 goog.exportSymbol('proto.protocol.UpdateAssetContract', null, global);
 goog.exportSymbol('proto.protocol.UpdateEnergyLimitContract', null, global);
 goog.exportSymbol('proto.protocol.UpdateSettingContract', null, global);
-goog.exportSymbol('proto.protocol.UpdateSettingForEnergyLimitContract', null, global);
 goog.exportSymbol('proto.protocol.VoteAssetContract', null, global);
 goog.exportSymbol('proto.protocol.VoteWitnessContract', null, global);
 goog.exportSymbol('proto.protocol.VoteWitnessContract.Vote', null, global);
@@ -2277,18 +2276,12 @@ proto.protocol.UpdateEnergyLimitContract.prototype.toObject = function(opt_inclu
   return proto.protocol.UpdateEnergyLimitContract.toObject(opt_includeInstance, this);
 };
 
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.protocol.UpdateSettingForEnergyLimitContract} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.protocol.UpdateSettingForEnergyLimitContract.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    ownerAddress: msg.getOwnerAddress_asB64(),
-    contractAddress: msg.getContractAddress_asB64(),
-    energyLimit: msg.getEnergyLimit_asB64()
-=======
  * @param {!proto.protocol.UpdateEnergyLimitContract} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
@@ -2298,7 +2291,6 @@ proto.protocol.UpdateEnergyLimitContract.toObject = function(includeInstance, ms
     ownerAddress: msg.getOwnerAddress_asB64(),
     contractAddress: msg.getContractAddress_asB64(),
     originEnergyLimit: jspb.Message.getFieldWithDefault(msg, 3, 0)
->>>>>>> 0961c645c59a891fdf169664f231a21a99b25724
   };
 
   if (includeInstance) {
@@ -2370,16 +2362,17 @@ proto.protocol.UpdateEnergyLimitContract.prototype.serializeBinary = function() 
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.protocol.UpdateSettingForEnergyLimitContract} message
+ * @param {!proto.protocol.UpdateEnergyLimitContract} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.serializeBinaryToWriter = function(message, writer) {
+proto.protocol.UpdateEnergyLimitContract.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getOwnerAddress_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       1,
+      f
     );
   }
   f = message.getContractAddress_asU8();

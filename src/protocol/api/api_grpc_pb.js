@@ -688,17 +688,6 @@ function deserialize_protocol_UpdateSettingContract(buffer_arg) {
   return core_Contract_pb.UpdateSettingContract.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_protocol_UpdateSettingForEnergyLimitContract(arg) {
-  if (!(arg instanceof core_Contract_pb.UpdateSettingForEnergyLimitContract)) {
-    throw new Error('Expected argument of type protocol.UpdateSettingForEnergyLimitContract');
-  }
-  return new Buffer(arg.serializeBinary());
-}
-
-function deserialize_protocol_UpdateSettingForEnergyLimitContract(buffer_arg) {
-  return core_Contract_pb.UpdateSettingForEnergyLimitContract.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
 function serialize_protocol_VoteWitnessContract(arg) {
   if (!(arg instanceof core_Contract_pb.VoteWitnessContract)) {
     throw new Error('Expected argument of type protocol.VoteWitnessContract');
