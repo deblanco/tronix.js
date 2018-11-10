@@ -28,6 +28,8 @@ goog.exportSymbol('proto.protocol.ChainInventory', null, global);
 goog.exportSymbol('proto.protocol.ChainInventory.BlockId', null, global);
 goog.exportSymbol('proto.protocol.ChainParameters', null, global);
 goog.exportSymbol('proto.protocol.ChainParameters.ChainParameter', null, global);
+goog.exportSymbol('proto.protocol.DelegatedResource', null, global);
+goog.exportSymbol('proto.protocol.DelegatedResourceAccountIndex', null, global);
 goog.exportSymbol('proto.protocol.DisconnectMessage', null, global);
 goog.exportSymbol('proto.protocol.DynamicProperties', null, global);
 goog.exportSymbol('proto.protocol.Exchange', null, global);
@@ -1642,6 +1644,8 @@ proto.protocol.Account.toObject = function(includeInstance, msg) {
     frozenList: jspb.Message.toObjectList(msg.getFrozenList(),
     proto.protocol.Account.Frozen.toObject, includeInstance),
     netUsage: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    acquiredDelegatedFrozenBalanceForBandwidth: jspb.Message.getFieldWithDefault(msg, 41, 0),
+    delegatedFrozenBalanceForBandwidth: jspb.Message.getFieldWithDefault(msg, 42, 0),
     createTime: jspb.Message.getFieldWithDefault(msg, 9, 0),
     latestOprationTime: jspb.Message.getFieldWithDefault(msg, 10, 0),
     allowance: jspb.Message.getFieldWithDefault(msg, 11, 0),
@@ -1731,6 +1735,14 @@ proto.protocol.Account.deserializeBinaryFromReader = function(msg, reader) {
     case 8:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setNetUsage(value);
+      break;
+    case 41:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setAcquiredDelegatedFrozenBalanceForBandwidth(value);
+      break;
+    case 42:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setDelegatedFrozenBalanceForBandwidth(value);
       break;
     case 9:
       var value = /** @type {number} */ (reader.readInt64());
@@ -1887,6 +1899,20 @@ proto.protocol.Account.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeInt64(
       8,
+      f
+    );
+  }
+  f = message.getAcquiredDelegatedFrozenBalanceForBandwidth();
+  if (f !== 0) {
+    writer.writeInt64(
+      41,
+      f
+    );
+  }
+  f = message.getDelegatedFrozenBalanceForBandwidth();
+  if (f !== 0) {
+    writer.writeInt64(
+      42,
       f
     );
   }
@@ -2227,6 +2253,8 @@ proto.protocol.Account.AccountResource.toObject = function(includeInstance, msg)
     energyUsage: jspb.Message.getFieldWithDefault(msg, 1, 0),
     frozenBalanceForEnergy: (f = msg.getFrozenBalanceForEnergy()) && proto.protocol.Account.Frozen.toObject(includeInstance, f),
     latestConsumeTimeForEnergy: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    acquiredDelegatedFrozenBalanceForEnergy: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    delegatedFrozenBalanceForEnergy: jspb.Message.getFieldWithDefault(msg, 5, 0),
     storageLimit: jspb.Message.getFieldWithDefault(msg, 6, 0),
     storageUsage: jspb.Message.getFieldWithDefault(msg, 7, 0),
     latestExchangeStorageTime: jspb.Message.getFieldWithDefault(msg, 8, 0)
@@ -2278,6 +2306,14 @@ proto.protocol.Account.AccountResource.deserializeBinaryFromReader = function(ms
     case 3:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setLatestConsumeTimeForEnergy(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setAcquiredDelegatedFrozenBalanceForEnergy(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setDelegatedFrozenBalanceForEnergy(value);
       break;
     case 6:
       var value = /** @type {number} */ (reader.readInt64());
@@ -2339,6 +2375,20 @@ proto.protocol.Account.AccountResource.serializeBinaryToWriter = function(messag
   if (f !== 0) {
     writer.writeInt64(
       3,
+      f
+    );
+  }
+  f = message.getAcquiredDelegatedFrozenBalanceForEnergy();
+  if (f !== 0) {
+    writer.writeInt64(
+      4,
+      f
+    );
+  }
+  f = message.getDelegatedFrozenBalanceForEnergy();
+  if (f !== 0) {
+    writer.writeInt64(
+      5,
       f
     );
   }
@@ -2423,6 +2473,36 @@ proto.protocol.Account.AccountResource.prototype.getLatestConsumeTimeForEnergy =
 /** @param {number} value */
 proto.protocol.Account.AccountResource.prototype.setLatestConsumeTimeForEnergy = function(value) {
   jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional int64 acquired_delegated_frozen_balance_for_energy = 4;
+ * @return {number}
+ */
+proto.protocol.Account.AccountResource.prototype.getAcquiredDelegatedFrozenBalanceForEnergy = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.Account.AccountResource.prototype.setAcquiredDelegatedFrozenBalanceForEnergy = function(value) {
+  jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional int64 delegated_frozen_balance_for_energy = 5;
+ * @return {number}
+ */
+proto.protocol.Account.AccountResource.prototype.getDelegatedFrozenBalanceForEnergy = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.Account.AccountResource.prototype.setDelegatedFrozenBalanceForEnergy = function(value) {
+  jspb.Message.setProto3IntField(this, 5, value);
 };
 
 
@@ -2671,6 +2751,36 @@ proto.protocol.Account.prototype.getNetUsage = function() {
 /** @param {number} value */
 proto.protocol.Account.prototype.setNetUsage = function(value) {
   jspb.Message.setProto3IntField(this, 8, value);
+};
+
+
+/**
+ * optional int64 acquired_delegated_frozen_balance_for_bandwidth = 41;
+ * @return {number}
+ */
+proto.protocol.Account.prototype.getAcquiredDelegatedFrozenBalanceForBandwidth = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 41, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.Account.prototype.setAcquiredDelegatedFrozenBalanceForBandwidth = function(value) {
+  jspb.Message.setProto3IntField(this, 41, value);
+};
+
+
+/**
+ * optional int64 delegated_frozen_balance_for_bandwidth = 42;
+ * @return {number}
+ */
+proto.protocol.Account.prototype.getDelegatedFrozenBalanceForBandwidth = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 42, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.Account.prototype.setDelegatedFrozenBalanceForBandwidth = function(value) {
+  jspb.Message.setProto3IntField(this, 42, value);
 };
 
 
@@ -3063,6 +3173,331 @@ proto.protocol.Account.prototype.getCodehash_asU8 = function() {
 /** @param {!(string|Uint8Array)} value */
 proto.protocol.Account.prototype.setCodehash = function(value) {
   jspb.Message.setProto3BytesField(this, 30, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protocol.DelegatedResource = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.protocol.DelegatedResource, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.protocol.DelegatedResource.displayName = 'proto.protocol.DelegatedResource';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protocol.DelegatedResource.prototype.toObject = function(opt_includeInstance) {
+  return proto.protocol.DelegatedResource.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protocol.DelegatedResource} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.DelegatedResource.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    from: msg.getFrom_asB64(),
+    to: msg.getTo_asB64(),
+    frozenBalanceForBandwidth: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    frozenBalanceForEnergy: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    expireTimeForBandwidth: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    expireTimeForEnergy: jspb.Message.getFieldWithDefault(msg, 6, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protocol.DelegatedResource}
+ */
+proto.protocol.DelegatedResource.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protocol.DelegatedResource;
+  return proto.protocol.DelegatedResource.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protocol.DelegatedResource} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protocol.DelegatedResource}
+ */
+proto.protocol.DelegatedResource.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setFrom(value);
+      break;
+    case 2:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setTo(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setFrozenBalanceForBandwidth(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setFrozenBalanceForEnergy(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setExpireTimeForBandwidth(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setExpireTimeForEnergy(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protocol.DelegatedResource.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protocol.DelegatedResource.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protocol.DelegatedResource} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.DelegatedResource.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getFrom_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      1,
+      f
+    );
+  }
+  f = message.getTo_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      2,
+      f
+    );
+  }
+  f = message.getFrozenBalanceForBandwidth();
+  if (f !== 0) {
+    writer.writeInt64(
+      3,
+      f
+    );
+  }
+  f = message.getFrozenBalanceForEnergy();
+  if (f !== 0) {
+    writer.writeInt64(
+      4,
+      f
+    );
+  }
+  f = message.getExpireTimeForBandwidth();
+  if (f !== 0) {
+    writer.writeInt64(
+      5,
+      f
+    );
+  }
+  f = message.getExpireTimeForEnergy();
+  if (f !== 0) {
+    writer.writeInt64(
+      6,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional bytes from = 1;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.DelegatedResource.prototype.getFrom = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * optional bytes from = 1;
+ * This is a type-conversion wrapper around `getFrom()`
+ * @return {string}
+ */
+proto.protocol.DelegatedResource.prototype.getFrom_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getFrom()));
+};
+
+
+/**
+ * optional bytes from = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getFrom()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.DelegatedResource.prototype.getFrom_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getFrom()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.DelegatedResource.prototype.setFrom = function(value) {
+  jspb.Message.setProto3BytesField(this, 1, value);
+};
+
+
+/**
+ * optional bytes to = 2;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.DelegatedResource.prototype.getTo = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * optional bytes to = 2;
+ * This is a type-conversion wrapper around `getTo()`
+ * @return {string}
+ */
+proto.protocol.DelegatedResource.prototype.getTo_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getTo()));
+};
+
+
+/**
+ * optional bytes to = 2;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getTo()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.DelegatedResource.prototype.getTo_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getTo()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.DelegatedResource.prototype.setTo = function(value) {
+  jspb.Message.setProto3BytesField(this, 2, value);
+};
+
+
+/**
+ * optional int64 frozen_balance_for_bandwidth = 3;
+ * @return {number}
+ */
+proto.protocol.DelegatedResource.prototype.getFrozenBalanceForBandwidth = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.DelegatedResource.prototype.setFrozenBalanceForBandwidth = function(value) {
+  jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional int64 frozen_balance_for_energy = 4;
+ * @return {number}
+ */
+proto.protocol.DelegatedResource.prototype.getFrozenBalanceForEnergy = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.DelegatedResource.prototype.setFrozenBalanceForEnergy = function(value) {
+  jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional int64 expire_time_for_bandwidth = 5;
+ * @return {number}
+ */
+proto.protocol.DelegatedResource.prototype.getExpireTimeForBandwidth = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.DelegatedResource.prototype.setExpireTimeForBandwidth = function(value) {
+  jspb.Message.setProto3IntField(this, 5, value);
+};
+
+
+/**
+ * optional int64 expire_time_for_energy = 6;
+ * @return {number}
+ */
+proto.protocol.DelegatedResource.prototype.getExpireTimeForEnergy = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.DelegatedResource.prototype.setExpireTimeForEnergy = function(value) {
+  jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
@@ -5586,7 +6021,8 @@ proto.protocol.Transaction.Contract.ContractType = {
   EXCHANGECREATECONTRACT: 41,
   EXCHANGEINJECTCONTRACT: 42,
   EXCHANGEWITHDRAWCONTRACT: 43,
-  EXCHANGETRANSACTIONCONTRACT: 44
+  EXCHANGETRANSACTIONCONTRACT: 44,
+  UPDATEENERGYLIMITCONTRACT: 45
 };
 
 /**
@@ -10921,7 +11357,7 @@ proto.protocol.SmartContract.toObject = function(includeInstance, msg) {
     callValue: jspb.Message.getFieldWithDefault(msg, 5, 0),
     consumeUserResourcePercent: jspb.Message.getFieldWithDefault(msg, 6, 0),
     name: jspb.Message.getFieldWithDefault(msg, 7, ""),
-    energyLimit: jspb.Message.getFieldWithDefault(msg, 8, 0)
+    originEnergyLimit: jspb.Message.getFieldWithDefault(msg, 8, 0)
   };
 
   if (includeInstance) {
@@ -10989,7 +11425,7 @@ proto.protocol.SmartContract.deserializeBinaryFromReader = function(msg, reader)
       break;
     case 8:
       var value = /** @type {number} */ (reader.readInt64());
-      msg.setEnergyLimit(value);
+      msg.setOriginEnergyLimit(value);
       break;
     default:
       reader.skipField();
@@ -11070,7 +11506,7 @@ proto.protocol.SmartContract.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-  f = message.getEnergyLimit();
+  f = message.getOriginEnergyLimit();
   if (f !== 0) {
     writer.writeInt64(
       8,
@@ -12043,16 +12479,16 @@ proto.protocol.SmartContract.prototype.setName = function(value) {
 
 
 /**
- * optional int64 energy_limit = 8;
+ * optional int64 origin_energy_limit = 8;
  * @return {number}
  */
-proto.protocol.SmartContract.prototype.getEnergyLimit = function() {
+proto.protocol.SmartContract.prototype.getOriginEnergyLimit = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
 
 /** @param {number} value */
-proto.protocol.SmartContract.prototype.setEnergyLimit = function(value) {
+proto.protocol.SmartContract.prototype.setOriginEnergyLimit = function(value) {
   jspb.Message.setProto3IntField(this, 8, value);
 };
 
@@ -12648,6 +13084,309 @@ proto.protocol.InternalTransaction.prototype.getRejected = function() {
 /** @param {boolean} value */
 proto.protocol.InternalTransaction.prototype.setRejected = function(value) {
   jspb.Message.setProto3BooleanField(this, 6, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.protocol.DelegatedResourceAccountIndex = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.protocol.DelegatedResourceAccountIndex.repeatedFields_, null);
+};
+goog.inherits(proto.protocol.DelegatedResourceAccountIndex, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.protocol.DelegatedResourceAccountIndex.displayName = 'proto.protocol.DelegatedResourceAccountIndex';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.protocol.DelegatedResourceAccountIndex.repeatedFields_ = [2,3];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.toObject = function(opt_includeInstance) {
+  return proto.protocol.DelegatedResourceAccountIndex.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.protocol.DelegatedResourceAccountIndex} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.DelegatedResourceAccountIndex.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    account: msg.getAccount_asB64(),
+    fromaccountsList: msg.getFromaccountsList_asB64(),
+    toaccountsList: msg.getToaccountsList_asB64()
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.protocol.DelegatedResourceAccountIndex}
+ */
+proto.protocol.DelegatedResourceAccountIndex.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.protocol.DelegatedResourceAccountIndex;
+  return proto.protocol.DelegatedResourceAccountIndex.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.protocol.DelegatedResourceAccountIndex} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.protocol.DelegatedResourceAccountIndex}
+ */
+proto.protocol.DelegatedResourceAccountIndex.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setAccount(value);
+      break;
+    case 2:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.addFromaccounts(value);
+      break;
+    case 3:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.addToaccounts(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.protocol.DelegatedResourceAccountIndex.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.protocol.DelegatedResourceAccountIndex} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.DelegatedResourceAccountIndex.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getAccount_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      1,
+      f
+    );
+  }
+  f = message.getFromaccountsList_asU8();
+  if (f.length > 0) {
+    writer.writeRepeatedBytes(
+      2,
+      f
+    );
+  }
+  f = message.getToaccountsList_asU8();
+  if (f.length > 0) {
+    writer.writeRepeatedBytes(
+      3,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional bytes account = 1;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getAccount = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * optional bytes account = 1;
+ * This is a type-conversion wrapper around `getAccount()`
+ * @return {string}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getAccount_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getAccount()));
+};
+
+
+/**
+ * optional bytes account = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getAccount()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getAccount_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getAccount()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.DelegatedResourceAccountIndex.prototype.setAccount = function(value) {
+  jspb.Message.setProto3BytesField(this, 1, value);
+};
+
+
+/**
+ * repeated bytes fromAccounts = 2;
+ * @return {!(Array<!Uint8Array>|Array<string>)}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getFromaccountsList = function() {
+  return /** @type {!(Array<!Uint8Array>|Array<string>)} */ (jspb.Message.getRepeatedField(this, 2));
+};
+
+
+/**
+ * repeated bytes fromAccounts = 2;
+ * This is a type-conversion wrapper around `getFromaccountsList()`
+ * @return {!Array.<string>}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getFromaccountsList_asB64 = function() {
+  return /** @type {!Array.<string>} */ (jspb.Message.bytesListAsB64(
+      this.getFromaccountsList()));
+};
+
+
+/**
+ * repeated bytes fromAccounts = 2;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getFromaccountsList()`
+ * @return {!Array.<!Uint8Array>}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getFromaccountsList_asU8 = function() {
+  return /** @type {!Array.<!Uint8Array>} */ (jspb.Message.bytesListAsU8(
+      this.getFromaccountsList()));
+};
+
+
+/** @param {!(Array<!Uint8Array>|Array<string>)} value */
+proto.protocol.DelegatedResourceAccountIndex.prototype.setFromaccountsList = function(value) {
+  jspb.Message.setField(this, 2, value || []);
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @param {number=} opt_index
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.addFromaccounts = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 2, value, opt_index);
+};
+
+
+proto.protocol.DelegatedResourceAccountIndex.prototype.clearFromaccountsList = function() {
+  this.setFromaccountsList([]);
+};
+
+
+/**
+ * repeated bytes toAccounts = 3;
+ * @return {!(Array<!Uint8Array>|Array<string>)}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getToaccountsList = function() {
+  return /** @type {!(Array<!Uint8Array>|Array<string>)} */ (jspb.Message.getRepeatedField(this, 3));
+};
+
+
+/**
+ * repeated bytes toAccounts = 3;
+ * This is a type-conversion wrapper around `getToaccountsList()`
+ * @return {!Array.<string>}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getToaccountsList_asB64 = function() {
+  return /** @type {!Array.<string>} */ (jspb.Message.bytesListAsB64(
+      this.getToaccountsList()));
+};
+
+
+/**
+ * repeated bytes toAccounts = 3;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getToaccountsList()`
+ * @return {!Array.<!Uint8Array>}
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.getToaccountsList_asU8 = function() {
+  return /** @type {!Array.<!Uint8Array>} */ (jspb.Message.bytesListAsU8(
+      this.getToaccountsList()));
+};
+
+
+/** @param {!(Array<!Uint8Array>|Array<string>)} value */
+proto.protocol.DelegatedResourceAccountIndex.prototype.setToaccountsList = function(value) {
+  jspb.Message.setField(this, 3, value || []);
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @param {number=} opt_index
+ */
+proto.protocol.DelegatedResourceAccountIndex.prototype.addToaccounts = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 3, value, opt_index);
+};
+
+
+proto.protocol.DelegatedResourceAccountIndex.prototype.clearToaccountsList = function() {
+  this.setToaccountsList([]);
 };
 
 

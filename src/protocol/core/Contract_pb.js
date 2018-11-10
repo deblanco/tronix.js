@@ -37,6 +37,7 @@ goog.exportSymbol('proto.protocol.TriggerSmartContract', null, global);
 goog.exportSymbol('proto.protocol.UnfreezeAssetContract', null, global);
 goog.exportSymbol('proto.protocol.UnfreezeBalanceContract', null, global);
 goog.exportSymbol('proto.protocol.UpdateAssetContract', null, global);
+goog.exportSymbol('proto.protocol.UpdateEnergyLimitContract', null, global);
 goog.exportSymbol('proto.protocol.UpdateSettingContract', null, global);
 goog.exportSymbol('proto.protocol.UpdateSettingForEnergyLimitContract', null, global);
 goog.exportSymbol('proto.protocol.VoteAssetContract', null, global);
@@ -2252,12 +2253,12 @@ proto.protocol.UpdateSettingContract.prototype.setConsumeUserResourcePercent = f
  * @extends {jspb.Message}
  * @constructor
  */
-proto.protocol.UpdateSettingForEnergyLimitContract = function(opt_data) {
+proto.protocol.UpdateEnergyLimitContract = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.protocol.UpdateSettingForEnergyLimitContract, jspb.Message);
+goog.inherits(proto.protocol.UpdateEnergyLimitContract, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.protocol.UpdateSettingForEnergyLimitContract.displayName = 'proto.protocol.UpdateSettingForEnergyLimitContract';
+  proto.protocol.UpdateEnergyLimitContract.displayName = 'proto.protocol.UpdateEnergyLimitContract';
 }
 
 
@@ -2272,14 +2273,10 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.toObject = function(opt_includeInstance) {
-  return proto.protocol.UpdateSettingForEnergyLimitContract.toObject(opt_includeInstance, this);
+proto.protocol.UpdateEnergyLimitContract.prototype.toObject = function(opt_includeInstance) {
+  return proto.protocol.UpdateEnergyLimitContract.toObject(opt_includeInstance, this);
 };
 
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
  * @param {!proto.protocol.UpdateSettingForEnergyLimitContract} msg The msg instance to transform.
@@ -2291,6 +2288,17 @@ proto.protocol.UpdateSettingForEnergyLimitContract.toObject = function(includeIn
     ownerAddress: msg.getOwnerAddress_asB64(),
     contractAddress: msg.getContractAddress_asB64(),
     energyLimit: msg.getEnergyLimit_asB64()
+=======
+ * @param {!proto.protocol.UpdateEnergyLimitContract} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.protocol.UpdateEnergyLimitContract.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    ownerAddress: msg.getOwnerAddress_asB64(),
+    contractAddress: msg.getContractAddress_asB64(),
+    originEnergyLimit: jspb.Message.getFieldWithDefault(msg, 3, 0)
+>>>>>>> 0961c645c59a891fdf169664f231a21a99b25724
   };
 
   if (includeInstance) {
@@ -2304,23 +2312,23 @@ proto.protocol.UpdateSettingForEnergyLimitContract.toObject = function(includeIn
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.protocol.UpdateSettingForEnergyLimitContract}
+ * @return {!proto.protocol.UpdateEnergyLimitContract}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.deserializeBinary = function(bytes) {
+proto.protocol.UpdateEnergyLimitContract.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.protocol.UpdateSettingForEnergyLimitContract;
-  return proto.protocol.UpdateSettingForEnergyLimitContract.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.protocol.UpdateEnergyLimitContract;
+  return proto.protocol.UpdateEnergyLimitContract.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.protocol.UpdateSettingForEnergyLimitContract} msg The message object to deserialize into.
+ * @param {!proto.protocol.UpdateEnergyLimitContract} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.protocol.UpdateSettingForEnergyLimitContract}
+ * @return {!proto.protocol.UpdateEnergyLimitContract}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.deserializeBinaryFromReader = function(msg, reader) {
+proto.protocol.UpdateEnergyLimitContract.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2336,8 +2344,8 @@ proto.protocol.UpdateSettingForEnergyLimitContract.deserializeBinaryFromReader =
       msg.setContractAddress(value);
       break;
     case 3:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setEnergyLimit(value);
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setOriginEnergyLimit(value);
       break;
     default:
       reader.skipField();
@@ -2352,9 +2360,9 @@ proto.protocol.UpdateSettingForEnergyLimitContract.deserializeBinaryFromReader =
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.serializeBinary = function() {
+proto.protocol.UpdateEnergyLimitContract.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.protocol.UpdateSettingForEnergyLimitContract.serializeBinaryToWriter(this, writer);
+  proto.protocol.UpdateEnergyLimitContract.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -2372,7 +2380,6 @@ proto.protocol.UpdateSettingForEnergyLimitContract.serializeBinaryToWriter = fun
   if (f.length > 0) {
     writer.writeBytes(
       1,
-      f
     );
   }
   f = message.getContractAddress_asU8();
@@ -2382,9 +2389,9 @@ proto.protocol.UpdateSettingForEnergyLimitContract.serializeBinaryToWriter = fun
       f
     );
   }
-  f = message.getEnergyLimit_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
+  f = message.getOriginEnergyLimit();
+  if (f !== 0) {
+    writer.writeInt64(
       3,
       f
     );
@@ -2396,7 +2403,7 @@ proto.protocol.UpdateSettingForEnergyLimitContract.serializeBinaryToWriter = fun
  * optional bytes owner_address = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getOwnerAddress = function() {
+proto.protocol.UpdateEnergyLimitContract.prototype.getOwnerAddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -2406,7 +2413,7 @@ proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getOwnerAddress = f
  * This is a type-conversion wrapper around `getOwnerAddress()`
  * @return {string}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getOwnerAddress_asB64 = function() {
+proto.protocol.UpdateEnergyLimitContract.prototype.getOwnerAddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getOwnerAddress()));
 };
@@ -2419,14 +2426,14 @@ proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getOwnerAddress_asB
  * This is a type-conversion wrapper around `getOwnerAddress()`
  * @return {!Uint8Array}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getOwnerAddress_asU8 = function() {
+proto.protocol.UpdateEnergyLimitContract.prototype.getOwnerAddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getOwnerAddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.setOwnerAddress = function(value) {
+proto.protocol.UpdateEnergyLimitContract.prototype.setOwnerAddress = function(value) {
   jspb.Message.setProto3BytesField(this, 1, value);
 };
 
@@ -2435,7 +2442,7 @@ proto.protocol.UpdateSettingForEnergyLimitContract.prototype.setOwnerAddress = f
  * optional bytes contract_address = 2;
  * @return {!(string|Uint8Array)}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getContractAddress = function() {
+proto.protocol.UpdateEnergyLimitContract.prototype.getContractAddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -2445,7 +2452,7 @@ proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getContractAddress 
  * This is a type-conversion wrapper around `getContractAddress()`
  * @return {string}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getContractAddress_asB64 = function() {
+proto.protocol.UpdateEnergyLimitContract.prototype.getContractAddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getContractAddress()));
 };
@@ -2458,54 +2465,30 @@ proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getContractAddress_
  * This is a type-conversion wrapper around `getContractAddress()`
  * @return {!Uint8Array}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getContractAddress_asU8 = function() {
+proto.protocol.UpdateEnergyLimitContract.prototype.getContractAddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getContractAddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.setContractAddress = function(value) {
+proto.protocol.UpdateEnergyLimitContract.prototype.setContractAddress = function(value) {
   jspb.Message.setProto3BytesField(this, 2, value);
 };
 
 
 /**
- * optional bytes energy_limit = 3;
- * @return {!(string|Uint8Array)}
+ * optional int64 origin_energy_limit = 3;
+ * @return {number}
  */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getEnergyLimit = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+proto.protocol.UpdateEnergyLimitContract.prototype.getOriginEnergyLimit = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
-/**
- * optional bytes energy_limit = 3;
- * This is a type-conversion wrapper around `getEnergyLimit()`
- * @return {string}
- */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getEnergyLimit_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getEnergyLimit()));
-};
-
-
-/**
- * optional bytes energy_limit = 3;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getEnergyLimit()`
- * @return {!Uint8Array}
- */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.getEnergyLimit_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getEnergyLimit()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.protocol.UpdateSettingForEnergyLimitContract.prototype.setEnergyLimit = function(value) {
-  jspb.Message.setProto3BytesField(this, 3, value);
+/** @param {number} value */
+proto.protocol.UpdateEnergyLimitContract.prototype.setOriginEnergyLimit = function(value) {
+  jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -4177,7 +4160,8 @@ proto.protocol.FreezeBalanceContract.toObject = function(includeInstance, msg) {
     ownerAddress: msg.getOwnerAddress_asB64(),
     frozenBalance: jspb.Message.getFieldWithDefault(msg, 2, 0),
     frozenDuration: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    resource: jspb.Message.getFieldWithDefault(msg, 10, 0)
+    resource: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    receiverAddress: msg.getReceiverAddress_asB64()
   };
 
   if (includeInstance) {
@@ -4229,6 +4213,10 @@ proto.protocol.FreezeBalanceContract.deserializeBinaryFromReader = function(msg,
     case 10:
       var value = /** @type {!proto.protocol.ResourceCode} */ (reader.readEnum());
       msg.setResource(value);
+      break;
+    case 15:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setReceiverAddress(value);
       break;
     default:
       reader.skipField();
@@ -4284,6 +4272,13 @@ proto.protocol.FreezeBalanceContract.serializeBinaryToWriter = function(message,
   if (f !== 0.0) {
     writer.writeEnum(
       10,
+      f
+    );
+  }
+  f = message.getReceiverAddress_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      15,
       f
     );
   }
@@ -4374,6 +4369,45 @@ proto.protocol.FreezeBalanceContract.prototype.setResource = function(value) {
 };
 
 
+/**
+ * optional bytes receiver_address = 15;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.FreezeBalanceContract.prototype.getReceiverAddress = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
+};
+
+
+/**
+ * optional bytes receiver_address = 15;
+ * This is a type-conversion wrapper around `getReceiverAddress()`
+ * @return {string}
+ */
+proto.protocol.FreezeBalanceContract.prototype.getReceiverAddress_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getReceiverAddress()));
+};
+
+
+/**
+ * optional bytes receiver_address = 15;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getReceiverAddress()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.FreezeBalanceContract.prototype.getReceiverAddress_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getReceiverAddress()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.FreezeBalanceContract.prototype.setReceiverAddress = function(value) {
+  jspb.Message.setProto3BytesField(this, 15, value);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -4422,7 +4456,8 @@ proto.protocol.UnfreezeBalanceContract.prototype.toObject = function(opt_include
 proto.protocol.UnfreezeBalanceContract.toObject = function(includeInstance, msg) {
   var f, obj = {
     ownerAddress: msg.getOwnerAddress_asB64(),
-    resource: jspb.Message.getFieldWithDefault(msg, 10, 0)
+    resource: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    receiverAddress: msg.getReceiverAddress_asB64()
   };
 
   if (includeInstance) {
@@ -4467,6 +4502,10 @@ proto.protocol.UnfreezeBalanceContract.deserializeBinaryFromReader = function(ms
       var value = /** @type {!proto.protocol.ResourceCode} */ (reader.readEnum());
       msg.setResource(value);
       break;
+    case 15:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setReceiverAddress(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -4507,6 +4546,13 @@ proto.protocol.UnfreezeBalanceContract.serializeBinaryToWriter = function(messag
   if (f !== 0.0) {
     writer.writeEnum(
       10,
+      f
+    );
+  }
+  f = message.getReceiverAddress_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      15,
       f
     );
   }
@@ -4564,6 +4610,45 @@ proto.protocol.UnfreezeBalanceContract.prototype.getResource = function() {
 /** @param {!proto.protocol.ResourceCode} value */
 proto.protocol.UnfreezeBalanceContract.prototype.setResource = function(value) {
   jspb.Message.setProto3EnumField(this, 10, value);
+};
+
+
+/**
+ * optional bytes receiver_address = 15;
+ * @return {!(string|Uint8Array)}
+ */
+proto.protocol.UnfreezeBalanceContract.prototype.getReceiverAddress = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
+};
+
+
+/**
+ * optional bytes receiver_address = 15;
+ * This is a type-conversion wrapper around `getReceiverAddress()`
+ * @return {string}
+ */
+proto.protocol.UnfreezeBalanceContract.prototype.getReceiverAddress_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getReceiverAddress()));
+};
+
+
+/**
+ * optional bytes receiver_address = 15;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getReceiverAddress()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.UnfreezeBalanceContract.prototype.getReceiverAddress_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getReceiverAddress()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.UnfreezeBalanceContract.prototype.setReceiverAddress = function(value) {
+  jspb.Message.setProto3BytesField(this, 15, value);
 };
 
 
