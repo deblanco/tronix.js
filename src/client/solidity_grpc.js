@@ -69,10 +69,20 @@ class SolidityGrpcClient {
 
   /**
    * Retrieve latest block
-   *
+   * @deprecated
    * @returns {Promise<*>}
    */
   async getLatestBlock() {
+    const lastBlockRaw = await this.api.getNowBlock(new EmptyMessage());
+    return deserializeBlock(lastBlockRaw);
+  }
+
+  /**
+   * Retrieve latest block
+   *
+   * @returns {Promise<*>}
+   */
+  async getNowBlock() {
     const lastBlockRaw = await this.api.getNowBlock(new EmptyMessage());
     return deserializeBlock(lastBlockRaw);
   }
