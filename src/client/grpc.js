@@ -5,7 +5,7 @@ const {
 } = require('../protocol/api/api_pb');
 const { WalletClient } = require('../protocol/api/api_grpc_pb');
 const { decode58Check } = require('../utils/crypto');
-const { bytesToString } = require('../utils/bytes');
+const { bytesToString, longToByteArray } = require('../utils/bytes');
 const { Account } = require('../protocol/core/Tron_pb');
 const { stringToBytes, hexStr2byteArray, base64DecodeFromString } = require('../lib/code');
 const { deserializeBlock, deserializeBlocks } = require('../utils/block');
@@ -204,11 +204,10 @@ class GrpcClient {
   }
 
   async getExchangeById(id) {
-
     const idBytes = new BytesMessage();
-    idBytes.setValue(new Uint8Array(stringToBytes(id)));
+    idBytes.setValue(new Uint8Array(longToByteArray(id).reverse()));
     const exchangeResult = await this.api.getExchangeById(idBytes);
-    return exchangeResult.toObject();
+    return decodeTransactionFields(exchangeResult.toObject());
   }
 
   async createTransaction(priKey, from, to, amount, data) {
