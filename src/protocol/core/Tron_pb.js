@@ -12738,7 +12738,7 @@ proto.protocol.InternalTransaction.CallValueInfo.prototype.toObject = function(o
 proto.protocol.InternalTransaction.CallValueInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
     callvalue: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    tokenname: msg.getTokenname_asB64()
+    tokenid: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -12780,8 +12780,8 @@ proto.protocol.InternalTransaction.CallValueInfo.deserializeBinaryFromReader = f
       msg.setCallvalue(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setTokenname(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTokenid(value);
       break;
     default:
       reader.skipField();
@@ -12819,9 +12819,9 @@ proto.protocol.InternalTransaction.CallValueInfo.serializeBinaryToWriter = funct
       f
     );
   }
-  f = message.getTokenname_asU8();
+  f = message.getTokenid();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       2,
       f
     );
@@ -12845,41 +12845,17 @@ proto.protocol.InternalTransaction.CallValueInfo.prototype.setCallvalue = functi
 
 
 /**
- * optional bytes tokenName = 2;
- * @return {!(string|Uint8Array)}
- */
-proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * optional bytes tokenName = 2;
- * This is a type-conversion wrapper around `getTokenname()`
+ * optional string tokenId = 2;
  * @return {string}
  */
-proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getTokenname()));
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/**
- * optional bytes tokenName = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getTokenname()`
- * @return {!Uint8Array}
- */
-proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getTokenname()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.protocol.InternalTransaction.CallValueInfo.prototype.setTokenname = function(value) {
-  jspb.Message.setProto3BytesField(this, 2, value);
+/** @param {string} value */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.setTokenid = function(value) {
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
