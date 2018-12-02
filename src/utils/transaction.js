@@ -376,6 +376,27 @@ function buildAssetIssueTransaction(options) {
 }
 
 /**
+ * Asset update transaction
+ * @param {object} options options list
+ *
+ */
+function builUpdateAssetTransaction(options) {
+  const contract = new UpdateAssetContract();
+  contract.setOwnerAddress(Uint8Array.from(decode58Check(options.address)));
+  contract.setUrl(encodeString(options.url));
+  contract.setDescription(encodeString(options.description));
+  //TODO newLimit & newPublicLimit?
+
+  const transaction = buildTransferContract(
+    contract,
+    Transaction.Contract.ContractType.UPDATEASSETCONTRACT,
+    'UpdateAssetContract',
+  );
+
+  return transaction;
+}
+
+/**
  * Freeze balance
  *
  * @param address From which address to freze
@@ -528,6 +549,7 @@ module.exports = {
   buildFreezeBalanceTransaction,
   buildUnfreezeBalanceTransaction,
   buildAssetIssueTransaction,
+  builUpdateAssetTransaction,
   buildWitnessUpdateTransaction,
   buildWithdrawBalanceTransaction,
   buildWitnessCreateTransaction,
