@@ -1,5 +1,10 @@
 const { byteArray2hexStr, bytesToString } = require('./bytes');
-const { getBase58CheckAddress, genPriKey, getAddressFromPriKey } = require('./crypto');
+const {
+  getBase58CheckAddress,
+  genPriKey,
+  pkToAddress,
+  getAddressFromPriKey,
+} = require('./crypto');
 const { base64DecodeFromString } = require('../lib/code');
 
 /**
@@ -15,6 +20,10 @@ function generateAccount() {
     privateKey,
     address,
   };
+}
+
+function getAddressFromPrivateKey(privateKey) {
+  return pkToAddress(privateKey);
 }
 
 function deserializeAccount(accountRaw) {
@@ -41,4 +50,5 @@ function deserializeAccount(accountRaw) {
 module.exports = {
   generateAccount,
   deserializeAccount,
+  getAddressFromPrivateKey,
 };

@@ -1,11 +1,9 @@
-const { ADDRESS_PREFIX, ADDRESS_PREFIX_BYTE } = require('./address');
-const base64EncodeToString = require('../lib/code').base64EncodeToString;
-const { base64DecodeFromString, hexStr2byteArray } = require('../lib/code');
+const { ADDRESS_SIZE, ADDRESS_PREFIX, ADDRESS_PREFIX_BYTE } = require('./address');
+const { base64DecodeFromString, hexStr2byteArray, base64EncodeToString } = require('../lib/code');
 const { encode58, decode58 } = require('../lib/base58');
 const EC = require('elliptic').ec;
 const { keccak256 } = require('js-sha3');
 const jsSHA = require('../lib/sha256');
-const ADDRESS_SIZE = require('./address').ADDRESS_SIZE;
 const { byte2hexStr, byteArray2hexStr } = require('./bytes');
 
 function arrayToBase64String(a) {
@@ -220,6 +218,7 @@ module.exports = {
   getAddressFromPriKey,
   getPubKeyFromPriKey,
   getBase58CheckAddress,
+  getAddressFromPriKeyBase64String,
   isAddressValid,
   getBase58CheckAddressFromPriKeyBase64String,
   pkToAddress,
