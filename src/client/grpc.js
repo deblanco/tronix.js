@@ -79,6 +79,18 @@ class GrpcClient {
     return deserializeAccount(accountRaw);
   }
 
+  /** 
+   * Retrieve an account resource information
+   *
+   * @returns {Promise<*>}
+  */
+  async getAccountResource(address) {
+    const accountArg = new Account();
+    accountArg.setAddress(new Uint8Array(decode58Check(address)));
+    const accountRaw = await this.api.getAccountResource(accountArg);
+    return accountRaw.toObject();
+  }
+
   /**
    * Retrieves a block by the given number
    *
