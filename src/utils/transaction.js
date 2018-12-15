@@ -147,6 +147,7 @@ function buildTransferContract(message, contractType, typeName) {
 
   const raw = new Transaction.raw();
   raw.addContract(contract);
+  raw.setTimestamp((new Date()).getTime());
 
   const transaction = new Transaction();
   transaction.setRawData(raw);
