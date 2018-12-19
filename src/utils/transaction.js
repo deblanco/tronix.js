@@ -442,9 +442,9 @@ function buildUnfreezeBalanceTransaction(address) {
 }
 
 /**
- * Unfreeze balance
+ * Withdraw balance
  *
- * @param address From which address to freeze
+ * @param address From which address to withdraw
  *
  */
 function buildWithdrawBalanceTransaction(address) {
@@ -481,6 +481,106 @@ function buildUnfreezeAssetTransaction(address) {
   return transaction;
 }
 
+/**
+ * Exchange Create
+ *
+ * @param address Exchange creation address
+ * @param firstTokenId First token id (name)
+ * @param firstTokenBalance First token balance
+ * @param secondTokenId Second token id (name)
+ * @param secondTokenBalance Second token balance
+ *
+ */
+function buildExchangeCreateContractTransaction(address, firstTokenId, firstTokenBalance, secondTokenId, secondTokenBalance) {
+  const contract = new ExchangeCreateContract();
+  contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
+  contract.setFirstTokenId(encodeString(firstTokenId));
+  contract.setFirstTokenBalance(firstTokenBalance);
+  contract.setSecondTokenId(encodeString(secondTokenId));
+  contract.setSecondTokenBalance(secondTokenBalance);
+  
+  const transaction = buildTransferContract(
+    contract,
+    Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
+    'ExchangeCreateContract'
+  );
+  
+  return transaction;
+}
+
+/**
+ * Exchange Inject
+ *
+ * @param address Exchange inject address (origin)
+ * @param exchangeId Exchange id number
+ * @param tokenId token id to inject
+ * @param quantity Quantity of tokens to inject
+ */
+function buildExchangeInjectContractContractTransaction(address, exchangeId, tokenId, quantity) {
+  const contract = new ExchangeInjectContract();
+  contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
+  contract.setExchangeId(exchangeId);
+  contract.setTokenId(encodeString(tokenId));
+  contract.setQuant(quantity);
+
+  const transaction = buildTransferContract(
+    contract,
+    Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
+    'ExchangeInjectContract'
+  );
+  
+  return transaction;
+}
+
+/**
+ * Exchange Withdraw
+ *
+ * @param address Exchange withdraw address (origin)
+ * @param exchangeId Exchange id number
+ * @param tokenId token id to inject
+ * @param quantity Quantity of tokens to withdraw
+ */
+function buildExchangeWithdrawContractTransaction(address, exchangeId, tokenId, quantity) {
+  const contract = new ExchangeWithdrawContract();
+  contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
+  contract.setExchangeId(exchangeId);
+  contract.setTokenId(encodeString(tokenId));
+  contract.setQuant(quantity);
+
+  const transaction = buildTransferContract(
+    contract,
+    Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
+    'ExchangeWithdrawContract'
+  );
+  
+  return transaction;
+}
+
+/**
+ * Exchange Withdraw
+ *
+ * @param address Exchange withdraw address (origin)
+ * @param exchangeId Exchange id number
+ * @param tokenId token id to inject
+ * @param quantity Quantity of tokens to withdraw
+ */
+function buildExchangeTransactionContractTransaction(address, exchangeId, tokenId, quantity, expectedPrice) {
+  const contract = new ExchangeWithdrawContract();
+  contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
+  contract.setExchangeId(exchangeId);
+  contract.setTokenId(encodeString(tokenId));
+  contract.setQuant(quantity);
+  contract.setExpected(expectedPrice);
+
+  const transaction = buildTransferContract(
+    contract,
+    Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
+    'ExchangeWithdrawContract'
+  );
+  
+  return transaction;
+}
+  
 /**
  * Add block reference to transaction
  * This is a needed step after building the transaction before signing the transaction it to the network.
@@ -555,6 +655,10 @@ module.exports = {
   buildWithdrawBalanceTransaction,
   buildWitnessCreateTransaction,
   buildUnfreezeAssetTransaction,
+  buildExchangeCreateContractTransaction,
+  buildExchangeInjectContractContractTransaction,
+  buildExchangeWithdrawContractTransaction,
+  buildExchangeTransactionContractTransaction,
   addBlockReferenceToTransaction,
   addDataToTransaction,
   signTransaction,

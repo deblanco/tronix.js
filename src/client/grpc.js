@@ -14,10 +14,30 @@ const { deserializeAccount } = require('../utils/account');
 const { deserializeWitnesses } = require('../utils/witness');
 const { atob } = require('../utils/base64');
 const {
-  deserializeTransaction, deserializeEasyTransfer, buildTransferTransaction,
-  decodeTransactionFields, buildFreezeBalanceTransaction,
-  buildVoteTransaction, addBlockReferenceToTransaction, signTransaction,
-  buildTransferAssetTransaction, addDataToTransaction,
+  buildTransferTransaction,
+  buildTransferAssetTransaction,
+  buildAccountUpdateTransaction,
+  buildAssetParticipateTransaction,
+  buildVoteTransaction,
+  buildFreezeBalanceTransaction,
+  buildUnfreezeBalanceTransaction,
+  buildAssetIssueTransaction,
+  builUpdateAssetTransaction,
+  buildWitnessUpdateTransaction,
+  buildWithdrawBalanceTransaction,
+  buildWitnessCreateTransaction,
+  buildUnfreezeAssetTransaction,
+  buildExchangeCreateContractTransaction,
+  buildExchangeInjectContractContractTransaction,
+  buildExchangeWithdrawContractTransaction,
+  buildExchangeTransactionContractTransaction,
+  addBlockReferenceToTransaction,
+  addDataToTransaction,
+  signTransaction,
+  decodeTransactionFields,
+  deserializeTransaction,
+  deserializeTransactions,
+  deserializeEasyTransfer,
 } = require('../utils/transaction');
 
 class GrpcClient {
@@ -41,6 +61,20 @@ class GrpcClient {
     return deserializeWitnesses(witnesses);
   }
 
+  
+  /** NOT ENDED
+   * Retrieve all blockchain configurated parameters
+   *
+   * @returns {Promise<*>}
+   
+  async getBlockchainParameters() {
+    const chainParameters = await this.api.getChainParameters(new EmptyMessage());
+    console.log(chainParameters.toObject());
+    return chainParameters;
+  }
+  */
+
+
   /**
    * Retrieve all connected nodes
    *
@@ -54,11 +88,23 @@ class GrpcClient {
       })));
   }
 
+  /**
+   * Retrieves assets list
+   *
+   * @returns {Promise<*>}
+   */
   async getAssetIssueList() {
     const assetsListRaw = await this.api.getAssetIssueList(new EmptyMessage());
     return deserializeAssets(assetsListRaw);
   }
 
+  
+  /**
+   * Retrieves a account by the given address
+   *
+   * @param {assetName} string asset name
+   * @returns {Promise<*>}
+   */
   async getAssetIssueByName(assetName) {
     const assetByte = new BytesMessage();
     assetByte.setValue(new Uint8Array(stringToBytes(assetName)));
@@ -79,9 +125,11 @@ class GrpcClient {
     return deserializeAccount(accountRaw);
   }
 
+  
   /** 
    * Retrieve an account resource information
    *
+   * @param {address} address address account
    * @returns {Promise<*>}
   */
   async getAccountResource(address) {
@@ -104,6 +152,13 @@ class GrpcClient {
     return deserializeBlock(blockRaw);
   }
 
+    
+  /**
+   * Get block by latest num
+   * @param {number} start block number
+   * @param {number} end block number
+   * @returns {Promise<*>}
+   */
   async getBlockByLimitNext(start, end) {
     const message = new BlockLimit();
     message.setStartnum(start);
@@ -112,6 +167,12 @@ class GrpcClient {
     return deserializeBlocks(blocksRaw);
   }
 
+  
+  /**
+   * Get block by latest num
+   *
+   * @returns {Promise<*>}
+   */
   async getBlockByLatestNum(limit = 1) {
     const message = new NumberMessage();
     message.setNum(limit);
@@ -129,6 +190,11 @@ class GrpcClient {
     return deserializeBlock(lastBlockRaw);
   }
 
+  /**
+   * Retrieve transaction by id
+   *
+   * @returns {Promise<*>}
+   */
   async getTransactionById(txHash) {
     const txByte = new BytesMessage();
     txByte.setValue(new Uint8Array(hexStr2byteArray(txHash.toUpperCase())));
@@ -136,23 +202,31 @@ class GrpcClient {
     return deserializeTransaction(transaction);
   }
 
+  /**
+   * Retrieve total transactions
+   *
+   * @returns {Promise<*>}
+   */
   async getTotalTransaction() {
     const totalTransactions = await this.api.totalTransaction(new EmptyMessage());
     return totalTransactions.toObject().num;
   }
 
+  /**
+   * Retrieve next maintenance time
+   *
+   * @returns {Promise<*>}
+   */
   async getNextMaintenanceTime() {
     const nextMaintenanceTime = await this.api.getNextMaintenanceTime(new EmptyMessage());
     return nextMaintenanceTime.toObject();
   }
 
-  async broadcastTransaction(transaction) {
-    let broadcastTransactionAnswer = await this.api.broadcastTransaction(transaction);
-    broadcastTransactionAnswer = broadcastTransactionAnswer.toObject();
-    broadcastTransactionAnswer.message = bytesToString(Array.from(base64DecodeFromString(broadcastTransactionAnswer.message)));
-    return broadcastTransactionAnswer;
-  }
-
+  /**
+   * Easy transfer
+   *
+   * @returns {Promise<*>}
+   */
   async easyTransfer(passPhrase, toAddress, amount) {
     const easyTransferMessage = new EasyTransferMessage();
     easyTransferMessage.setPassphrase(new Uint8Array(stringToBytes(passPhrase)));
@@ -162,11 +236,22 @@ class GrpcClient {
     return deserializeEasyTransfer(result);
   }
 
+  /**
+   * Generate address
+   *
+   * @returns {Promise<*>}
+   */
   async generateAddress() {
     const newAddress = await this.api.generateAddress(new EmptyMessage());
     return newAddress.toObject();
   }
 
+  
+  /**
+   * Create address from string
+   *
+   * @returns {Promise<*>}
+   */
   async createAdresss(randomString) {
     const randomByte = new BytesMessage();
     randomByte.setValue(new Uint8Array(stringToBytes(randomString)));
@@ -177,44 +262,69 @@ class GrpcClient {
     });
   }
 
+  /**
+   * Freeze balance
+   *
+   * @returns {Promise<*>}
+   */
   async freezeBalance(priKey, address, amount, duration) {
     const freezeTransaction = buildFreezeBalanceTransaction(address, amount, duration);
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(freezeTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
-    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    const sendTransaction = await broadcastTransaction(signedTransaction);
     return {
       ...sendTransaction.toObject(),
       transaction: deserializeTransaction(signedTransaction),
     };
   }
 
+  /**
+   * Vote witness
+   *
+   * @returns {Promise<*>}
+   */
   async voteWitnessAccount(priKey, fromAddress, votes) {
     const voteTransaction = buildVoteTransaction(fromAddress, votes);
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(voteTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
-    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    const sendTransaction = await broadcastTransaction(signedTransaction);
     return {
       ...sendTransaction.toObject(),
       transaction: deserializeTransaction(signedTransaction),
     };
   }
 
+  /**
+   * List exchange
+   *
+   * @returns {Promise<*>}
+   */
   async listExchanges() {
     const message = new EmptyMessage();
     const exchangeList = await this.api.listExchanges(message);
     return decodeTransactionFields(exchangeList.toObject());
   }
 
+  /**
+   * Get paginated exchange
+   *
+   * @returns {Promise<*>}
+   */
   async getPaginatedExchangeList(limit = 1000, offset = 0) {
     const exchangeListParams = new PaginatedMessage();
     exchangeListParams.setOffset(offset);
     exchangeListParams.setLimit(limit);
     const exchangeList = await this.api.getPaginatedExchangeList(exchangeListParams);
-    return exchangeList.toObject();
+    return decodeTransactionFields(exchangeList.toObject());
   }
 
+  /**
+   * Get exchange by id
+   *
+   * @returns {Promise<*>}
+   */
   async getExchangeById(id) {
     const idBytes = new BytesMessage();
     idBytes.setValue(new Uint8Array(longToByteArray(id).reverse()));
@@ -222,12 +332,23 @@ class GrpcClient {
     return decodeTransactionFields(exchangeResult.toObject());
   }
 
-  async createTransaction(priKey, from, to, amount, data) {
-
-    const transferContract = buildTransferTransaction(from, to, amount);
+  
+  /**
+   * Create exchange by id
+   *
+   * @returns {Promise<*>}
+   */
+  async createExchange(priKey, address, firstTokenId, firstTokenBalance, secondTokenId, secondTokenBalance) {
+    const exchangeTransaction = buildExchangeCreateContractTransaction(
+      address, 
+      firstTokenId,
+      firstTokenBalance,
+      secondTokenId,
+      secondTokenBalance
+    );
+    
     const nowBlock = await this.getNowBlock();
-    const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
-    if (data) addDataToTransaction(transferContract, data);
+    const referredTransaction = addBlockReferenceToTransaction(exchangeTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
     return {
@@ -236,6 +357,98 @@ class GrpcClient {
     };
   }
 
+  /**
+   * Inject exchange by id
+   *
+   * @returns {Promise<*>}
+   */
+  async injectExchange(priKey, address, exchangeId, tokenId, quantity) {
+    const exchangeTransaction = buildExchangeInjectContractContractTransaction(
+      address, 
+      exchangeId,
+      tokenId,
+      quantity
+    );
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(exchangeTransaction, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
+  }
+
+    /**
+   * Inject exchange by id
+   *
+   * @returns {Promise<*>}
+   */
+  async withdrawExchange(priKey, address, exchangeId, tokenId, quantity) {
+    const exchangeTransaction = buildExchangeWithdrawContractTransaction(
+      address, 
+      exchangeId,
+      tokenId,
+      quantity
+    );
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(exchangeTransaction, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
+  }
+  
+  /**
+   * Execute exchange by id
+   *
+   * @returns {Promise<*>}
+   */
+  async executeExchange(address, exchangeId, tokenId, quantity, expectedPrice) {
+    const exchangeTransaction = buildExchangeTransactionContractTransaction(
+      address, 
+      exchangeId,
+      tokenId,
+      quantity,
+      expectedPrice
+    );
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(exchangeTransaction, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
+  }
+  
+  /**
+   * Create transaction
+   *
+   * @returns {Promise<*>}
+   */
+  async createTransaction(priKey, from, to, amount, data) {
+    const transferContract = buildTransferTransaction(from, to, amount);
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(transferContract, nowBlock);
+    if (data) addDataToTransaction(transferContract, data);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
+    
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
+    
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
+  }
+
+  /**
+   * Transfer asset
+   *
+   * @returns {Promise<*>}
+   */
   async transferAsset(priKey, token, from, to, amount, data) {
     const transferContract = buildTransferAssetTransaction(token, from, to, amount);
     const nowBlock = await this.getNowBlock();
@@ -248,6 +461,19 @@ class GrpcClient {
       transaction: deserializeTransaction(signedTransaction),
     };
   }
+
+  /**
+   * Broadcast transaction
+   *
+   * @returns {Promise<*>}
+   */
+  async broadcastTransaction(transaction) {
+    let broadcastTransactionAnswer = await this.api.broadcastTransaction(transaction);
+    broadcastTransactionAnswer = broadcastTransactionAnswer.toObject();
+    broadcastTransactionAnswer.message = bytesToString(Array.from(base64DecodeFromString(broadcastTransactionAnswer.message)));
+    return broadcastTransactionAnswer;
+  }
+
 }
 
 module.exports = applyClassDecorator(GrpcClient, requireAllParams);
