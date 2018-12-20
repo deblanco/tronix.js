@@ -272,7 +272,7 @@ class GrpcClient {
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(freezeTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
-    const sendTransaction = await broadcastTransaction(signedTransaction);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
     return {
       ...sendTransaction.toObject(),
       transaction: deserializeTransaction(signedTransaction),
@@ -289,7 +289,7 @@ class GrpcClient {
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(voteTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
-    const sendTransaction = await broadcastTransaction(signedTransaction);
+    const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
     return {
       ...sendTransaction.toObject(),
       transaction: deserializeTransaction(signedTransaction),
