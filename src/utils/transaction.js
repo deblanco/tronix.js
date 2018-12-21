@@ -525,7 +525,7 @@ function buildExchangeInjectContractContractTransaction(address, exchangeId, tok
 
   const transaction = buildTransferContract(
     contract,
-    Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
+    Transaction.Contract.ContractType.EXCHANGEINJECTCONTRACT,
     'ExchangeInjectContract'
   );
   
@@ -549,7 +549,7 @@ function buildExchangeWithdrawContractTransaction(address, exchangeId, tokenId, 
 
   const transaction = buildTransferContract(
     contract,
-    Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
+    Transaction.Contract.ContractType.EXCHANGEWITHDRAWCONTRACT,
     'ExchangeWithdrawContract'
   );
   
@@ -565,7 +565,7 @@ function buildExchangeWithdrawContractTransaction(address, exchangeId, tokenId, 
  * @param quantity Quantity of tokens to withdraw
  */
 function buildExchangeTransactionContractTransaction(address, exchangeId, tokenId, quantity, expectedPrice) {
-  const contract = new ExchangeWithdrawContract();
+  const contract = new ExchangeTransactionContract();
   contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
   contract.setExchangeId(exchangeId);
   contract.setTokenId(encodeString(tokenId));
@@ -574,8 +574,8 @@ function buildExchangeTransactionContractTransaction(address, exchangeId, tokenI
 
   const transaction = buildTransferContract(
     contract,
-    Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
-    'ExchangeWithdrawContract'
+    Transaction.Contract.ContractType.EXCHANGETRANSACTIONCONTRACT,
+    'ExchangeTransactionContract'
   );
   
   return transaction;

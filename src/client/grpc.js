@@ -436,7 +436,7 @@ class GrpcClient {
    *
    * @returns {Promise<*>}
    */
-  async executeExchange(address, exchangeId, tokenId, quantity, expectedPrice) {
+  async executeExchange(priKey, address, exchangeId, tokenId, quantity, expectedPrice) {
     const exchangeTransaction = buildExchangeTransactionContractTransaction(
       address, 
       exchangeId,
