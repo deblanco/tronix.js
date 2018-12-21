@@ -289,6 +289,37 @@ class GrpcClient {
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(voteTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
+    const sendTransaction = await broadcastTransaction(signedTransaction);
+    return {
+      ...sendTransaction.toObject(),
+      transaction: deserializeTransaction(signedTransaction),
+    };
+  }
+
+  
+  /**
+   * Get exchange by id
+   *
+   * @returns {Promise<*>}
+   */
+  async createAsset(address, name, shortName, description, url, totalSupply, icoNum, icoTrxPerNum, icoStartTime, icoEndTime, frozenSupply) {
+    const assetTransaction = buildAssetIssueTransaction(
+      address,
+      name,
+      shortName,
+      description,
+      url,
+      totalSupply,
+      icoNum,
+      icoTrxPerNum,
+      icoStartTime,
+      icoEndTime,
+      frozenSupply
+      );
+    
+    const nowBlock = await this.getNowBlock();
+    const referredTransaction = addBlockReferenceToTransaction(assetTransaction, nowBlock);
+    const signedTransaction = signTransaction(referredTransaction, priKey);
     const sendTransaction = await this.api.broadcastTransaction(signedTransaction);
     return {
       ...sendTransaction.toObject(),
@@ -331,7 +362,6 @@ class GrpcClient {
     const exchangeResult = await this.api.getExchangeById(idBytes);
     return decodeTransactionFields(exchangeResult.toObject());
   }
-
   
   /**
    * Create exchange by id

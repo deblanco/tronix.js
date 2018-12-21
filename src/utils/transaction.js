@@ -342,27 +342,27 @@ function buildAssetParticipateTransaction(address, issuerAddress, token, amount)
  * @param {object} options options list
  *
  */
-function buildAssetIssueTransaction(options) {
+function buildAssetIssueTransaction(address, name, shortName, description, url, totalSupply, icoNum, icoTrxPerNum, icoStartTime, icoEndTime, frozenSupply) {
   const contract = new AssetIssueContract();
-  contract.setOwnerAddress(Uint8Array.from(decode58Check(options.address)));
-  contract.setName(encodeString(options.name));
-  contract.setAbbr(encodeString(options.shortName));
-  contract.setTotalSupply(options.totalSupply);
-  contract.setNum(options.num);
-  contract.setEndTime(Date.parse(options.endTime));
-  contract.setStartTime(Date.parse(options.startTime));
-  contract.setTrxNum(options.trxNum);
-  contract.setDescription(encodeString(options.description));
-  contract.setUrl(encodeString(options.url));
+  contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
+  contract.setName(encodeString(name));
+  contract.setAbbr(encodeString(shortName))
+  contract.setDescription(encodeString(description));
+  contract.setTotalSupply(totalSupply);
+  contract.setNum(icoNum);
+  contract.setTrxNum(icoTrxPerNum);
+  contract.setStartTime(icoStartTime);
+  contract.setEndTime(icoEndTime);
+  contract.setUrl(encodeString(url));
   contract.setPublicFreeAssetNetUsage(0);
   contract.setFreeAssetNetLimit(0);
   contract.setPublicFreeAssetNetLimit(0);
 
-  if (options.frozenSupply) {
-    for (const frozenSupply of options.frozenSupply) {
+  if (frozenSupply) {
+    for (const frozenSupplyItem of frozenSupply) {
       const frozenSupplyContract = new AssetIssueContract.FrozenSupply();
-      frozenSupplyContract.setFrozenAmount(frozenSupply.amount);
-      frozenSupplyContract.setFrozenDays(frozenSupply.days);
+      frozenSupplyContract.setFrozenAmount(frozenSupplyItem.amount);
+      frozenSupplyContract.setFrozenDays(frozenSupplyItem.days);
       contract.addFrozenSupply(frozenSupplyContract);
     }
   }
