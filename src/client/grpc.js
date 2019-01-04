@@ -113,6 +113,19 @@ class GrpcClient {
   }
 
   /**
+   * Retrieves an asset by the given id
+   *
+   * @param {assetId} string asset id
+   * @returns {Promise<*>}
+   */
+  async getAssetIssueById(assetId) {
+    const assetByte = new BytesMessage();
+    assetByte.setValue(new Uint8Array(stringToBytes(assetId)));
+    const assetIssue = await this.api.getAssetIssueById(assetByte);
+    return deserializeAsset(assetIssue);
+  }
+
+  /**
    * Retrieves a account by the given address
    *
    * @param {address} string account address
