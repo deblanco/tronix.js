@@ -5,8 +5,8 @@ const { bytesToString } = require('./bytes');
 const deserializeAsset = assetRaw => ({
   id: assetRaw.getId(),
   ownerAddress: getBase58CheckAddress(Array.from(assetRaw.getOwnerAddress())),
-  url: bytesToString(assetRaw.getUrl_asB64()),
-  name: bytesToString(assetRaw.getName_asB64()),
+  url: bytesToString(assetRaw.getUrl()),
+  name: bytesToString(assetRaw.getName()),
   description: bytesToString(assetRaw.getDescription()),
   startTime: assetRaw.getStartTime(),
   endTime: assetRaw.getEndTime(),
