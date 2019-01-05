@@ -7,7 +7,7 @@ const client = new GrpcClient({
 
 async function run() {
   try {
-    const trxp = await client.getAssetIssueByName('TRXP');
+    const trxp = await client.getAssetIssueById('1000056');
     console.log(trxp);
     const tokens = await client.getAssetIssueList();
     console.log(tokens); // result

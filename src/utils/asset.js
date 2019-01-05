@@ -16,6 +16,7 @@ const deserializeAsset = assetRaw => ({
   num: assetRaw.getNum(),
   frozenSupplyList: assetRaw.getFrozenSupplyList().map(frz => frz.toObject()),
   abbr: bytesToString(assetRaw.getAbbr()),
+  precision: assetRaw.getPrecision(),
 });
 
 const deserializeAssets = assetsRaw => assetsRaw.getAssetissueList().map(deserializeAsset);

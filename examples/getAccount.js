@@ -6,7 +6,7 @@ const client = new GrpcClient({
 });
 
 async function run() {
-  const account = await client.getAccount('TY4WakEWYCJ5auM8DXkDxKmiFBWY3TU9HM');
+  const account = await client.getAccount('TVsBRLWpLeQabKrPQngzYVtofRMzrNntDo');
   console.log(account); // result
 }
 

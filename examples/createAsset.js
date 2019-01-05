@@ -7,15 +7,22 @@ const client = new GrpcClient({
 
 async function run() {
   // Create and broadcast transaction
-  const transaction = await client.transferAsset(
+  const asset = await client.createAsset(
     '582729C4B66A32486F97C8BCA6CE8A7710418D22FDD09FF5EC07121752905A4A',
-    '1000056',
     'TVsBRLWpLeQabKrPQngzYVtofRMzrNntDo',
-    'TN7WabSJCVhYdJzbR5BcHrx1DyJ4mwFvBS',
-    25,
-    '',
+    'TRXP',
+    'TRXP',
+    'TRXP4Ever',
+    'https://google.com',
+    10000000,
+    1,
+    1,
+    Date.now() + 500000,
+    Date.now() + 5000000,
+    null,
+    6,
   );
-  console.log(transaction); // result
+  console.log(asset); // result
 }
 
 run();
