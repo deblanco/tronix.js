@@ -2973,6 +2973,7 @@ proto.protocol.AssetIssueContract.prototype.toObject = function(opt_includeInsta
  */
 proto.protocol.AssetIssueContract.toObject = function(includeInstance, msg) {
   var f, obj = {
+    id: jspb.Message.getFieldWithDefault(msg, 41, ""),
     ownerAddress: msg.getOwnerAddress_asB64(),
     name: msg.getName_asB64(),
     abbr: msg.getAbbr_asB64(),
@@ -2980,6 +2981,7 @@ proto.protocol.AssetIssueContract.toObject = function(includeInstance, msg) {
     frozenSupplyList: jspb.Message.toObjectList(msg.getFrozenSupplyList(),
     proto.protocol.AssetIssueContract.FrozenSupply.toObject, includeInstance),
     trxNum: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    precision: jspb.Message.getFieldWithDefault(msg, 7, 0),
     num: jspb.Message.getFieldWithDefault(msg, 8, 0),
     startTime: jspb.Message.getFieldWithDefault(msg, 9, 0),
     endTime: jspb.Message.getFieldWithDefault(msg, 10, 0),
@@ -3027,6 +3029,10 @@ proto.protocol.AssetIssueContract.deserializeBinaryFromReader = function(msg, re
     }
     var field = reader.getFieldNumber();
     switch (field) {
+    case 41:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
     case 1:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setOwnerAddress(value);
@@ -3051,6 +3057,10 @@ proto.protocol.AssetIssueContract.deserializeBinaryFromReader = function(msg, re
     case 6:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setTrxNum(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setPrecision(value);
       break;
     case 8:
       var value = /** @type {number} */ (reader.readInt32());
@@ -3125,6 +3135,13 @@ proto.protocol.AssetIssueContract.prototype.serializeBinary = function() {
  */
 proto.protocol.AssetIssueContract.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      41,
+      f
+    );
+  }
   f = message.getOwnerAddress_asU8();
   if (f.length > 0) {
     writer.writeBytes(
@@ -3165,6 +3182,13 @@ proto.protocol.AssetIssueContract.serializeBinaryToWriter = function(message, wr
   if (f !== 0) {
     writer.writeInt32(
       6,
+      f
+    );
+  }
+  f = message.getPrecision();
+  if (f !== 0) {
+    writer.writeInt32(
+      7,
       f
     );
   }
@@ -3418,6 +3442,21 @@ proto.protocol.AssetIssueContract.FrozenSupply.prototype.setFrozenDays = functio
 
 
 /**
+ * optional string id = 41;
+ * @return {string}
+ */
+proto.protocol.AssetIssueContract.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 41, ""));
+};
+
+
+/** @param {string} value */
+proto.protocol.AssetIssueContract.prototype.setId = function(value) {
+  jspb.Message.setProto3StringField(this, 41, value);
+};
+
+
+/**
  * optional bytes owner_address = 1;
  * @return {!(string|Uint8Array)}
  */
@@ -3592,6 +3631,21 @@ proto.protocol.AssetIssueContract.prototype.getTrxNum = function() {
 /** @param {number} value */
 proto.protocol.AssetIssueContract.prototype.setTrxNum = function(value) {
   jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional int32 precision = 7;
+ * @return {number}
+ */
+proto.protocol.AssetIssueContract.prototype.getPrecision = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.AssetIssueContract.prototype.setPrecision = function(value) {
+  jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
@@ -5959,7 +6013,7 @@ proto.protocol.CreateSmartContract.toObject = function(includeInstance, msg) {
     ownerAddress: msg.getOwnerAddress_asB64(),
     newContract: (f = msg.getNewContract()) && core_Tron_pb.SmartContract.toObject(includeInstance, f),
     callTokenValue: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    tokenId: jspb.Message.getFieldWithDefault(msg, 4, "")
+    tokenId: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -6010,7 +6064,7 @@ proto.protocol.CreateSmartContract.deserializeBinaryFromReader = function(msg, r
       msg.setCallTokenValue(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setTokenId(value);
       break;
     default:
@@ -6065,8 +6119,8 @@ proto.protocol.CreateSmartContract.serializeBinaryToWriter = function(message, w
     );
   }
   f = message.getTokenId();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeInt64(
       4,
       f
     );
@@ -6159,17 +6213,17 @@ proto.protocol.CreateSmartContract.prototype.setCallTokenValue = function(value)
 
 
 /**
- * optional string token_id = 4;
- * @return {string}
+ * optional int64 token_id = 4;
+ * @return {number}
  */
 proto.protocol.CreateSmartContract.prototype.getTokenId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
-/** @param {string} value */
+/** @param {number} value */
 proto.protocol.CreateSmartContract.prototype.setTokenId = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
+  jspb.Message.setProto3IntField(this, 4, value);
 };
 
 
@@ -6225,7 +6279,7 @@ proto.protocol.TriggerSmartContract.toObject = function(includeInstance, msg) {
     callValue: jspb.Message.getFieldWithDefault(msg, 3, 0),
     data: msg.getData_asB64(),
     callTokenValue: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    tokenId: jspb.Message.getFieldWithDefault(msg, 6, "")
+    tokenId: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -6283,7 +6337,7 @@ proto.protocol.TriggerSmartContract.deserializeBinaryFromReader = function(msg, 
       msg.setCallTokenValue(value);
       break;
     case 6:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setTokenId(value);
       break;
     default:
@@ -6351,8 +6405,8 @@ proto.protocol.TriggerSmartContract.serializeBinaryToWriter = function(message, 
     );
   }
   f = message.getTokenId();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeInt64(
       6,
       f
     );
@@ -6508,17 +6562,17 @@ proto.protocol.TriggerSmartContract.prototype.setCallTokenValue = function(value
 
 
 /**
- * optional string token_id = 6;
- * @return {string}
+ * optional int64 token_id = 6;
+ * @return {number}
  */
 proto.protocol.TriggerSmartContract.prototype.getTokenId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
-/** @param {string} value */
+/** @param {number} value */
 proto.protocol.TriggerSmartContract.prototype.setTokenId = function(value) {
-  jspb.Message.setProto3StringField(this, 6, value);
+  jspb.Message.setProto3IntField(this, 6, value);
 };
 
 
