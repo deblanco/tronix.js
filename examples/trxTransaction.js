@@ -1,45 +1,27 @@
 const { GrpcClient } = require('../src');
 
 const client = new GrpcClient({
-  hostname: 'grpc.shasta.trongrid.io',
+  hostname: 'grpc.trongrid.io',
   port: 50051,
 });
 
 const jsonExample = {
-  glossary: {
-    title: 'example glossary',
-    GlossDiv: {
-      title: 'S',
-      GlossList: {
-        GlossEntry: {
-          ID: 'SGML',
-          SortAs: 'SGML',
-          GlossTerm: 'Standard Generalized Markup Language',
-          Acronym: 'SGML',
-          Abbrev: 'ISO 8879:1986',
-          GlossDef: {
-            para: 'A meta-markup language, used to create markup languages such as DocBook.',
-            GlossSeeAlso: ['GML', 'XML'],
-          },
-          GlossSee: 'markup',
-        },
-      },
-    },
-  },
+  payment_id: '63b5d56ba347457844252cc7f20ca453c38bf5e3256e130e4dfd1dc0db64767b',
+  encrypted_data: 'jDeirfYptNMuLFPvvCAe36V2spUoXlgA9deQMnF2PTB+rX6YZmQ7DHGgXwBOd03F1MMfkwBsaU5wB+AW8dzK2RpBq136hvBn17lqrsDjHl4yR5HDi6wmCsr0Wm0u99TIeSNNf2x6j/+E6A3fT1jUfjoGnw++9gVNIafTRxv89i/Z1UCY966kSzdsnqBGiB/Dw1YGUCaI/hfB/zU2eGGCS2iMMLjCG56yLkxE7rcKkn3eOwMMisClZVZ70EW49MdUgak5BuEwwg==',
 };
 
 async function run() {
   // Create and broadcast transaction
   try {
-    const transaction = await client.createTransaction(
-      'E55FA381F323051393C4BF902ED408CD99AFBB61532D4AC9DA99777E398BDE2D',
-      'TTQBFP2FARbYV6xhQLmLCHVmf6gt3bYmGQ',
-      'TVcaZYGf94J5K6WkPsfSDVUu5cWreZz1h9',
-      100,
-      JSON.stringify(jsonExample),
-    );
-    console.log(transaction); // result
-    const getTransaction = await client.getTransactionById(transaction.transaction.hash);
+    // const transaction = await client.createTransaction(
+    //   '7d237e652159e6c532d5daeea31b4ae71d8085783d7539a986a4bf295b1ce657',
+    //   'TL1ugdFjji9GxA7iVh3W5UAh2vN1BRaz5M',
+    //   'TG8Mp5Dkd2iBnzkcBrrMJZtKArqtufYfJS',
+    //   1100000,
+    //   JSON.stringify(jsonExample),
+    // );
+    // console.log(transaction); // result
+    const getTransaction = await client.getTransactionById('4509c34dec4b10148330d972742ffa7015c15c82250d851b79ddc4e0f49f627d');
     console.log(getTransaction);
   } catch (e) {
     console.log(e);

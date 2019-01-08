@@ -109,7 +109,7 @@ function decodeTransactionFields(transaction) {
 }
 
 function deserializeTransaction(tx) {
-  if (!tx) return null;
+  if (!tx || !tx.getRawData()) return null;
   try {
     const transaction = tx.getRawData().toObject();
     const contract = tx.getRawData().getContractList()[0];
