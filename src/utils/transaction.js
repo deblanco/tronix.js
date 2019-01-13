@@ -91,7 +91,14 @@ const TransactionFields = {
     }
     else
     {
-      return bytesToString(Array.from(base64DecodeFromString(token))); 
+      if (isNaN(token))
+      {
+        return bytesToString(Array.from(base64DecodeFromString(token))); 
+      }
+      else
+      {
+        return token;
+      }
     }
   },
   firstTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
