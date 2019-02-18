@@ -6,23 +6,24 @@ const client = new GrpcClient({
 });
 
 const jsonExample = {
-  payment_id: '63b5d56ba347457844252cc7f20ca453c38bf5e3256e130e4dfd1dc0db64767b',
-  encrypted_data: 'jDeirfYptNMuLFPvvCAe36V2spUoXlgA9deQMnF2PTB+rX6YZmQ7DHGgXwBOd03F1MMfkwBsaU5wB+AW8dzK2RpBq136hvBn17lqrsDjHl4yR5HDi6wmCsr0Wm0u99TIeSNNf2x6j/+E6A3fT1jUfjoGnw++9gVNIafTRxv89i/Z1UCY966kSzdsnqBGiB/Dw1YGUCaI/hfB/zU2eGGCS2iMMLjCG56yLkxE7rcKkn3eOwMMisClZVZ70EW49MdUgak5BuEwwg==',
+  encrypted_data: 'QU8ZUEH3MxgUXtInA0TW/W3QZ7PU/mt83sYH7q7FuJItfUMCXk9FMfFwkFACYFeWhgSIGTPO1+qEt/txp5GuuPdlf015rw///fb0pM4kVAB29Z1vV4ZmHN6B3zwiiBbWvYtg57aqfuuupX5oKEuZFejrn/kqrFeVXlT4bCFemZMJJyMTWZ9AfF5kGMDdYaPpho6KLzR2+KNsNlFSodRbmWXUpd+UA8YZpQx5XwMDZd9s48iC5UWneiQ46y+W/3C4dDwPDDfq',
 };
 
 async function run() {
   // Create and broadcast transaction
   try {
-    // const transaction = await client.createTransaction(
-    //   '7d237e652159e6c532d5daeea31b4ae71d8085783d7539a986a4bf295b1ce657',
-    //   'TL1ugdFjji9GxA7iVh3W5UAh2vN1BRaz5M',
-    //   'TG8Mp5Dkd2iBnzkcBrrMJZtKArqtufYfJS',
-    //   1100000,
-    //   JSON.stringify(jsonExample),
-    // );
-    // console.log(transaction); // result
-    const getTransaction = await client.getTransactionById('4509c34dec4b10148330d972742ffa7015c15c82250d851b79ddc4e0f49f627d');
+    console.time();
+    const transaction = await client.createTransaction(
+      '0F2784AA700A9676F6D203345ABA7DAD07A929177981326FF4C9C3E999DDBE61',
+      'TG8Mp5Dkd2iBnzkcBrrMJZtKArqtufYfJS',
+      'TCehHrPdrVM7dSx4AZYgNogZwAAdzSDgGp',
+      200000,
+      JSON.stringify(jsonExample),
+    );
+    console.log(transaction); // result
+    const getTransaction = await client.getTransactionById(transaction.transaction.hash);
     console.log(getTransaction);
+    console.timeEnd();
   } catch (e) {
     console.log(e);
   }
