@@ -85,8 +85,8 @@ const TransactionFields = {
   data(data) { return Buffer.from(data, 'base64').toString('ascii'); },
   assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
   tokenId(token) {
-    if (token === 0) {
-      return 0; // contract type 31
+    if (typeof token === 'number') {
+      return token; // contract type 31
     }
     return bytesToString(Array.from(base64DecodeFromString(token)));
   },
