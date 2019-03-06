@@ -3,6 +3,7 @@ const { getBase58CheckAddress } = require('./crypto');
 const { bytesToString } = require('./bytes');
 
 const deserializeAsset = assetRaw => ({
+  id: assetRaw.getId(),
   ownerAddress: getBase58CheckAddress(Array.from(assetRaw.getOwnerAddress())),
   url: bytesToString(assetRaw.getUrl()),
   name: bytesToString(assetRaw.getName()),
@@ -15,6 +16,7 @@ const deserializeAsset = assetRaw => ({
   num: assetRaw.getNum(),
   frozenSupplyList: assetRaw.getFrozenSupplyList().map(frz => frz.toObject()),
   abbr: bytesToString(assetRaw.getAbbr()),
+  precision: assetRaw.getPrecision(),
 });
 
 const deserializeAssets = assetsRaw => assetsRaw.getAssetissueList().map(deserializeAsset);

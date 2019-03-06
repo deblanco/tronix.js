@@ -315,7 +315,7 @@ class GrpcClient {
    *
    * @returns {Promise<*>}
    */
-  async createAsset(address, name, shortName, description, url, totalSupply, icoNum, icoTrxPerNum, icoStartTime, icoEndTime, frozenSupply) {
+  async createAsset(priKey, address, name, shortName, description, url, totalSupply, icoNum, icoTrxPerNum, icoStartTime, icoEndTime, frozenSupply, precision) {
     const assetTransaction = buildAssetIssueTransaction(
       address,
       name,
@@ -327,9 +327,10 @@ class GrpcClient {
       icoTrxPerNum,
       icoStartTime,
       icoEndTime,
-      frozenSupply
-      );
-    
+      frozenSupply,
+      precision,
+    );
+
     const nowBlock = await this.getNowBlock();
     const referredTransaction = addBlockReferenceToTransaction(assetTransaction, nowBlock);
     const signedTransaction = signTransaction(referredTransaction, priKey);
