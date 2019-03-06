@@ -84,9 +84,21 @@ const TransactionFields = {
   creatorAddress(address) { return this.decodeAddress(address); },
   data(data) { return Buffer.from(data, 'base64').toString('ascii'); },
   assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
-  tokenId(token) {
-    if (typeof token === 'number') {
-      return token; // contract type 31
+  tokenId(token) { 
+    if (token == 0)
+    {
+      return 0; //contract type 31
+    }
+    else
+    {
+      if (isNaN(token))
+      {
+        return bytesToString(Array.from(base64DecodeFromString(token))); 
+      }
+      else
+      {
+        return token;
+      }
     }
     return bytesToString(Array.from(base64DecodeFromString(token)));
   },
