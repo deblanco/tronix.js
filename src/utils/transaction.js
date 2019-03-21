@@ -118,12 +118,14 @@ function decodeTransactionFields(transaction) {
 
 function deserializeTransaction(tx) {
   if (!tx || !tx.getRawData()) return null;
-  if (!ContractTable[contractType]) return null;
   try {
     const transaction = tx.getRawData().toObject();
     const contract = tx.getRawData().getContractList()[0];
     const any = contract.getParameter();
     const contractType = contract.getType();
+
+    if (!ContractTable[contractType]) return null;
+
     let transference = any.unpack(ContractTable[contractType][0], ContractTable[contractType][1]);
     transference = transference.toObject();
     transference.contractType = contractType;
