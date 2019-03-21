@@ -5,7 +5,6 @@ const { btoa } = require('./base64');
 const { longToByteArray, byteArray2hexStr, bytesToString } = require('./bytes');
 const { hexStr2byteArray } = require('../lib/code');
 const { Transaction } = require('../protocol/core/Tron_pb');
-const google_protobuf_any_pb = require('google-protobuf/google/protobuf/any_pb.js');
 const { base64DecodeFromString } = require('../lib/code');
 const {
   AccountCreateContract,
@@ -27,10 +26,8 @@ const {
   ProposalApproveContract,
   ProposalDeleteContract,
   SetAccountIdContract,
-  CustomContract,
   CreateSmartContract,
   TriggerSmartContract,
-  GetContract,
   UpdateSettingContract,
   ExchangeCreateContract,
   ExchangeInjectContract,
@@ -64,7 +61,6 @@ ContractTable[ContractType.CREATESMARTCONTRACT] = [CreateSmartContract.deseriali
 ContractTable[ContractType.TRIGGERSMARTCONTRACT] = [TriggerSmartContract.deserializeBinary, 'protocol.TriggerSmartContract'];
 ContractTable[ContractType.UPDATESETTINGCONTRACT] = [UpdateSettingContract.deserializeBinary, 'protocol.UpdateSettingContract'];
 ContractTable[ContractType.EXCHANGECREATECONTRACT] = [ExchangeCreateContract.deserializeBinary, 'protocol.ExchangeCreateContract'];
-
 ContractTable[ContractType.EXCHANGEINJECTCONTRACT] = [ExchangeInjectContract.deserializeBinary, 'protocol.ExchangeInjectContract'];
 ContractTable[ContractType.EXCHANGEWITHDRAWCONTRACT] = [ExchangeWithdrawContract.deserializeBinary, 'protocol.ExchangeWithdrawContract'];
 ContractTable[ContractType.EXCHANGETRANSACTIONCONTRACT] = [ExchangeTransactionContract.deserializeBinary, 'protocol.ExchangeTransactionContract'];
@@ -122,6 +118,7 @@ function decodeTransactionFields(transaction) {
 
 function deserializeTransaction(tx) {
   if (!tx || !tx.getRawData()) return null;
+  if (!ContractTable[contractType]) return null;
   try {
     const transaction = tx.getRawData().toObject();
     const contract = tx.getRawData().getContractList()[0];

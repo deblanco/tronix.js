@@ -1641,7 +1641,6 @@ proto.protocol.Account.toObject = function(includeInstance, msg) {
     votesList: jspb.Message.toObjectList(msg.getVotesList(),
     proto.protocol.Vote.toObject, includeInstance),
     assetMap: (f = msg.getAssetMap()) ? f.toObject(includeInstance, undefined) : [],
-    assetv2Map: (f = msg.getAssetv2Map()) ? f.toObject(includeInstance, undefined) : [],
     frozenList: jspb.Message.toObjectList(msg.getFrozenList(),
     proto.protocol.Account.Frozen.toObject, includeInstance),
     netUsage: jspb.Message.getFieldWithDefault(msg, 8, 0),
@@ -1657,12 +1656,9 @@ proto.protocol.Account.toObject = function(includeInstance, msg) {
     frozenSupplyList: jspb.Message.toObjectList(msg.getFrozenSupplyList(),
     proto.protocol.Account.Frozen.toObject, includeInstance),
     assetIssuedName: msg.getAssetIssuedName_asB64(),
-    assetIssuedId: msg.getAssetIssuedId_asB64(),
     latestAssetOperationTimeMap: (f = msg.getLatestAssetOperationTimeMap()) ? f.toObject(includeInstance, undefined) : [],
-    latestAssetOperationTimev2Map: (f = msg.getLatestAssetOperationTimev2Map()) ? f.toObject(includeInstance, undefined) : [],
     freeNetUsage: jspb.Message.getFieldWithDefault(msg, 19, 0),
     freeAssetNetUsageMap: (f = msg.getFreeAssetNetUsageMap()) ? f.toObject(includeInstance, undefined) : [],
-    freeAssetNetUsagev2Map: (f = msg.getFreeAssetNetUsagev2Map()) ? f.toObject(includeInstance, undefined) : [],
     latestConsumeTime: jspb.Message.getFieldWithDefault(msg, 21, 0),
     latestConsumeFreeTime: jspb.Message.getFieldWithDefault(msg, 22, 0),
     accountId: msg.getAccountId_asB64(),
@@ -1731,12 +1727,6 @@ proto.protocol.Account.deserializeBinaryFromReader = function(msg, reader) {
         jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readInt64);
          });
       break;
-    case 56:
-      var value = msg.getAssetv2Map();
-      reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readInt64);
-         });
-      break;
     case 7:
       var value = new proto.protocol.Account.Frozen;
       reader.readMessage(value,proto.protocol.Account.Frozen.deserializeBinaryFromReader);
@@ -1791,18 +1781,8 @@ proto.protocol.Account.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetIssuedName(value);
       break;
-    case 57:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setAssetIssuedId(value);
-      break;
     case 18:
       var value = msg.getLatestAssetOperationTimeMap();
-      reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readInt64);
-         });
-      break;
-    case 58:
-      var value = msg.getLatestAssetOperationTimev2Map();
       reader.readMessage(value, function(message, reader) {
         jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readInt64);
          });
@@ -1813,12 +1793,6 @@ proto.protocol.Account.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 20:
       var value = msg.getFreeAssetNetUsageMap();
-      reader.readMessage(value, function(message, reader) {
-        jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readInt64);
-         });
-      break;
-    case 59:
-      var value = msg.getFreeAssetNetUsagev2Map();
       reader.readMessage(value, function(message, reader) {
         jspb.Map.deserializeBinary(message, reader, jspb.BinaryReader.prototype.readString, jspb.BinaryReader.prototype.readInt64);
          });
@@ -1913,10 +1887,6 @@ proto.protocol.Account.serializeBinaryToWriter = function(message, writer) {
   if (f && f.getLength() > 0) {
     f.serializeBinary(6, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeInt64);
   }
-  f = message.getAssetv2Map(true);
-  if (f && f.getLength() > 0) {
-    f.serializeBinary(56, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeInt64);
-  }
   f = message.getFrozenList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
@@ -2010,20 +1980,9 @@ proto.protocol.Account.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getAssetIssuedId_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
-      57,
-      f
-    );
-  }
   f = message.getLatestAssetOperationTimeMap(true);
   if (f && f.getLength() > 0) {
     f.serializeBinary(18, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeInt64);
-  }
-  f = message.getLatestAssetOperationTimev2Map(true);
-  if (f && f.getLength() > 0) {
-    f.serializeBinary(58, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeInt64);
   }
   f = message.getFreeNetUsage();
   if (f !== 0) {
@@ -2035,10 +1994,6 @@ proto.protocol.Account.serializeBinaryToWriter = function(message, writer) {
   f = message.getFreeAssetNetUsageMap(true);
   if (f && f.getLength() > 0) {
     f.serializeBinary(20, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeInt64);
-  }
-  f = message.getFreeAssetNetUsagev2Map(true);
-  if (f && f.getLength() > 0) {
-    f.serializeBinary(59, writer, jspb.BinaryWriter.prototype.writeString, jspb.BinaryWriter.prototype.writeInt64);
   }
   f = message.getLatestConsumeTime();
   if (f !== 0) {
@@ -2754,24 +2709,6 @@ proto.protocol.Account.prototype.clearAssetMap = function() {
 
 
 /**
- * map<string, int64> assetV2 = 56;
- * @param {boolean=} opt_noLazyCreate Do not create the map if
- * empty, instead returning `undefined`
- * @return {!jspb.Map<string,number>}
- */
-proto.protocol.Account.prototype.getAssetv2Map = function(opt_noLazyCreate) {
-  return /** @type {!jspb.Map<string,number>} */ (
-      jspb.Message.getMapField(this, 56, opt_noLazyCreate,
-      null));
-};
-
-
-proto.protocol.Account.prototype.clearAssetv2Map = function() {
-  this.getAssetv2Map().clear();
-};
-
-
-/**
  * repeated Frozen frozen = 7;
  * @return {!Array.<!proto.protocol.Account.Frozen>}
  */
@@ -3051,45 +2988,6 @@ proto.protocol.Account.prototype.setAssetIssuedName = function(value) {
 
 
 /**
- * optional bytes asset_issued_ID = 57;
- * @return {!(string|Uint8Array)}
- */
-proto.protocol.Account.prototype.getAssetIssuedId = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 57, ""));
-};
-
-
-/**
- * optional bytes asset_issued_ID = 57;
- * This is a type-conversion wrapper around `getAssetIssuedId()`
- * @return {string}
- */
-proto.protocol.Account.prototype.getAssetIssuedId_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getAssetIssuedId()));
-};
-
-
-/**
- * optional bytes asset_issued_ID = 57;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getAssetIssuedId()`
- * @return {!Uint8Array}
- */
-proto.protocol.Account.prototype.getAssetIssuedId_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getAssetIssuedId()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.protocol.Account.prototype.setAssetIssuedId = function(value) {
-  jspb.Message.setProto3BytesField(this, 57, value);
-};
-
-
-/**
  * map<string, int64> latest_asset_operation_time = 18;
  * @param {boolean=} opt_noLazyCreate Do not create the map if
  * empty, instead returning `undefined`
@@ -3104,24 +3002,6 @@ proto.protocol.Account.prototype.getLatestAssetOperationTimeMap = function(opt_n
 
 proto.protocol.Account.prototype.clearLatestAssetOperationTimeMap = function() {
   this.getLatestAssetOperationTimeMap().clear();
-};
-
-
-/**
- * map<string, int64> latest_asset_operation_timeV2 = 58;
- * @param {boolean=} opt_noLazyCreate Do not create the map if
- * empty, instead returning `undefined`
- * @return {!jspb.Map<string,number>}
- */
-proto.protocol.Account.prototype.getLatestAssetOperationTimev2Map = function(opt_noLazyCreate) {
-  return /** @type {!jspb.Map<string,number>} */ (
-      jspb.Message.getMapField(this, 58, opt_noLazyCreate,
-      null));
-};
-
-
-proto.protocol.Account.prototype.clearLatestAssetOperationTimev2Map = function() {
-  this.getLatestAssetOperationTimev2Map().clear();
 };
 
 
@@ -3155,24 +3035,6 @@ proto.protocol.Account.prototype.getFreeAssetNetUsageMap = function(opt_noLazyCr
 
 proto.protocol.Account.prototype.clearFreeAssetNetUsageMap = function() {
   this.getFreeAssetNetUsageMap().clear();
-};
-
-
-/**
- * map<string, int64> free_asset_net_usageV2 = 59;
- * @param {boolean=} opt_noLazyCreate Do not create the map if
- * empty, instead returning `undefined`
- * @return {!jspb.Map<string,number>}
- */
-proto.protocol.Account.prototype.getFreeAssetNetUsagev2Map = function(opt_noLazyCreate) {
-  return /** @type {!jspb.Map<string,number>} */ (
-      jspb.Message.getMapField(this, 59, opt_noLazyCreate,
-      null));
-};
-
-
-proto.protocol.Account.prototype.clearFreeAssetNetUsagev2Map = function() {
-  this.getFreeAssetNetUsagev2Map().clear();
 };
 
 
@@ -6336,13 +6198,8 @@ proto.protocol.Transaction.Result.toObject = function(includeInstance, msg) {
     fee: jspb.Message.getFieldWithDefault(msg, 1, 0),
     ret: jspb.Message.getFieldWithDefault(msg, 2, 0),
     contractret: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    assetissueid: jspb.Message.getFieldWithDefault(msg, 14, ""),
     withdrawAmount: jspb.Message.getFieldWithDefault(msg, 15, 0),
-    unfreezeAmount: jspb.Message.getFieldWithDefault(msg, 16, 0),
-    exchangeReceivedAmount: jspb.Message.getFieldWithDefault(msg, 18, 0),
-    exchangeInjectAnotherAmount: jspb.Message.getFieldWithDefault(msg, 19, 0),
-    exchangeWithdrawAnotherAmount: jspb.Message.getFieldWithDefault(msg, 20, 0),
-    exchangeId: jspb.Message.getFieldWithDefault(msg, 21, 0)
+    unfreezeAmount: jspb.Message.getFieldWithDefault(msg, 16, 0)
   };
 
   if (includeInstance) {
@@ -6391,10 +6248,6 @@ proto.protocol.Transaction.Result.deserializeBinaryFromReader = function(msg, re
       var value = /** @type {!proto.protocol.Transaction.Result.contractResult} */ (reader.readEnum());
       msg.setContractret(value);
       break;
-    case 14:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAssetissueid(value);
-      break;
     case 15:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setWithdrawAmount(value);
@@ -6402,22 +6255,6 @@ proto.protocol.Transaction.Result.deserializeBinaryFromReader = function(msg, re
     case 16:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setUnfreezeAmount(value);
-      break;
-    case 18:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeReceivedAmount(value);
-      break;
-    case 19:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeInjectAnotherAmount(value);
-      break;
-    case 20:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeWithdrawAnotherAmount(value);
-      break;
-    case 21:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeId(value);
       break;
     default:
       reader.skipField();
@@ -6469,13 +6306,6 @@ proto.protocol.Transaction.Result.serializeBinaryToWriter = function(message, wr
       f
     );
   }
-  f = message.getAssetissueid();
-  if (f.length > 0) {
-    writer.writeString(
-      14,
-      f
-    );
-  }
   f = message.getWithdrawAmount();
   if (f !== 0) {
     writer.writeInt64(
@@ -6487,34 +6317,6 @@ proto.protocol.Transaction.Result.serializeBinaryToWriter = function(message, wr
   if (f !== 0) {
     writer.writeInt64(
       16,
-      f
-    );
-  }
-  f = message.getExchangeReceivedAmount();
-  if (f !== 0) {
-    writer.writeInt64(
-      18,
-      f
-    );
-  }
-  f = message.getExchangeInjectAnotherAmount();
-  if (f !== 0) {
-    writer.writeInt64(
-      19,
-      f
-    );
-  }
-  f = message.getExchangeWithdrawAnotherAmount();
-  if (f !== 0) {
-    writer.writeInt64(
-      20,
-      f
-    );
-  }
-  f = message.getExchangeId();
-  if (f !== 0) {
-    writer.writeInt64(
-      21,
       f
     );
   }
@@ -6595,21 +6397,6 @@ proto.protocol.Transaction.Result.prototype.setContractret = function(value) {
 
 
 /**
- * optional string assetIssueID = 14;
- * @return {string}
- */
-proto.protocol.Transaction.Result.prototype.getAssetissueid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 14, ""));
-};
-
-
-/** @param {string} value */
-proto.protocol.Transaction.Result.prototype.setAssetissueid = function(value) {
-  jspb.Message.setProto3StringField(this, 14, value);
-};
-
-
-/**
  * optional int64 withdraw_amount = 15;
  * @return {number}
  */
@@ -6636,66 +6423,6 @@ proto.protocol.Transaction.Result.prototype.getUnfreezeAmount = function() {
 /** @param {number} value */
 proto.protocol.Transaction.Result.prototype.setUnfreezeAmount = function(value) {
   jspb.Message.setProto3IntField(this, 16, value);
-};
-
-
-/**
- * optional int64 exchange_received_amount = 18;
- * @return {number}
- */
-proto.protocol.Transaction.Result.prototype.getExchangeReceivedAmount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 18, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.Transaction.Result.prototype.setExchangeReceivedAmount = function(value) {
-  jspb.Message.setProto3IntField(this, 18, value);
-};
-
-
-/**
- * optional int64 exchange_inject_another_amount = 19;
- * @return {number}
- */
-proto.protocol.Transaction.Result.prototype.getExchangeInjectAnotherAmount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 19, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.Transaction.Result.prototype.setExchangeInjectAnotherAmount = function(value) {
-  jspb.Message.setProto3IntField(this, 19, value);
-};
-
-
-/**
- * optional int64 exchange_withdraw_another_amount = 20;
- * @return {number}
- */
-proto.protocol.Transaction.Result.prototype.getExchangeWithdrawAnotherAmount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 20, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.Transaction.Result.prototype.setExchangeWithdrawAnotherAmount = function(value) {
-  jspb.Message.setProto3IntField(this, 20, value);
-};
-
-
-/**
- * optional int64 exchange_id = 21;
- * @return {number}
- */
-proto.protocol.Transaction.Result.prototype.getExchangeId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 21, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.Transaction.Result.prototype.setExchangeId = function(value) {
-  jspb.Message.setProto3IntField(this, 21, value);
 };
 
 
@@ -7404,15 +7131,10 @@ proto.protocol.TransactionInfo.toObject = function(includeInstance, msg) {
     proto.protocol.TransactionInfo.Log.toObject, includeInstance),
     result: jspb.Message.getFieldWithDefault(msg, 9, 0),
     resmessage: msg.getResmessage_asB64(),
-    assetissueid: jspb.Message.getFieldWithDefault(msg, 14, ""),
     withdrawAmount: jspb.Message.getFieldWithDefault(msg, 15, 0),
     unfreezeAmount: jspb.Message.getFieldWithDefault(msg, 16, 0),
     internalTransactionsList: jspb.Message.toObjectList(msg.getInternalTransactionsList(),
-    proto.protocol.InternalTransaction.toObject, includeInstance),
-    exchangeReceivedAmount: jspb.Message.getFieldWithDefault(msg, 18, 0),
-    exchangeInjectAnotherAmount: jspb.Message.getFieldWithDefault(msg, 19, 0),
-    exchangeWithdrawAnotherAmount: jspb.Message.getFieldWithDefault(msg, 20, 0),
-    exchangeId: jspb.Message.getFieldWithDefault(msg, 21, 0)
+    proto.protocol.InternalTransaction.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -7491,10 +7213,6 @@ proto.protocol.TransactionInfo.deserializeBinaryFromReader = function(msg, reade
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setResmessage(value);
       break;
-    case 14:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAssetissueid(value);
-      break;
     case 15:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setWithdrawAmount(value);
@@ -7507,22 +7225,6 @@ proto.protocol.TransactionInfo.deserializeBinaryFromReader = function(msg, reade
       var value = new proto.protocol.InternalTransaction;
       reader.readMessage(value,proto.protocol.InternalTransaction.deserializeBinaryFromReader);
       msg.addInternalTransactions(value);
-      break;
-    case 18:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeReceivedAmount(value);
-      break;
-    case 19:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeInjectAnotherAmount(value);
-      break;
-    case 20:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeWithdrawAnotherAmount(value);
-      break;
-    case 21:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setExchangeId(value);
       break;
     default:
       reader.skipField();
@@ -7625,13 +7327,6 @@ proto.protocol.TransactionInfo.serializeBinaryToWriter = function(message, write
       f
     );
   }
-  f = message.getAssetissueid();
-  if (f.length > 0) {
-    writer.writeString(
-      14,
-      f
-    );
-  }
   f = message.getWithdrawAmount();
   if (f !== 0) {
     writer.writeInt64(
@@ -7652,34 +7347,6 @@ proto.protocol.TransactionInfo.serializeBinaryToWriter = function(message, write
       17,
       f,
       proto.protocol.InternalTransaction.serializeBinaryToWriter
-    );
-  }
-  f = message.getExchangeReceivedAmount();
-  if (f !== 0) {
-    writer.writeInt64(
-      18,
-      f
-    );
-  }
-  f = message.getExchangeInjectAnotherAmount();
-  if (f !== 0) {
-    writer.writeInt64(
-      19,
-      f
-    );
-  }
-  f = message.getExchangeWithdrawAnotherAmount();
-  if (f !== 0) {
-    writer.writeInt64(
-      20,
-      f
-    );
-  }
-  f = message.getExchangeId();
-  if (f !== 0) {
-    writer.writeInt64(
-      21,
-      f
     );
   }
 };
@@ -8274,21 +7941,6 @@ proto.protocol.TransactionInfo.prototype.setResmessage = function(value) {
 
 
 /**
- * optional string assetIssueID = 14;
- * @return {string}
- */
-proto.protocol.TransactionInfo.prototype.getAssetissueid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 14, ""));
-};
-
-
-/** @param {string} value */
-proto.protocol.TransactionInfo.prototype.setAssetissueid = function(value) {
-  jspb.Message.setProto3StringField(this, 14, value);
-};
-
-
-/**
  * optional int64 withdraw_amount = 15;
  * @return {number}
  */
@@ -8346,66 +7998,6 @@ proto.protocol.TransactionInfo.prototype.addInternalTransactions = function(opt_
 
 proto.protocol.TransactionInfo.prototype.clearInternalTransactionsList = function() {
   this.setInternalTransactionsList([]);
-};
-
-
-/**
- * optional int64 exchange_received_amount = 18;
- * @return {number}
- */
-proto.protocol.TransactionInfo.prototype.getExchangeReceivedAmount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 18, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.TransactionInfo.prototype.setExchangeReceivedAmount = function(value) {
-  jspb.Message.setProto3IntField(this, 18, value);
-};
-
-
-/**
- * optional int64 exchange_inject_another_amount = 19;
- * @return {number}
- */
-proto.protocol.TransactionInfo.prototype.getExchangeInjectAnotherAmount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 19, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.TransactionInfo.prototype.setExchangeInjectAnotherAmount = function(value) {
-  jspb.Message.setProto3IntField(this, 19, value);
-};
-
-
-/**
- * optional int64 exchange_withdraw_another_amount = 20;
- * @return {number}
- */
-proto.protocol.TransactionInfo.prototype.getExchangeWithdrawAnotherAmount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 20, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.TransactionInfo.prototype.setExchangeWithdrawAnotherAmount = function(value) {
-  jspb.Message.setProto3IntField(this, 20, value);
-};
-
-
-/**
- * optional int64 exchange_id = 21;
- * @return {number}
- */
-proto.protocol.TransactionInfo.prototype.getExchangeId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 21, 0));
-};
-
-
-/** @param {number} value */
-proto.protocol.TransactionInfo.prototype.setExchangeId = function(value) {
-  jspb.Message.setProto3IntField(this, 21, value);
 };
 
 
@@ -13146,7 +12738,7 @@ proto.protocol.InternalTransaction.CallValueInfo.prototype.toObject = function(o
 proto.protocol.InternalTransaction.CallValueInfo.toObject = function(includeInstance, msg) {
   var f, obj = {
     callvalue: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    tokenid: jspb.Message.getFieldWithDefault(msg, 2, "")
+    tokenname: msg.getTokenname_asB64()
   };
 
   if (includeInstance) {
@@ -13188,8 +12780,8 @@ proto.protocol.InternalTransaction.CallValueInfo.deserializeBinaryFromReader = f
       msg.setCallvalue(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setTokenid(value);
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setTokenname(value);
       break;
     default:
       reader.skipField();
@@ -13227,9 +12819,9 @@ proto.protocol.InternalTransaction.CallValueInfo.serializeBinaryToWriter = funct
       f
     );
   }
-  f = message.getTokenid();
+  f = message.getTokenname_asU8();
   if (f.length > 0) {
-    writer.writeString(
+    writer.writeBytes(
       2,
       f
     );
@@ -13253,17 +12845,41 @@ proto.protocol.InternalTransaction.CallValueInfo.prototype.setCallvalue = functi
 
 
 /**
- * optional string tokenId = 2;
- * @return {string}
+ * optional bytes tokenName = 2;
+ * @return {!(string|Uint8Array)}
  */
-proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {string} value */
-proto.protocol.InternalTransaction.CallValueInfo.prototype.setTokenid = function(value) {
-  jspb.Message.setProto3StringField(this, 2, value);
+/**
+ * optional bytes tokenName = 2;
+ * This is a type-conversion wrapper around `getTokenname()`
+ * @return {string}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getTokenname()));
+};
+
+
+/**
+ * optional bytes tokenName = 2;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getTokenname()`
+ * @return {!Uint8Array}
+ */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.getTokenname_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getTokenname()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.protocol.InternalTransaction.CallValueInfo.prototype.setTokenname = function(value) {
+  jspb.Message.setProto3BytesField(this, 2, value);
 };
 
 
