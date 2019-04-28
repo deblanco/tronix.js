@@ -1,6 +1,6 @@
 {
   "name": "tronix.js",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "author": "Tron",
   "description": "TRONIX Javascript API interface",
   "main": "src/index.js",

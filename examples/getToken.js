@@ -1,16 +1,14 @@
 const { GrpcClient } = require('../src');
 
 const client = new GrpcClient({
-  hostname: 'grpc.shasta.trongrid.io',
-  port: 50051,
+  hostname: 'grpc.trongrid.io',
+  port: 50051
 });
 
 async function run() {
   try {
-    const trxp = await client.getAssetIssueById('1000056');
+    const trxp = await client.getAssetIssueByName('1000001');
     console.log(trxp);
-    const tokens = await client.getAssetIssueList();
-    console.log(tokens); // result
   } catch (err) {
     console.error(err);
   }

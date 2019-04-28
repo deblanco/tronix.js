@@ -7,7 +7,7 @@ const client = new SolidityGrpcClient({
 
 async function run() {
   try {
-    const block = await client.getBlockByNumber(4995508);
+    const block = await client.getBlockByNumber(8267592);
     console.log(block); // result
   } catch (e) {
     console.log(e);
