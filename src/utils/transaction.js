@@ -1,10 +1,14 @@
 const {
-  getBase58CheckAddress, decode58Check, SHA256, ECKeySign,
+  getBase58CheckAddress,
+  decode58Check,
+  SHA256,
+  ECKeySign
 } = require('./crypto');
 const { btoa } = require('./base64');
 const { longToByteArray, byteArray2hexStr, bytesToString } = require('./bytes');
 const { hexStr2byteArray } = require('../lib/code');
 const { Transaction } = require('../protocol/core/Tron_pb');
+const google_protobuf_any_pb = require('google-protobuf/google/protobuf/any_pb.js');
 const { base64DecodeFromString } = require('../lib/code');
 const {
   AccountCreateContract,
@@ -33,38 +37,119 @@ const {
   ExchangeInjectContract,
   ExchangeWithdrawContract,
   ExchangeTransactionContract,
-  UpdateEnergyLimitContract,
+  UpdateEnergyLimitContract
 } = require('../protocol/core/Contract_pb');
 
 const ContractType = Transaction.Contract.ContractType;
 const ContractTable = {};
-ContractTable[ContractType.ACCOUNTCREATECONTRACT] = [AccountCreateContract.deserializeBinary, 'protocol.AccountCreateContract'];
-ContractTable[ContractType.TRANSFERCONTRACT] = [TransferContract.deserializeBinary, 'protocol.TransferContract'];
-ContractTable[ContractType.TRANSFERASSETCONTRACT] = [TransferAssetContract.deserializeBinary, 'protocol.TransferAssetContract'];
-ContractTable[ContractType.VOTEASSETCONTRACT] = [VoteAssetContract.deserializeBinary, 'protocol.VoteAssetContract'];
-ContractTable[ContractType.VOTEWITNESSCONTRACT] = [VoteWitnessContract.deserializeBinary, 'protocol.VoteWitnessContract'];
-ContractTable[ContractType.WITNESSCREATECONTRACT] = [WitnessCreateContract.deserializeBinary, 'protocol.WitnessCreateContract'];
-ContractTable[ContractType.ASSETISSUECONTRACT] = [AssetIssueContract.deserializeBinary, 'protocol.AssetIssueContract'];
-ContractTable[ContractType.WITNESSUPDATECONTRACT] = [WitnessUpdateContract.deserializeBinary, 'protocol.WitnessUpdateContract'];
-ContractTable[ContractType.PARTICIPATEASSETISSUECONTRACT] = [ParticipateAssetIssueContract.deserializeBinary, 'protocol.ParticipateAssetIssueContract'];
-ContractTable[ContractType.ACCOUNTUPDATECONTRACT] = [AccountUpdateContract.deserializeBinary, 'protocol.AccountUpdateContract'];
-ContractTable[ContractType.FREEZEBALANCECONTRACT] = [FreezeBalanceContract.deserializeBinary, 'protocol.FreezeBalanceContract'];
-ContractTable[ContractType.UNFREEZEBALANCECONTRACT] = [UnfreezeBalanceContract.deserializeBinary, 'protocol.UnfreezeBalanceContract'];
-ContractTable[ContractType.WITHDRAWBALANCECONTRACT] = [WithdrawBalanceContract.deserializeBinary, 'protocol.WithdrawBalanceContract'];
-ContractTable[ContractType.UNFREEZEASSETCONTRACT] = [UnfreezeAssetContract.deserializeBinary, 'protocol.UnfreezeAssetContract'];
-ContractTable[ContractType.UPDATEASSETCONTRACT] = [UpdateAssetContract.deserializeBinary, 'protocol.UpdateAssetContract'];
-ContractTable[ContractType.PROPOSALCREATECONTRACT] = [ProposalCreateContract.deserializeBinary, 'protocol.ProposalCreateContract'];
-ContractTable[ContractType.PROPOSALAPPROVECONTRACT] = [ProposalApproveContract.deserializeBinary, 'protocol.ProposalApproveContract'];
-ContractTable[ContractType.PROPOSALDELETECONTRACT] = [ProposalDeleteContract.deserializeBinary, 'protocol.ProposalDeleteContract'];
-ContractTable[ContractType.SETACCOUNTIDCONTRACT] = [SetAccountIdContract.deserializeBinary, 'protocol.SetAccountIdContract'];
-ContractTable[ContractType.CREATESMARTCONTRACT] = [CreateSmartContract.deserializeBinary, 'protocol.CreateSmartContract'];
-ContractTable[ContractType.TRIGGERSMARTCONTRACT] = [TriggerSmartContract.deserializeBinary, 'protocol.TriggerSmartContract'];
-ContractTable[ContractType.UPDATESETTINGCONTRACT] = [UpdateSettingContract.deserializeBinary, 'protocol.UpdateSettingContract'];
-ContractTable[ContractType.EXCHANGECREATECONTRACT] = [ExchangeCreateContract.deserializeBinary, 'protocol.ExchangeCreateContract'];
-ContractTable[ContractType.EXCHANGEINJECTCONTRACT] = [ExchangeInjectContract.deserializeBinary, 'protocol.ExchangeInjectContract'];
-ContractTable[ContractType.EXCHANGEWITHDRAWCONTRACT] = [ExchangeWithdrawContract.deserializeBinary, 'protocol.ExchangeWithdrawContract'];
-ContractTable[ContractType.EXCHANGETRANSACTIONCONTRACT] = [ExchangeTransactionContract.deserializeBinary, 'protocol.ExchangeTransactionContract'];
-ContractTable[ContractType.UPDATEENERGYLIMITCONTRACT] = [UpdateEnergyLimitContract.deserializeBinary, 'protocol.UpdateEnergyLimitContract'];
+ContractTable[ContractType.ACCOUNTCREATECONTRACT] = [
+  AccountCreateContract.deserializeBinary,
+  'protocol.AccountCreateContract'
+];
+ContractTable[ContractType.TRANSFERCONTRACT] = [
+  TransferContract.deserializeBinary,
+  'protocol.TransferContract'
+];
+ContractTable[ContractType.TRANSFERASSETCONTRACT] = [
+  TransferAssetContract.deserializeBinary,
+  'protocol.TransferAssetContract'
+];
+ContractTable[ContractType.VOTEASSETCONTRACT] = [
+  VoteAssetContract.deserializeBinary,
+  'protocol.VoteAssetContract'
+];
+ContractTable[ContractType.VOTEWITNESSCONTRACT] = [
+  VoteWitnessContract.deserializeBinary,
+  'protocol.VoteWitnessContract'
+];
+ContractTable[ContractType.WITNESSCREATECONTRACT] = [
+  WitnessCreateContract.deserializeBinary,
+  'protocol.WitnessCreateContract'
+];
+ContractTable[ContractType.ASSETISSUECONTRACT] = [
+  AssetIssueContract.deserializeBinary,
+  'protocol.AssetIssueContract'
+];
+ContractTable[ContractType.WITNESSUPDATECONTRACT] = [
+  WitnessUpdateContract.deserializeBinary,
+  'protocol.WitnessUpdateContract'
+];
+ContractTable[ContractType.PARTICIPATEASSETISSUECONTRACT] = [
+  ParticipateAssetIssueContract.deserializeBinary,
+  'protocol.ParticipateAssetIssueContract'
+];
+ContractTable[ContractType.ACCOUNTUPDATECONTRACT] = [
+  AccountUpdateContract.deserializeBinary,
+  'protocol.AccountUpdateContract'
+];
+ContractTable[ContractType.FREEZEBALANCECONTRACT] = [
+  FreezeBalanceContract.deserializeBinary,
+  'protocol.FreezeBalanceContract'
+];
+ContractTable[ContractType.UNFREEZEBALANCECONTRACT] = [
+  UnfreezeBalanceContract.deserializeBinary,
+  'protocol.UnfreezeBalanceContract'
+];
+ContractTable[ContractType.WITHDRAWBALANCECONTRACT] = [
+  WithdrawBalanceContract.deserializeBinary,
+  'protocol.WithdrawBalanceContract'
+];
+ContractTable[ContractType.UNFREEZEASSETCONTRACT] = [
+  UnfreezeAssetContract.deserializeBinary,
+  'protocol.UnfreezeAssetContract'
+];
+ContractTable[ContractType.UPDATEASSETCONTRACT] = [
+  UpdateAssetContract.deserializeBinary,
+  'protocol.UpdateAssetContract'
+];
+ContractTable[ContractType.PROPOSALCREATECONTRACT] = [
+  ProposalCreateContract.deserializeBinary,
+  'protocol.ProposalCreateContract'
+];
+ContractTable[ContractType.PROPOSALAPPROVECONTRACT] = [
+  ProposalApproveContract.deserializeBinary,
+  'protocol.ProposalApproveContract'
+];
+ContractTable[ContractType.PROPOSALDELETECONTRACT] = [
+  ProposalDeleteContract.deserializeBinary,
+  'protocol.ProposalDeleteContract'
+];
+ContractTable[ContractType.SETACCOUNTIDCONTRACT] = [
+  SetAccountIdContract.deserializeBinary,
+  'protocol.SetAccountIdContract'
+];
+ContractTable[ContractType.CREATESMARTCONTRACT] = [
+  CreateSmartContract.deserializeBinary,
+  'protocol.CreateSmartContract'
+];
+ContractTable[ContractType.TRIGGERSMARTCONTRACT] = [
+  TriggerSmartContract.deserializeBinary,
+  'protocol.TriggerSmartContract'
+];
+ContractTable[ContractType.UPDATESETTINGCONTRACT] = [
+  UpdateSettingContract.deserializeBinary,
+  'protocol.UpdateSettingContract'
+];
+ContractTable[ContractType.EXCHANGECREATECONTRACT] = [
+  ExchangeCreateContract.deserializeBinary,
+  'protocol.ExchangeCreateContract'
+];
+ContractTable[ContractType.EXCHANGEINJECTCONTRACT] = [
+  ExchangeInjectContract.deserializeBinary,
+  'protocol.ExchangeInjectContract'
+];
+ContractTable[ContractType.EXCHANGEWITHDRAWCONTRACT] = [
+  ExchangeWithdrawContract.deserializeBinary,
+  'protocol.ExchangeWithdrawContract'
+];
+ContractTable[ContractType.EXCHANGETRANSACTIONCONTRACT] = [
+  ExchangeTransactionContract.deserializeBinary,
+  'protocol.ExchangeTransactionContract'
+];
+ContractTable[ContractType.UPDATEENERGYLIMITCONTRACT] = [
+  UpdateEnergyLimitContract.deserializeBinary,
+  'protocol.UpdateEnergyLimitContract'
+];
 
 /* not defined right now
   ContractTable[ContractType.GETCONTRACT] = [GetContract.deserializeBinary, 'protocol.GetContract'];
@@ -72,45 +157,61 @@ ContractTable[ContractType.UPDATEENERGYLIMITCONTRACT] = [UpdateEnergyLimitContra
 */
 
 const TransactionFields = {
-  decodeAddress(address) { return getBase58CheckAddress(base64DecodeFromString(address)); },
-  ownerAddress(address) { return this.decodeAddress(address); },
-  toAddress(address) { return this.decodeAddress(address); },
-  voteAddress(address) { return this.decodeAddress(address); },
-  address(address) { return this.decodeAddress(address); },
-  creatorAddress(address) { return this.decodeAddress(address); },
-  data(data) { return Buffer.from(data, 'base64').toString('ascii'); },
-  assetName(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
-  tokenId(token) { 
-    if (token == 0)
-    {
+  decodeAddress(address) {
+    return getBase58CheckAddress(base64DecodeFromString(address));
+  },
+  ownerAddress(address) {
+    return this.decodeAddress(address);
+  },
+  toAddress(address) {
+    return this.decodeAddress(address);
+  },
+  voteAddress(address) {
+    return this.decodeAddress(address);
+  },
+  address(address) {
+    return this.decodeAddress(address);
+  },
+  creatorAddress(address) {
+    return this.decodeAddress(address);
+  },
+  data(data) {
+    return Buffer.from(data, 'base64').toString('ascii');
+  },
+  assetName(token) {
+    return bytesToString(Array.from(base64DecodeFromString(token)));
+  },
+  tokenId(token) {
+    if (token == 0) {
       return 0; //contract type 31
-    }
-    else
-    {
-      if (isNaN(token))
-      {
-        return bytesToString(Array.from(base64DecodeFromString(token))); 
-      }
-      else
-      {
+    } else {
+      if (isNaN(token)) {
+        return bytesToString(Array.from(base64DecodeFromString(token)));
+      } else {
         return token;
       }
     }
     return bytesToString(Array.from(base64DecodeFromString(token)));
   },
-  firstTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
-  secondTokenId(token) { return bytesToString(Array.from(base64DecodeFromString(token))); },
-
+  firstTokenId(token) {
+    return bytesToString(Array.from(base64DecodeFromString(token)));
+  },
+  secondTokenId(token) {
+    return bytesToString(Array.from(base64DecodeFromString(token)));
+  }
 };
 
 function decodeTransactionFields(transaction) {
   const transactionResult = transaction;
 
-  Object.keys(transactionResult).forEach((key) => {
+  Object.keys(transactionResult).forEach(key => {
     if (Array.isArray(transactionResult[key])) {
       transactionResult[key].forEach(decodeTransactionFields);
     } else if (TransactionFields[key]) {
-      transactionResult[key] = TransactionFields[key](transactionResult[key], transaction.contractType);
+      transactionResult[key] = TransactionFields[key](
+        transactionResult[key],
+        transaction.contractType
+      );
     }
   });
   return transactionResult;
@@ -126,10 +227,15 @@ function deserializeTransaction(tx) {
 
     if (!ContractTable[contractType]) return null;
 
-    let transference = any.unpack(ContractTable[contractType][0], ContractTable[contractType][1]);
+    let transference = any.unpack(
+      ContractTable[contractType][0],
+      ContractTable[contractType][1]
+    );
     transference = transference.toObject();
     transference.contractType = contractType;
-    transference.hash = byteArray2hexStr(SHA256(tx.getRawData().serializeBinary())).toLowerCase();
+    transference.hash = byteArray2hexStr(
+      SHA256(tx.getRawData().serializeBinary())
+    ).toLowerCase();
     transference.time = tx.getRawData().getTimestamp();
     transference.data = transaction.data;
     transference = decodeTransactionFields(transference);
@@ -140,13 +246,19 @@ function deserializeTransaction(tx) {
 }
 
 function deserializeTransactions(transactionsList = []) {
-  return transactionsList.map(tx => deserializeTransaction(tx)).filter(t => !!t);
+  return transactionsList
+    .map(tx => deserializeTransaction(tx))
+    .filter(t => !!t);
 }
 
 function deserializeEasyTransfer(transferResult) {
   const easyObject = transferResult.toObject();
-  easyObject.result.message = bytesToString(Array.from(base64DecodeFromString(easyObject.result.message)));
-  easyObject.transaction = deserializeTransaction(transferResult.getTransaction());
+  easyObject.result.message = bytesToString(
+    Array.from(base64DecodeFromString(easyObject.result.message))
+  );
+  easyObject.transaction = deserializeTransaction(
+    transferResult.getTransaction()
+  );
   return easyObject;
 }
 
@@ -164,7 +276,7 @@ function buildTransferContract(message, contractType, typeName) {
 
   const raw = new Transaction.raw();
   raw.addContract(contract);
-  raw.setTimestamp((new Date()).getTime());
+  raw.setTimestamp(new Date().getTime());
 
   const transaction = new Transaction();
   transaction.setRawData(raw);
@@ -188,7 +300,7 @@ function buildTransferTransaction(from, to, amount) {
   const transaction = buildTransferContract(
     transferContract,
     Transaction.Contract.ContractType.TRANSFERCONTRACT,
-    'TransferContract',
+    'TransferContract'
   );
 
   return transaction;
@@ -212,7 +324,7 @@ function buildTransferAssetTransaction(token, from, to, amount) {
   const transaction = buildTransferContract(
     transferContract,
     Transaction.Contract.ContractType.TRANSFERASSETCONTRACT,
-    'TransferAssetContract',
+    'TransferAssetContract'
   );
 
   return transaction;
@@ -232,12 +344,11 @@ function buildAccountUpdateTransaction(address, name) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.ACCOUNTUPDATECONTRACT,
-    'AccountUpdateContract',
+    'AccountUpdateContract'
   );
 
   return transaction;
 }
-
 
 /**
  * Create witness transaction
@@ -253,7 +364,7 @@ function buildWitnessCreateTransaction(address, url) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.WITNESSCREATECONTRACT,
-    'WitnessCreateContract',
+    'WitnessCreateContract'
   );
 
   return transaction;
@@ -274,12 +385,11 @@ function buildWitnessUpdateTransaction(address, url) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.WITNESSUPDATECONTRACT,
-    'WitnessUpdateContract',
+    'WitnessUpdateContract'
   );
 
   return transaction;
 }
-
 
 /**
  * Widthdraw balance transaction (for block creation rewards)
@@ -293,7 +403,7 @@ function buildWithdrawBalanceTransaction(address) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.WITHDRAWBALANCECONTRACT,
-    'WithdrawBalanceContract',
+    'WithdrawBalanceContract'
   );
 
   return transaction;
@@ -323,7 +433,7 @@ function buildVoteTransaction(address, votes) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.VOTEWITNESSCONTRACT,
-    'VoteWitnessContract',
+    'VoteWitnessContract'
   );
 
   return transaction;
@@ -336,7 +446,12 @@ function buildVoteTransaction(address, votes) {
  * @param {string} token token name //check the chars limit
  *
  */
-function buildAssetParticipateTransaction(address, issuerAddress, token, amount) {
+function buildAssetParticipateTransaction(
+  address,
+  issuerAddress,
+  token,
+  amount
+) {
   const contract = new ParticipateAssetIssueContract();
 
   contract.setToAddress(Uint8Array.from(decode58Check(issuerAddress)));
@@ -347,19 +462,31 @@ function buildAssetParticipateTransaction(address, issuerAddress, token, amount)
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.PARTICIPATEASSETISSUECONTRACT,
-    'ParticipateAssetIssueContract',
+    'ParticipateAssetIssueContract'
   );
 
   return transaction;
 }
-
 
 /**
  * Asset issue transaction
  * @param {object} options options list
  *
  */
-function buildAssetIssueTransaction(address, name, shortName, description, url, totalSupply, icoNum, icoTrxPerNum, icoStartTime, icoEndTime, frozenSupply, precision = 0) {
+function buildAssetIssueTransaction(
+  address,
+  name,
+  shortName,
+  description,
+  url,
+  totalSupply,
+  icoNum,
+  icoTrxPerNum,
+  icoStartTime,
+  icoEndTime,
+  frozenSupply,
+  precision = 0
+) {
   const contract = new AssetIssueContract();
   contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
   contract.setName(encodeString(name));
@@ -388,7 +515,7 @@ function buildAssetIssueTransaction(address, name, shortName, description, url, 
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.ASSETISSUECONTRACT,
-    'AssetIssueContract',
+    'AssetIssueContract'
   );
 
   return transaction;
@@ -409,7 +536,7 @@ function builUpdateAssetTransaction(options) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.UPDATEASSETCONTRACT,
-    'UpdateAssetContract',
+    'UpdateAssetContract'
   );
 
   return transaction;
@@ -433,7 +560,7 @@ function buildFreezeBalanceTransaction(address, amount, duration) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.FREEZEBALANCECONTRACT,
-    'FreezeBalanceContract',
+    'FreezeBalanceContract'
   );
 
   return transaction;
@@ -453,7 +580,7 @@ function buildUnfreezeBalanceTransaction(address) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.UNFREEZEBALANCECONTRACT,
-    'UnfreezeBalanceContract',
+    'UnfreezeBalanceContract'
   );
 
   return transaction;
@@ -473,7 +600,7 @@ function buildWithdrawBalanceTransaction(address) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.WITHDRAWBALANCECONTRACT,
-    'WithdrawBalanceContract',
+    'WithdrawBalanceContract'
   );
 
   return transaction;
@@ -493,7 +620,7 @@ function buildUnfreezeAssetTransaction(address) {
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.UNFREEZEASSETCONTRACT,
-    'UnfreezeAssetContract',
+    'UnfreezeAssetContract'
   );
 
   return transaction;
@@ -509,7 +636,13 @@ function buildUnfreezeAssetTransaction(address) {
  * @param secondTokenBalance Second token balance
  *
  */
-function buildExchangeCreateContractTransaction(address, firstTokenId, firstTokenBalance, secondTokenId, secondTokenBalance) {
+function buildExchangeCreateContractTransaction(
+  address,
+  firstTokenId,
+  firstTokenBalance,
+  secondTokenId,
+  secondTokenBalance
+) {
   const contract = new ExchangeCreateContract();
   contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
   contract.setFirstTokenId(encodeString(firstTokenId));
@@ -520,7 +653,7 @@ function buildExchangeCreateContractTransaction(address, firstTokenId, firstToke
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.EXCHANGECREATECONTRACT,
-    'ExchangeCreateContract',
+    'ExchangeCreateContract'
   );
 
   return transaction;
@@ -534,7 +667,12 @@ function buildExchangeCreateContractTransaction(address, firstTokenId, firstToke
  * @param tokenId token id to inject
  * @param quantity Quantity of tokens to inject
  */
-function buildExchangeInjectContractContractTransaction(address, exchangeId, tokenId, quantity) {
+function buildExchangeInjectContractContractTransaction(
+  address,
+  exchangeId,
+  tokenId,
+  quantity
+) {
   const contract = new ExchangeInjectContract();
   contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
   contract.setExchangeId(exchangeId);
@@ -544,7 +682,7 @@ function buildExchangeInjectContractContractTransaction(address, exchangeId, tok
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.EXCHANGEINJECTCONTRACT,
-    'ExchangeInjectContract',
+    'ExchangeInjectContract'
   );
 
   return transaction;
@@ -558,7 +696,12 @@ function buildExchangeInjectContractContractTransaction(address, exchangeId, tok
  * @param tokenId token id to inject
  * @param quantity Quantity of tokens to withdraw
  */
-function buildExchangeWithdrawContractTransaction(address, exchangeId, tokenId, quantity) {
+function buildExchangeWithdrawContractTransaction(
+  address,
+  exchangeId,
+  tokenId,
+  quantity
+) {
   const contract = new ExchangeWithdrawContract();
   contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
   contract.setExchangeId(exchangeId);
@@ -568,7 +711,7 @@ function buildExchangeWithdrawContractTransaction(address, exchangeId, tokenId, 
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.EXCHANGEWITHDRAWCONTRACT,
-    'ExchangeWithdrawContract',
+    'ExchangeWithdrawContract'
   );
 
   return transaction;
@@ -582,7 +725,13 @@ function buildExchangeWithdrawContractTransaction(address, exchangeId, tokenId, 
  * @param tokenId token id to inject
  * @param quantity Quantity of tokens to withdraw
  */
-function buildExchangeTransactionContractTransaction(address, exchangeId, tokenId, quantity, expectedPrice) {
+function buildExchangeTransactionContractTransaction(
+  address,
+  exchangeId,
+  tokenId,
+  quantity,
+  expectedPrice
+) {
   const contract = new ExchangeTransactionContract();
   contract.setOwnerAddress(Uint8Array.from(decode58Check(address)));
   contract.setExchangeId(exchangeId);
@@ -593,7 +742,7 @@ function buildExchangeTransactionContractTransaction(address, exchangeId, tokenI
   const transaction = buildTransferContract(
     contract,
     Transaction.Contract.ContractType.EXCHANGETRANSACTIONCONTRACT,
-    'ExchangeTransactionContract',
+    'ExchangeTransactionContract'
   );
 
   return transaction;
@@ -613,12 +762,15 @@ function addBlockReferenceToTransaction(transaction, block) {
   numBytes.reverse();
   const hashBytes = hexStr2byteArray(blockHash);
 
-  const generateBlockId = [...numBytes.slice(0, 8), ...hashBytes.slice(8, hashBytes.length - 1)];
+  const generateBlockId = [
+    ...numBytes.slice(0, 8),
+    ...hashBytes.slice(8, hashBytes.length - 1)
+  ];
 
   const rawData = transaction.getRawData();
   rawData.setRefBlockHash(Uint8Array.from(generateBlockId.slice(8, 16)));
   rawData.setRefBlockBytes(Uint8Array.from(numBytes.slice(6, 8)));
-  rawData.setExpiration(block.time + (60 * 5 * 1000));
+  rawData.setExpiration(block.time + 60 * 5 * 1000);
 
   transaction.setRawData(rawData);
   return transaction;
@@ -683,5 +835,5 @@ module.exports = {
   decodeTransactionFields,
   deserializeTransaction,
   deserializeTransactions,
-  deserializeEasyTransfer,
+  deserializeEasyTransfer
 };

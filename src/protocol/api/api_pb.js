@@ -3395,7 +3395,9 @@ proto.protocol.AccountPaginated.toObject = function(includeInstance, msg) {
   var f, obj = {
     account: (f = msg.getAccount()) && core_Tron_pb.Account.toObject(includeInstance, f),
     offset: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    limit: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    limit: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    starttime: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    endtime: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -3445,6 +3447,14 @@ proto.protocol.AccountPaginated.deserializeBinaryFromReader = function(msg, read
       var value = /** @type {number} */ (reader.readInt64());
       msg.setLimit(value);
       break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setStarttime(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt64());
+      msg.setEndtime(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -3493,6 +3503,20 @@ proto.protocol.AccountPaginated.serializeBinaryToWriter = function(message, writ
   if (f !== 0) {
     writer.writeInt64(
       3,
+      f
+    );
+  }
+  f = message.getStarttime();
+  if (f !== 0) {
+    writer.writeInt64(
+      4,
+      f
+    );
+  }
+  f = message.getEndtime();
+  if (f !== 0) {
+    writer.writeInt64(
+      5,
       f
     );
   }
@@ -3556,6 +3580,36 @@ proto.protocol.AccountPaginated.prototype.getLimit = function() {
 /** @param {number} value */
 proto.protocol.AccountPaginated.prototype.setLimit = function(value) {
   jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional int64 startTime = 4;
+ * @return {number}
+ */
+proto.protocol.AccountPaginated.prototype.getStarttime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.AccountPaginated.prototype.setStarttime = function(value) {
+  jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional int64 endTime = 5;
+ * @return {number}
+ */
+proto.protocol.AccountPaginated.prototype.getEndtime = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.protocol.AccountPaginated.prototype.setEndtime = function(value) {
+  jspb.Message.setProto3IntField(this, 5, value);
 };
 
 
